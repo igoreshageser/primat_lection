@@ -28,8 +28,9 @@ class Login extends Component {
      * @desc -  change state with subject
      */
     dataParse(data) {
-        const { take_subject } = this.props.AuthActions;
-        take_subject(data);
+        const { take_req_data } = this.props.AuthActions;
+        take_req_data(data);
+        ::this.subjView();
     }
 
     /**
@@ -53,7 +54,9 @@ class Login extends Component {
      * @returns HTML with all subject
      */
     subjView() {
-        const subj = this.props.auth.subj;
+        const subj = this.props.auth.allReqData;
+        const { take_subject } = this.props.AuthActions;
+
         if (!subj) {
             return 'load ...'
         } else {
@@ -63,11 +66,11 @@ class Login extends Component {
                     <div key={index} id={item} onClick={::this.lectionView}>
                         {item}
                     </div>
-                )
-            })
-            return buff;
+                );
+            });
+            take_subject(buff);
         }
-    }
+    };
 
     /**
      * @param event
@@ -76,7 +79,7 @@ class Login extends Component {
      */
     lectionView(e) {
         const name = e.target.id;
-        const data = this.props.auth.subj;
+        const data = this.props.auth.allReqData;
         const { take_lection } = this.props.AuthActions;
 
         let buff = [];
@@ -91,7 +94,7 @@ class Login extends Component {
                }
            })
 
-        })
+        });
         take_lection(buff);
     }
 
@@ -101,16 +104,23 @@ class Login extends Component {
      */
     render() {
         return (
-            <div>
-                <h5>subj</h5>
-                {::this.subjView()}
-                <hr/>
-                <h5>lections</h5>
-                {this.props.auth.lections}
-                <hr/>
-                <h5>url telegraph</h5>
-                {/*{::this.smallLectionsView()}*/}
-                {this.props.auth.telegraphUrl}
+            <div className="wrapper">
+                <div className="container">
+                    <div className="subject">
+                        <h5>subj</h5>
+                        {this.props.auth.subj}
+                        <hr/>
+                    </div>
+                    <div className="lections">
+                        <h5>lections</h5>
+                        {this.props.auth.lections}
+                        <hr/>
+                    </div>
+                    <div className="TelegraphUrl">
+                        <h5>url telegraph: {this.props.auth.telegraphUrl}</h5>
+                        <a target="_blank" href={this.props.auth.telegraphUrl}>Read Lection</a>
+                    </div>
+                </div>
             </div>
         )
     }
