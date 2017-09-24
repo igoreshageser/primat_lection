@@ -8,6 +8,12 @@
     font-weight: $weight;
 }
 
+html, body {
+    height: 30000px !important;
+    width: 100%;
+    overflow: scroll !important;
+}
+
 .wrapper {
     width: 100%;
     height: 100%;
@@ -16,4 +22,25 @@
 .container {
     width: 100%;
     margin: 10%;
+}
+
+
+.node {
+    cursor: pointer;
+}
+
+.node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+.node text {
+    font: 10px sans-serif;
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
 }
