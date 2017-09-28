@@ -4,6 +4,7 @@ const TAKE_REQUEST_DATA = 'TAKE_REQUEST_DATA';
 const TAKE_LECTION = 'TAKE_LECTION';
 const TAKE_SUBJECT =  'TAKE_SUBJECT';
 const TAKE_URL = 'TAKE_URL';
+const TREE_VIEW = 'TREE_VIEW';
 
 
 /*Actions*/
@@ -16,8 +17,6 @@ export function modal_view(view, type) {
         }
     }
 }
-
-
 
 export function take_req_data( val ) {
     return {
@@ -47,6 +46,13 @@ export function take_url( val ) {
     }
 }
 
+export function tree_view( val ) {
+    return {
+        type: TREE_VIEW,
+        payload: val
+    }
+}
+
 
 /*Initial State*/
 const initialState = {
@@ -56,7 +62,8 @@ const initialState = {
     allReqData: '',
     lections: '',
     subj: '',
-    telegraphUrl: ''
+    telegraphUrl: '',
+    treeView: ''
 };
 
 /*Reducer*/
@@ -77,7 +84,11 @@ export default function reducer(state = initialState, action) {
         case TAKE_URL:
             return { ...state, telegraphUrl: action.payload };
 
+        case TREE_VIEW:
+            return {...state, treeView: action.payload};
+
         default:
             return state;
     }
 }
+

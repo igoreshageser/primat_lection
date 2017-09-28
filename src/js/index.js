@@ -9,7 +9,7 @@ import { ConnectedRouter } from 'react-router-redux'
 import configureStore from './REDUX/store'
 // import MapContainer from './Containers/MapContainer/';
 // import NotFound from './Containers/notDound';
-import Login from './Containers/Login/';
+import LectionTree from './Containers/LectionTree/';
 // import Registration from './Containers/Registration/';
 import '../scss/index.scss';
 import createHistory from 'history/createBrowserHistory';
@@ -28,14 +28,14 @@ ReactDOM.render(
 		<ConnectedRouter history={history}>
 			<div>
 				<Switch>
-                    <Route path="/login" exact component={Login}/>
+                    <Route path="/LectionTree" exact component={LectionTree}/>
                     {/*<Route path="/reg" component={Registration}/>*/}
                     {/*<Route path="/map" component={MapContainer}/>*/}
 					{
 						localStorage.getItem("token") ?
 							<Redirect from="*/" to="/map" />
 							:
-							<Redirect from="*/" to="/login" />
+							<Redirect from="*/" to="/LectionTree" />
 					}
 				</Switch>
 			</div>
@@ -44,7 +44,7 @@ ReactDOM.render(
 );
 
 if (module.hot) {
-	module.hot.accept('./Containers/Login', () => {
+	module.hot.accept('./Containers/LectionTree', () => {
 		render(Login)
 	});
 }

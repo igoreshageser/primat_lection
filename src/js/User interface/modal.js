@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import * as AuthActions from '../REDUX/ducks/auth'
+import * as AuthActions from '../REDUX/ducks/lectionTree'
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 

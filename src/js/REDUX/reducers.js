@@ -3,7 +3,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { routerReducer } from 'react-router-redux';
 
 //include reducers
-import auth from './ducks/auth';
+import auth from './ducks/lectionTree';
 
 // Initial routing state
 const routeInitialState = {
