@@ -13,11 +13,18 @@ class LectionTree extends Component {
      *  @desc - method do request to primat-bot and take all subj/lection
      */
     componentWillMount() {
-        fetch('https://primat-bot.herokuapp.com/api/abstracts?course=2&semester=2&flow=%D0%BA%D0%B2')
-            .then(res => res.json())
-            .then(d => {
-                ::this.dataParse(d.data);
-            })
+        // fetch('https://primat-bot.herokuapp.com/api/abstracts?course=2&semester=2&flow=%D0%BA%D0%B2')
+        //     .then(res => res.json())
+        //     .then(d => {
+        //         ::this.dataParse(d.data);
+        //     });
+
+        fetch('http://192.168.1.103:8000/api/test', {
+            method: 'POST'
+        })
+            .then((d) => d.json())
+            .then((d) => console.log(d))
+            .catch((err) => console.log(err))
     }
 
     /**
