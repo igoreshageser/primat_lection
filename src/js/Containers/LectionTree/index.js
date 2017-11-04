@@ -13,18 +13,11 @@ class LectionTree extends Component {
      *  @desc - method do request to primat-bot and take all subj/lection
      */
     componentWillMount() {
-        // fetch('https://primat-bot.herokuapp.com/api/abstracts?course=2&semester=2&flow=%D0%BA%D0%B2')
-        //     .then(res => res.json())
-        //     .then(d => {
-        //         ::this.dataParse(d.data);
-        //     });
-
-        fetch('http://192.168.1.103:8000/api/test', {
-            method: 'POST'
-        })
-            .then((d) => d.json())
-            .then((d) => console.log(d))
-            .catch((err) => console.log(err))
+        fetch('https://primat-bot.herokuapp.com/api/abstracts?course=3&semester=1&flow=%D0%BA%D0%B2')
+            .then(res => res.json())
+            .then(d => {
+                ::this.dataParse(d.data);
+            })
     }
 
     /**
@@ -36,7 +29,7 @@ class LectionTree extends Component {
         const kek = data;
 
         take_req_data(data);
-        ::this.subjView();
+        // ::this.subjView();
 
         let buff = [];
 
@@ -58,9 +51,9 @@ class LectionTree extends Component {
         });
 
         let test = {
-                "name": "2 курс",
-                "parent": "null",
-                "children": buff
+            "name": "2 РєСѓСЂСЃ",
+            "parent": "null",
+            "children": buff
         };
 
 
@@ -68,74 +61,10 @@ class LectionTree extends Component {
         ::this.buildTree();
     }
 
-    /**
-     * @param event
-     * @desc - do request and take telegraphURL
-     */
-    takeTelegraph(e) {
-        const lection_id = e.target.id;
-        const { take_url } = this.props.AuthActions;
-
-        fetch(`https://primat-bot.herokuapp.com/api/abstracts/${lection_id}`)
-            .then(res => res.json())
-            .then(d => {
-                let buffText = d.data.telegraph_url;
-                take_url(buffText);
-            })
-            .catch((err) => console.error('some error :c'))
-    }
-
-    /**
-     * @returns HTML with all subject
-     */
-    subjView() {
-        const subj = this.props.auth.allReqData;
-        const { take_subject } = this.props.AuthActions;
-
-        if (!subj) {
-            return 'load ...'
-        } else {
-            let buff = [];
-            Object.keys(subj).map((item, index) => {
-                buff.push(
-                    <div key={index} id={item} onClick={::this.lectionView}>
-                        {item}
-                    </div>
-                );
-            });
-            take_subject(buff);
-        }
-    };
-
-    /**
-     * @param event
-     * @return HTML with lection
-     *      @redux - change state with lection
-     */
-    lectionView(e) {
-        const name = e.target.id;
-        const data = this.props.auth.allReqData;
-        const { take_lection } = this.props.AuthActions;
-
-        let buff = [];
-        Object.values(data).map((item) => {
-            item.map((i, itter) => {
-                if (i.subject == name) {
-                    buff.push(
-                        <div key={itter} id={i._id} onClick={::this.takeTelegraph}>
-                            {i.name}
-                        </div>
-                    )
-                }
-            })
-
-        });
-        take_lection(buff);
-    }
 
     buildTree() {
         let treeData = this.props.auth.treeView;
-        buidTree(treeData);
+        buidTree(treeData, this);
     }
 
 
@@ -149,18 +78,18 @@ class LectionTree extends Component {
             <div className="wrapper">
                 <div className="container">
                     <div className="subject">
-                        <h5>subj</h5>
-                        {this.props.auth.subj}
-                        <hr/>
+                        {/*<h5>subj</h5>*/}
+                        {/*{this.props.auth.subj}*/}
+                        {/*<hr/>*/}
                     </div>
                     <div className="lections">
-                        <h5>lections</h5>
-                        {this.props.auth.lections}
-                        <hr/>
+                        {/*<h5>lections</h5>*/}
+                        {/*{this.props.auth.lections}*/}
+                        {/*<hr/>*/}
                     </div>
                     <div className="TelegraphUrl">
-                        <h5>url telegraph: {this.props.auth.telegraphUrl}</h5>
-                        <a target="_blank" href={this.props.auth.telegraphUrl}>Read Lection</a>
+                        {/*<h5>url telegraph: {this.props.auth.telegraphUrl}</h5>*/}
+                        {/*<a target="_blank" href={this.props.auth.telegraphUrl}>Read Lection</a>*/}
                     </div>
                 </div>
             </div>

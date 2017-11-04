@@ -1,4 +1,4 @@
-export default ((obj) => {
+export default ((obj, self) => {
     {
         let margin = {top: 20, right: 120, bottom: 20, left: 120},
             width = 960 - margin.right - margin.left,
@@ -27,13 +27,9 @@ export default ((obj) => {
         root = obj;
         root.x0 = height / 2;
         root.y0 = 0;
-
-        console.log('root >> ', root);
-
-        // expand(root);
-        // update(root);
-
-        collapseAll()
+        
+    
+        collapseAll();
 
 
         d3.select(self.frameElement).style("height", "500px");
@@ -153,9 +149,34 @@ export default ((obj) => {
                 d.y0 = d.y;
             });
         }
-
+        
+        
+    //   take lection!
+    
+        function searchUrl(lection) {
+            const { allReqData } = self.props.auth;
+    
+            Object.values(allReqData).map((i) => {
+                Object.values(i).map((item) => {
+                    let { name } = item;
+                    
+                    if (name === lection.name)
+                        window.open(item.telegraph_url);
+                })
+            })
+        }
+        
+        
+        
+    
+    
 // Toggle children on click.
         function click(d) {
+    
+            if (d._children === null || !d._children) {
+                searchUrl(d)
+            }
+            
             if (d.children) {
                 d._children = d.children;
                 d.children = null;
