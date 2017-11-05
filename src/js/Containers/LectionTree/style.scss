@@ -8,12 +8,6 @@
     font-weight: $weight;
 }
 
-html, body {
-    height: 30000px !important;
-    width: 100%;
-    overflow: scroll !important;
-}
-
 .wrapper {
     width: 100%;
     height: 100%;
@@ -21,9 +15,35 @@ html, body {
 
 .container {
     width: 100%;
-    margin: 10%;
+    //margin: 10%;
 }
 
+
+.promo {
+    height: 100vh;
+    width: 100%;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    &_latter {
+        color: white;
+    }
+}
+
+
+.tree{
+    height: 100vh;
+    width: 100%;
+    background: white;
+
+
+    &_latter {
+        color: white;
+    }
+}
 
 .node {
     cursor: pointer;
@@ -43,4 +63,32 @@ html, body {
     fill: none;
     stroke: #ccc;
     stroke-width: 1.5px;
+}
+br {
+    display: none;
+}
+
+.typewriter h3 {
+    color: #fff;
+    font-family: monospace;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid orange; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation:
+            typing 3.5s steps(30, end),
+            blink-caret .5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange }
 }

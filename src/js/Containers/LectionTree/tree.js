@@ -1,11 +1,11 @@
 export default ((obj, self) => {
     {
         let margin = {top: 20, right: 120, bottom: 20, left: 120},
-            width = 960 - margin.right - margin.left,
-            height = 500 - margin.top - margin.bottom;
+            width = 800 - margin.right - margin.left,
+            height = 800 - margin.top - margin.bottom;
 
         let i = 0,
-            duration = 750;
+            duration = 600;
 
         let root;
 
@@ -18,12 +18,20 @@ export default ((obj, self) => {
                 return [d.y, d.x];
             });
 
-        let svg = d3.select("body").append("svg")
+        
+        let checkSvg = document.querySelector('svg');
+
+        if (checkSvg) {
+            checkSvg.remove();
+        }
+    
+        let svg = d3.select(".tree").append("svg")
             .attr("width", width + margin.right + margin.left)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
+    
+    
         root = obj;
         root.x0 = height / 2;
         root.y0 = 0;
