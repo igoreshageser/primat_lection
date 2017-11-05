@@ -36,13 +36,6 @@ class LectionTree extends Component {
      */
     componentWillMount() {
         let setting = localStorage.getItem("userSetting");
-        let virgin = localStorage.getItem("virgin");
-
-
-        if (!virgin) {
-            this.setState({open: true});
-            localStorage.setItem("virgin", true);
-        }
 
         if (setting) {
             setting = JSON.parse(setting);
@@ -52,6 +45,16 @@ class LectionTree extends Component {
             }, () => this.doRequest());
         } else {
             this.doRequest()
+        }
+    }
+
+
+
+    componentDidMount() {
+        let virgin = localStorage.getItem("virgin");
+
+        if (!virgin) {
+            setTimeout(::this.handleOpen, 2000);
         }
     }
 
@@ -152,13 +155,14 @@ class LectionTree extends Component {
     }
 
     // modal window
-    handleOpen = () => {
+    handleOpen() {
         this.setState({open: true});
-    };
+        localStorage.setItem("virgin", true);
+    }
 
-    handleClose = () => {
+    handleClose() {
         this.setState({open: false});
-    };
+    }
 
 
 
@@ -173,7 +177,7 @@ class LectionTree extends Component {
             <FlatButton
                 label="Закрыть"
                 primary={true}
-                onClick={this.handleClose}
+                onClick={::this.handleClose}
             />
         ];
 
@@ -242,7 +246,7 @@ class LectionTree extends Component {
                             <div className="buttonContainer">
                                 <RaisedButton
                                     className = "RaisedButton"
-                                    label="Press"
+                                    label="Найти лекции"
                                     primary={true}
                                     onClick={::this.handlerButtonSubmit}
                                 />
@@ -261,11 +265,14 @@ class LectionTree extends Component {
                             actions={actions}
                             modal={false}
                             open={this.state.open}
-                            onRequestClose={this.handleClose}
+                            onRequestClose={::this.handleClose}
                         >
                             Оо, вы первый раз у нас!
                             <br/>
                             #TODO: чет ещё написать
+                            <p>
+                                Да, адаптивность и нормальный дизайн еще не завезли
+                            </p>
                         </Dialog>
                     </div>
 
