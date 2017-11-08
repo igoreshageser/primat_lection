@@ -75,8 +75,37 @@
     flex-direction: column;
 }
 
+.spinnerWrapper {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    background-image: url("../../../assets/img/oval.svg");
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    z-index: 999999;
+    animation: roll-r 4s linear infinite;
+}
+
+.hide {
+    display: none;
+}
 
 
+@keyframes roll-r {
+    0% {transform:rotate(0deg);}
+    100% {transform:rotate(360deg);}
+}
+@keyframes roll-l {
+    0% {transform:rotate(0deg);}
+    100% {transform:rotate(-360deg);}
+}
 
 /* The typing effect */
 @keyframes typing {

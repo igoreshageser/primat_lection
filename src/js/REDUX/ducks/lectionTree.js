@@ -5,6 +5,7 @@ const TAKE_LECTION = 'TAKE_LECTION';
 const TAKE_SUBJECT =  'TAKE_SUBJECT';
 const TAKE_URL = 'TAKE_URL';
 const TREE_VIEW = 'TREE_VIEW';
+const LOADER_VIEW = 'LOADER_VIEW';
 
 
 /*Actions*/
@@ -53,6 +54,14 @@ export function tree_view( val ) {
     }
 }
 
+export function loader_view( val ) {
+    return {
+        type: LOADER_VIEW,
+        payload: val
+    }
+}
+
+
 
 /*Initial State*/
 const initialState = {
@@ -63,7 +72,8 @@ const initialState = {
     lections: '',
     subj: '',
     telegraphUrl: '',
-    treeView: ''
+    treeView: '',
+    loaderView: false
 };
 
 /*Reducer*/
@@ -86,6 +96,9 @@ export default function reducer(state = initialState, action) {
 
         case TREE_VIEW:
             return {...state, treeView: action.payload};
+
+        case LOADER_VIEW:
+            return {...state, loaderView: action.payload};
 
         default:
             return state;

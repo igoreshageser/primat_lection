@@ -1,30 +1,19 @@
-import React, {Component} from 'react'
-import * as MapActions from '../REDUX/ducks/map'
+import React, {Component} from 'react';
+import * as AuthActions from '../../REDUX/ducks/lectionTree';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import 'scss/user interface styles/spinner.scss';
-import 'scss/user interface styles/modalWindow.scss';
-
+import './style.scss'
 
  class Spinner extends Component {
-    componentDidUpdate() {
-        let view = this.props.map.spinnerView
-
-        if (!view) {
-            this.refs.spinner.classList.add('commonStyle--modal__close')
-        }
-
-    }
-
 
     render() {
+        const { loaderView } = this.props.auth;
+
         return (
-            <center>
-                <div  ref="spinner">
-                    <div className="spinner"></div>
-                </div>
-            </center>
+            <div className={loaderView ? 'spinnerWrapper' : 'hide'}>
+                <div className={loaderView ? 'spinner' : 'hide'} />
+            </div>
         )
     }
 
@@ -37,7 +26,7 @@ import 'scss/user interface styles/modalWindow.scss';
  */
 function mapStateToProps(state) {
     return {
-        map: state.map
+        auth: state.auth
     }
 }
 
@@ -48,7 +37,7 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
     return {
-        MapActions: bindActionCreators(MapActions, dispatch)
+        AuthActions: bindActionCreators(AuthActions, dispatch)
     }
 }
 

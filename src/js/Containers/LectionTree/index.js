@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as AuthActions from '../../REDUX/ducks/lectionTree'
 
-import { RaisedButton, MenuItem, Toggle,FlatButton, Dialog } from 'material-ui';
-import SelectField from 'material-ui/SelectField';
+import { RaisedButton, MenuItem, Toggle,FlatButton, Dialog, SelectField } from 'material-ui';
+
 import buildTree from './tree'
+import  Spinner  from '../../User interface/spinner/spinner'
+import Mouse from '../../User interface/mouse/mouse'
 import './style.scss'
 
 
@@ -19,14 +21,17 @@ class LectionTree extends Component {
 
     constructor(props) {
         super(props);
-        
+
         this.state = {
             course: 3,
             semester: 1,
             saveSetting: false,
+            educationList: {},
+            semesterList: {},
+            buffData: '',
 
             // modal window
-            open: false
+            open: false,
         }
     }
 
@@ -35,16 +40,17 @@ class LectionTree extends Component {
      *          and confirm setting
      */
     componentWillMount() {
+        const { loader_view } = this.props.AuthActions;
+
         let setting = localStorage.getItem("userSetting");
+        loader_view(true);
 
         if (setting) {
             setting = JSON.parse(setting);
             this.setState({
                 course: setting.course,
                 semester: setting.semester,
-            }, () => this.doRequest());
-        } else {
-            this.doRequest()
+            }, () => ::this.doRequest());
         }
     }
 
@@ -56,10 +62,84 @@ class LectionTree extends Component {
         if (!virgin) {
             setTimeout(::this.handleOpen, 2000);
         }
+
+        ::this.takeListRequest();
+    }
+
+
+    takeListRequest() {
+        const { loader_view } = this.props.AuthActions;
+        loader_view(true);
+
+        fetch(`http://test-primat-bot.herokuapp.com/api/meta`)
+            .then(res => res.json())
+            .then(d => {
+                this.listParse(d.data);
+                this.setState({
+                    buffData: d.data
+                });
+            })
+    }
+
+    listParse(data) {
+        const { loader_view } = this.props.AuthActions;
+        const { course } = this.state;
+
+        let buff = {1: [], 2:[], 3:[], 4:[], 5:[]};
+        let itter = [];
+        let finalRen = [];
+        let firstValidSem = false;
+
+
+        loader_view(false);
+
+        // take course
+        data.map((i) => {
+            Object.values(i).map((item) => {
+                buff[item.course].push(item)
+            });
+        });
+
+        // take semester
+        Object.values(buff[course]).map((i) => {
+            let keys = Object.keys(i);
+            Object.values(i).map((item, index) => {
+                if (keys[index] === 'semester') {
+                    itter.push(item);
+                }
+            })
+        });
+
+        itter.sort();
+
+
+        for (let i = 1; i < 3; i++) {
+            let searchFirstValid = !firstValidSem && itter.includes(i);
+
+            searchFirstValid ? firstValidSem = i : null;
+
+
+            finalRen.push(
+                <MenuItem
+                    value={i}
+                    primaryText={i}
+                    disabled = { !itter.includes(i) }
+                    key={i}
+                />
+            )
+        }
+
+        this.setState({
+            educationList: buff,
+            semesterList: finalRen,
+            semester: firstValidSem
+        });
     }
 
     doRequest() {
+        const { loader_view } = this.props.AuthActions;
 
+        loader_view(true);
         const { course, semester} = this.state;
 
         fetch(`https://primat-bot.herokuapp.com/api/abstracts?course=${course}&semester=${semester}&flow=%D0%BA%D0%B2`)
@@ -68,13 +148,15 @@ class LectionTree extends Component {
                 ::this.dataParse(d.data);
             })
     }
+
     /**
      * @param data (request data)
      * @desc -  change state with subject
      */
     dataParse(data) {
-        const { take_req_data, tree_view } = this.props.AuthActions;
+        const { take_req_data, tree_view, loader_view } = this.props.AuthActions;
 
+        loader_view(false);
         take_req_data(data);
 
         let buff = [];
@@ -102,7 +184,7 @@ class LectionTree extends Component {
                 "parent": "null",
                 "children": buff
         };
-        
+
         tree_view(root);
         ::this.buildTree();
     }
@@ -110,13 +192,16 @@ class LectionTree extends Component {
 
     buildTree() {
         const { treeView } = this.props.auth;
-    
+
         buildTree(treeView, this);
     }
 
-    
+
     handlerButtonSubmit() {
-        const { course, semester, saveSetting} = this.state;
+        const { course, semester, saveSetting } = this.state;
+        const { loader_view } = this.props.AuthActions;
+
+        loader_view(false);
 
         if (saveSetting) {
             let setting  = {
@@ -129,15 +214,14 @@ class LectionTree extends Component {
 
         this.doRequest();
     }
-    
-    handleChaneCourse(e, index, value) {
-        let semester;
 
-        semester = value === 3 ? 1 : 2;
+    handleChaneCourse(e, index, value) {
+        const { buffData } = this.state;
 
         this.setState({
             course: value,
-            semester: semester
+        }, () => {
+            ::this.listParse(buffData)
         })
     }
 
@@ -171,7 +255,7 @@ class LectionTree extends Component {
      * @returns {HTML}
      */
     render() {
-        const { course } = this.state;
+        const { course, educationList, semesterList } = this.state;
 
         const actions = [
             <FlatButton
@@ -181,13 +265,13 @@ class LectionTree extends Component {
             />
         ];
 
-
         return (
             <div className="wrapper">
                 <div className="container">
-                    
+                    <Spinner />
                     <div className="promo">
                         <div className="typewriter">
+                            <Mouse />
                             <h3>
                                 Не можешь найти лекцию?
                                 Поможем!
@@ -204,14 +288,18 @@ class LectionTree extends Component {
                             <br/>
                             <SelectField
                                 floatingLabelText="Курс"
-                                value={this.state.course}
+                                value={course}
                                 onChange={::this.handleChaneCourse}
                             >
-                                <MenuItem value={1} primaryText="1"  disabled = {true}/>
-                                <MenuItem value={2} primaryText="2"  />
-                                <MenuItem value={3} primaryText="3"  />
-                                <MenuItem value={4} primaryText="4"  disabled = {true}/>
-                                <MenuItem value={5} primaryText="5"  disabled = {true}/>
+                                {
+                                    Object.values(educationList).map((i, index) =>
+                                        <MenuItem value={index + 1}
+                                                  primaryText={index + 1}
+                                                  disabled = {!i.length}
+                                                  key = {index}
+                                        />
+                                    )
+                                }
                             </SelectField>
 
                             <br/>
@@ -221,16 +309,12 @@ class LectionTree extends Component {
                                 value={this.state.semester}
                                 onChange={::this.handleChangeButton}
                             >
-                                <MenuItem
-                                    value={1}
-                                    primaryText="1"
-                                    disabled = {course === 2 }
-                                />
-                                <MenuItem
-                                    value={2}
-                                    primaryText="2"
-                                    disabled = {course === 3 }
-                                />
+
+                                {
+                                    Object.values(semesterList).map((item) => {
+                                        return item
+                                    })
+                                }
                             </SelectField>
 
                             <br/>
@@ -253,7 +337,7 @@ class LectionTree extends Component {
                             </div>
                         </div>
                     </div>
-                        {/*hack*/}
+                    {/*hack*/}
                     <div className="tree">
                         {/* empty div */}
                     </div>
@@ -267,9 +351,11 @@ class LectionTree extends Component {
                             open={this.state.open}
                             onRequestClose={::this.handleClose}
                         >
-                            Оо, вы первый раз у нас!
-                            <br/>
-                            #TODO: чет ещё написать
+                            <p>
+                                Оо, вы первый раз у нас!
+                                <br/>
+                                #TODO: чет ещё написать
+                            </p>
                             <p>
                                 Да, адаптивность и нормальный дизайн еще не завезли
                             </p>
@@ -280,6 +366,7 @@ class LectionTree extends Component {
             </div>
         )
     }
+
 }
 
 /**
