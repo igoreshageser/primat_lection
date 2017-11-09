@@ -23,12 +23,13 @@ class LectionTree extends Component {
         super(props);
 
         this.state = {
-            course: 3,
+            course: 1,
             semester: 1,
             saveSetting: false,
             educationList: {},
             semesterList: {},
             buffData: '',
+            flow: 'кв',
 
             // modal window
             open: false,
@@ -50,12 +51,18 @@ class LectionTree extends Component {
             this.setState({
                 course: setting.course,
                 semester: setting.semester,
-            }, () => ::this.doRequest());
+            });
         }
     }
 
 
-
+    /**
+     *  @desc - check user localStorage and save previous data
+     *          to state or REDUX
+     *          after 2000 ms call modalWindow with some text
+     *
+     *          call tekeListRequest()
+     */
     componentDidMount() {
         let virgin = localStorage.getItem("virgin");
 
@@ -66,7 +73,15 @@ class LectionTree extends Component {
         ::this.takeListRequest();
     }
 
-
+    /**
+     *  @desc - do request and take array with all lection
+     *          in res:
+     *              flow
+     *              course
+     *              semester
+     *         save res to state or REDUX
+     *          call listParse()
+     */
     takeListRequest() {
         const { loader_view } = this.props.AuthActions;
         loader_view(true);
@@ -81,9 +96,14 @@ class LectionTree extends Component {
             })
     }
 
+    /**
+     * @desc - parse data // search first semester
+     * @param data
+     * @param value
+     */
     listParse(data) {
         const { loader_view } = this.props.AuthActions;
-        const { course } = this.state;
+        const { course, flow } = this.state;
 
         let buff = {1: [], 2:[], 3:[], 4:[], 5:[]};
         let itter = [];
@@ -96,15 +116,18 @@ class LectionTree extends Component {
         // take course
         data.map((i) => {
             Object.values(i).map((item) => {
-                buff[item.course].push(item)
+                if (item.flow === flow)
+                    buff[item.course].push(item)
             });
         });
+
+
 
         // take semester
         Object.values(buff[course]).map((i) => {
             let keys = Object.keys(i);
             Object.values(i).map((item, index) => {
-                if (keys[index] === 'semester') {
+                if (keys[index] === 'semester' && i.flow === flow) {
                     itter.push(item);
                 }
             })
@@ -136,13 +159,16 @@ class LectionTree extends Component {
         });
     }
 
+    /**
+     * @desc - doRequest and take all lection URL
+     */
     doRequest() {
         const { loader_view } = this.props.AuthActions;
 
         loader_view(true);
-        const { course, semester} = this.state;
+        const { course, semester, flow} = this.state;
 
-        fetch(`https://primat-bot.herokuapp.com/api/abstracts?course=${course}&semester=${semester}&flow=%D0%BA%D0%B2`)
+        fetch(`https://primat-bot.herokuapp.com/api/abstracts?course=${course}&semester=${semester}&flow=${flow}`)
             .then(res => res.json())
             .then(d => {
                 ::this.dataParse(d.data);
@@ -190,12 +216,17 @@ class LectionTree extends Component {
     }
 
 
+    /**
+     * @desc  - take data from REDUX and build tree
+     */
     buildTree() {
         const { treeView } = this.props.auth;
 
         buildTree(treeView, this);
     }
 
+
+    /* ====== Handlers ======  */
 
     handlerButtonSubmit() {
         const { course, semester, saveSetting } = this.state;
@@ -221,7 +252,8 @@ class LectionTree extends Component {
         this.setState({
             course: value,
         }, () => {
-            ::this.listParse(buffData)
+            // build valid list; (true - search first valid course)
+            ::this.listParse(buffData, value)
         })
     }
 
@@ -247,8 +279,6 @@ class LectionTree extends Component {
     handleClose() {
         this.setState({open: false});
     }
-
-
 
     /**
      * @desc - render component
@@ -340,6 +370,10 @@ class LectionTree extends Component {
                     {/*hack*/}
                     <div className="tree">
                         {/* empty div */}
+                    </div>
+
+                    <div className="footer">
+                        footer
                     </div>
 
                     {/* Modal Window */}

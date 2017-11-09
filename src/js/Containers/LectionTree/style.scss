@@ -37,7 +37,7 @@
 
 
 .tree{
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .node {
@@ -95,6 +95,15 @@
 
 .hide {
     display: none;
+}
+
+.footer {
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    background: black;
+    color: white;
 }
 
 
