@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import  scrollToComponent from 'react-scroll-to-component';
+
 import * as AuthActions from '../../REDUX/ducks/lectionTree'
 
-import { RaisedButton, MenuItem, Toggle,FlatButton, Dialog, SelectField } from 'material-ui';
+import { RaisedButton, MenuItem, Toggle,FlatButton, Dialog, SelectField, AutoComplete  } from 'material-ui';
 
 import buildTree from './tree'
 import  Spinner  from '../../User interface/spinner/spinner'
@@ -30,9 +32,11 @@ class LectionTree extends Component {
             semesterList: {},
             buffData: '',
             flow: 'кв',
+            listFlow: [],
 
             // modal window
             open: false,
+            searchText: ''
         }
     }
 
@@ -51,6 +55,8 @@ class LectionTree extends Component {
             this.setState({
                 course: setting.course,
                 semester: setting.semester,
+                flow: setting.flow,
+                searchText: setting.flow
             });
         }
     }
@@ -70,7 +76,29 @@ class LectionTree extends Component {
             setTimeout(::this.handleOpen, 2000);
         }
 
-        ::this.takeListRequest();
+        ::this.takeFlowRequest();
+    }
+
+    takeFlowRequest() {
+        const { loader_view } = this.props.AuthActions;
+        const { searchText, flow } = this.state;
+
+        loader_view(false);
+
+
+        fetch(`http://test-primat-bot.herokuapp.com/api/meta`)
+            .then(res => res.json())
+            .then(d => {
+                let res = d.data.reduce((acc, {_id: item}) => acc.includes(item.flow) ? acc : acc.concat(item.flow), []);
+                this.setState({
+                    buffData: d.data,
+                    listFlow: res
+                }, () => {
+                    if (searchText.length && searchText === flow) {
+                        ::this.takeListRequest();
+                    }
+                })
+            })
     }
 
     /**
@@ -84,16 +112,11 @@ class LectionTree extends Component {
      */
     takeListRequest() {
         const { loader_view } = this.props.AuthActions;
+        const { buffData } = this.state;
+
         loader_view(true);
 
-        fetch(`http://test-primat-bot.herokuapp.com/api/meta`)
-            .then(res => res.json())
-            .then(d => {
-                this.listParse(d.data);
-                this.setState({
-                    buffData: d.data
-                });
-            })
+        this.listParse(buffData);
     }
 
     /**
@@ -101,7 +124,7 @@ class LectionTree extends Component {
      * @param data
      * @param value
      */
-    listParse(data) {
+    listParse(data, value = false) {
         const { loader_view } = this.props.AuthActions;
         const { course, flow } = this.state;
 
@@ -120,6 +143,7 @@ class LectionTree extends Component {
                     buff[item.course].push(item)
             });
         });
+
 
 
 
@@ -223,13 +247,15 @@ class LectionTree extends Component {
         const { treeView } = this.props.auth;
 
         buildTree(treeView, this);
+
+        scrollToComponent(this.refs.tree, { offset: 0, align: 'middle', duration: 800, ease:'inCirc'});
     }
 
 
     /* ====== Handlers ======  */
 
     handlerButtonSubmit() {
-        const { course, semester, saveSetting } = this.state;
+        const { course, semester, saveSetting, flow } = this.state;
         const { loader_view } = this.props.AuthActions;
 
         loader_view(false);
@@ -237,7 +263,8 @@ class LectionTree extends Component {
         if (saveSetting) {
             let setting  = {
                 course: course,
-                semester: semester
+                semester: semester,
+                flow: flow
             };
 
             localStorage.setItem('userSetting', JSON.stringify(setting));
@@ -280,12 +307,28 @@ class LectionTree extends Component {
         this.setState({open: false});
     }
 
+    handleUpdateInput(searchText) {
+        this.setState({
+            searchText: searchText,
+        });
+    }
+
+    handleNewRequest(chosenRequest) {
+
+        this.setState({
+            flow: chosenRequest
+        }, () => {
+            ::this.takeListRequest();
+        });
+    };
+
+
     /**
      * @desc - render component
      * @returns {HTML}
      */
     render() {
-        const { course, educationList, semesterList } = this.state;
+        const { course, educationList, semesterList, listFlow } = this.state;
 
         const actions = [
             <FlatButton
@@ -311,6 +354,17 @@ class LectionTree extends Component {
 
                     <div id="setting">
                         <div id="settingWrapper">
+
+                            <AutoComplete
+                                floatingLabelText="Поток"
+                                searchText={this.state.searchText}
+                                onUpdateInput={::this.handleUpdateInput}
+                                onNewRequest={::this.handleNewRequest}
+                                dataSource={listFlow}
+                                filter={(searchText, key) => (key.indexOf(searchText.toLowerCase()) !== -1)}
+                                openOnFocus={true}
+                            />
+
                             <SelectField style = {buttonStyle}>
                                 <MenuItem value={1} primaryText="1"  />
                             </SelectField>
@@ -350,7 +404,7 @@ class LectionTree extends Component {
                             <br/>
 
                             <Toggle
-                                label="Сохранить?"
+                                label="Сохранить для следующего посещения?"
                                 labelPosition="right"
                                 toggled = {this.state.saveSetting}
                                 onClick={::this.handleChangeToggle}
@@ -368,12 +422,12 @@ class LectionTree extends Component {
                         </div>
                     </div>
                     {/*hack*/}
-                    <div className="tree">
+                    <div className="tree" ref="tree">
                         {/* empty div */}
                     </div>
 
                     <div className="footer">
-                        footer
+                        Мы дарим <img src="../../../assets/img/like.svg" alt="heart"/>
                     </div>
 
                     {/* Modal Window */}

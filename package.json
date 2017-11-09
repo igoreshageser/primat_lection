@@ -63,6 +63,7 @@
     "react-router-dom": "^4.1.2",
     "react-router-redux": "^5.0.0-alpha.6",
     "react-router-scroll": "^0.4.2",
+    "react-scroll-to-component": "^1.0.1",
     "react-select": "^1.0.0-rc.5",
     "react-typing": "^1.0.0",
     "redux": "^3.6.0",

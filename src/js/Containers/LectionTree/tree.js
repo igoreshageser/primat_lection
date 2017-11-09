@@ -174,14 +174,12 @@ export default ((obj, self) => {
                 })
             })
         }
-        
-        
-        
-    
-    
+
+
+
 // Toggle children on click.
         function click(d) {
-    
+
             if (d._children === null || !d._children) {
                 searchUrl(d)
             }
