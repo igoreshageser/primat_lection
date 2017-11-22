@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "scripts": {
     "start": "webpack-dev-server",
-    "server": "nodemon index.js",
+    "server": "nodemon server.js",
     "webpack-p": "webpack --color -p",
     "lint": "eslint src api"
-  },
+  },   
   "devDependencies": {
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
