@@ -11,8 +11,8 @@ app.listen(PORT, () => console.log(`Express server us up ${PORT}`));
 
 
 
-app.get("*", (req , res) => {
-	console.log("index");
-	res.sendfile("src/index.html");
-});
+//app.get("*", (req , res) => {
+// 	console.log("index");
+// 	res.sendfile("src/index.html");
+// });
 
