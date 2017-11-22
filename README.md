@@ -1,5 +1,4 @@
 # PrimatLection
 
 
-##### `Найти. Прочти. Сдай.` 
-
+<font color="green"> Найти. Прочти. Сдай </font>
