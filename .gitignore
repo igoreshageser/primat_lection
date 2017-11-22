@@ -3,4 +3,3 @@ node_modules/
 *.log.*
 *.babelrc
 package-lock.json
-bundle.js
