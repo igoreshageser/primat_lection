@@ -19,22 +19,6 @@
 }
 
 
-.promo {
-    height: 100vh;
-    width: 100%;
-    background: black;
-    //background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-
-    &_latter {
-        color: white;
-        font-size: 1vw;
-    }
-}
-
 
 .tree{
     overflow-x: auto;
@@ -97,14 +81,7 @@
     display: none;
 }
 
-.footer {
-    width: 100%;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    background: black;
-    color: white;
-}
+
 
 img {
     width: 20px;
@@ -122,28 +99,8 @@ img {
     100% {transform:rotate(-360deg);}
 }
 
-/* The typing effect */
-@keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
-}
-
-/* The typewriter cursor effect */
-@keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: orange }
-}
-
 
 @media screen and (max-width: 480px) {
-    .typewriter h3 {
-         color: #fff;
-         font-family: monospace;
-         overflow: hidden;
-         margin: 0 auto;
-         letter-spacing: .15em;
-     }
-
     #setting {
         width: 100%;
         display: flex;
@@ -155,22 +112,6 @@ img {
     }
 }
 
-
-@media screen and (min-width: 481px) {
-    .typewriter h3 {
-        color: #fff;
-        font-family: monospace;
-        overflow: hidden;
-        border-right: .15em solid orange;
-        white-space: nowrap;
-        margin: 0 auto;
-        letter-spacing: .15em;
-        word-wrap: break-word;
-        animation:
-                typing 3.5s steps(30, end),
-                blink-caret .5s step-end infinite;
-    }
-}
 
 
 

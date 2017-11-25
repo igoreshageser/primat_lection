@@ -5,19 +5,15 @@ import {bindActionCreators} from 'redux';
 
 import './style.scss'
 
- class Spinner extends Component {
+const Spinner = ( props ) => {
+    const { loaderView } = props;
 
-    render() {
-        const { loaderView } = this.props.auth;
-
-        return (
-            <div className={loaderView ? 'spinnerWrapper' : 'hide'}>
-                <div className={loaderView ? 'spinner' : 'hide'} />
-            </div>
-        )
-    }
-
-}
+    return (
+        <div className={loaderView ? 'spinnerWrapper' : 'hide'}>
+            <div className={loaderView ? 'spinner' : 'hide'} />
+        </div>
+    )
+};
 
 /**
  * @default - default give access to redux

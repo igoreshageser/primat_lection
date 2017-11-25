@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import  scrollToComponent from 'react-scroll-to-component';
@@ -8,10 +7,13 @@ import * as AuthActions from '../../REDUX/ducks/lectionTree'
 
 import { RaisedButton, MenuItem, Toggle,FlatButton, Dialog, SelectField, AutoComplete  } from 'material-ui';
 
-import buildTree from './tree'
-import  Spinner  from '../../User interface/spinner/spinner'
-import Mouse from '../../User interface/mouse/mouse'
-import './style.scss'
+import buildTree from './tree';
+import  Spinner  from '../../User interface/spinner/spinner';
+import Promo from '../Promo';
+import Fotter from '../Fotter';
+import Modal from '../Modal';
+
+import './style.scss';
 
 
 const buttonStyle = {
@@ -35,8 +37,10 @@ class LectionTree extends Component {
             listFlow: [],
 
             // modal window
-            open: false,
-            searchText: ''
+            searchText: '',
+
+            // spinner
+            loader_view: false
         }
     }
 
@@ -45,10 +49,7 @@ class LectionTree extends Component {
      *          and confirm setting
      */
     componentWillMount() {
-        const { loader_view } = this.props.AuthActions;
-
         let setting = localStorage.getItem("userSetting");
-        loader_view(true);
 
         if (setting) {
             setting = JSON.parse(setting);
@@ -70,29 +71,30 @@ class LectionTree extends Component {
      *          call tekeListRequest()
      */
     componentDidMount() {
-        let virgin = localStorage.getItem("virgin");
+        const { modal_view } = this.props.AuthActions;
+        const virgin = localStorage.getItem("virgin");
 
         if (!virgin) {
-            setTimeout(::this.handleOpen, 2000);
+            setTimeout(modal_view(true), 2000);
+            localStorage.setItem("virgin", true);
         }
 
         ::this.takeFlowRequest();
     }
 
     takeFlowRequest() {
-        const { loader_view } = this.props.AuthActions;
         const { searchText, flow } = this.state;
 
-        loader_view(false);
+        this.setState({loader_view: true});
 
-
-        fetch(`http://test-primat-bot.herokuapp.com/api/meta`)
+        fetch(`https://test-primat-bot.herokuapp.com/api/meta`)
             .then(res => res.json())
             .then(d => {
                 let res = d.data.reduce((acc, {_id: item}) => acc.includes(item.flow) ? acc : acc.concat(item.flow), []);
                 this.setState({
                     buffData: d.data,
-                    listFlow: res
+                    listFlow: res,
+                    loader_view: false
                 }, () => {
                     if (searchText.length && searchText === flow) {
                         ::this.takeListRequest();
@@ -111,10 +113,8 @@ class LectionTree extends Component {
      *          call listParse()
      */
     takeListRequest() {
-        const { loader_view } = this.props.AuthActions;
         const { buffData } = this.state;
 
-        loader_view(true);
 
         this.listParse(buffData);
     }
@@ -125,7 +125,6 @@ class LectionTree extends Component {
      * @param value
      */
     listParse(data, value = false) {
-        const { loader_view } = this.props.AuthActions;
         const { course, flow } = this.state;
 
         let buff = {1: [], 2:[], 3:[], 4:[], 5:[]};
@@ -134,7 +133,6 @@ class LectionTree extends Component {
         let firstValidSem = false;
 
 
-        loader_view(false);
 
         // take course
         data.map((i) => {
@@ -143,8 +141,6 @@ class LectionTree extends Component {
                     buff[item.course].push(item)
             });
         });
-
-
 
 
         // take semester
@@ -187,9 +183,7 @@ class LectionTree extends Component {
      * @desc - doRequest and take all lection URL
      */
     doRequest() {
-        const { loader_view } = this.props.AuthActions;
-
-        loader_view(true);
+        this.setState({loader_view: true});
         const { course, semester, flow} = this.state;
 
         fetch(`https://primat-bot.herokuapp.com/api/abstracts?course=${course}&semester=${semester}&flow=${flow}`)
@@ -204,9 +198,9 @@ class LectionTree extends Component {
      * @desc -  change state with subject
      */
     dataParse(data) {
-        const { take_req_data, tree_view, loader_view } = this.props.AuthActions;
+        const { take_req_data, tree_view } = this.props.AuthActions;
 
-        loader_view(false);
+
         take_req_data(data);
 
         let buff = [];
@@ -235,6 +229,7 @@ class LectionTree extends Component {
                 "children": buff
         };
 
+        this.setState({loader_view: false});
         tree_view(root);
         ::this.buildTree();
     }
@@ -256,9 +251,6 @@ class LectionTree extends Component {
 
     handlerButtonSubmit() {
         const { course, semester, saveSetting, flow } = this.state;
-        const { loader_view } = this.props.AuthActions;
-
-        loader_view(false);
 
         if (saveSetting) {
             let setting  = {
@@ -297,15 +289,6 @@ class LectionTree extends Component {
         })
     }
 
-    // modal window
-    handleOpen() {
-        this.setState({open: true});
-        localStorage.setItem("virgin", true);
-    }
-
-    handleClose() {
-        this.setState({open: false});
-    }
 
     handleUpdateInput(searchText) {
         this.setState({
@@ -330,27 +313,13 @@ class LectionTree extends Component {
     render() {
         const { course, educationList, semesterList, listFlow } = this.state;
 
-        const actions = [
-            <FlatButton
-                label="Закрыть"
-                primary={true}
-                onClick={::this.handleClose}
-            />
-        ];
+
 
         return (
             <div className="wrapper">
                 <div className="container">
-                    <Spinner />
-                    <div className="promo">
-                        <div className="typewriter">
-                            <Mouse />
-                            <h3>
-                                Не можешь найти лекцию?
-                                Поможем!
-                            </h3>
-                        </div>
-                    </div>
+                    <Spinner loaderView = { this.state.loader_view }/>
+                    <Promo />
 
                     <div id="setting">
                         <div id="settingWrapper">
@@ -421,35 +390,10 @@ class LectionTree extends Component {
                             </div>
                         </div>
                     </div>
-                    {/*hack*/}
-                    <div className="tree" ref="tree">
-                        {/* empty div */}
-                    </div>
 
-                    <div className="footer">
-                        Мы дарим <img src="../../../assets/img/like.svg" alt="heart"/>
-                    </div>
-
-                    {/* Modal Window */}
-                    <div>
-                        <Dialog
-                            title="Приветик :з"
-                            actions={actions}
-                            modal={false}
-                            open={this.state.open}
-                            onRequestClose={::this.handleClose}
-                        >
-                            <p>
-                                Оо, вы первый раз у нас!
-                                <br/>
-                                #TODO: чет ещё написать
-                            </p>
-                            <p>
-                                Да, адаптивность и нормальный дизайн еще не завезли
-                            </p>
-                        </Dialog>
-                    </div>
-
+                    <div className="tree" ref="tree" />
+                    <Fotter />
+                    <Modal />
                 </div>
             </div>
         )
@@ -479,4 +423,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LectionTree));
+export default connect(mapStateToProps, mapDispatchToProps)(LectionTree);

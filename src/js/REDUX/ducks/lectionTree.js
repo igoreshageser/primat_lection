@@ -9,13 +9,11 @@ const LOADER_VIEW = 'LOADER_VIEW';
 
 
 /*Actions*/
-export function modal_view(view, type) {
+export function modal_view(val) {
     return {
         type: MODAL_VIEW,
-        payload: {
-            view: view,
-            type: type,
-        }
+        payload: val
+
     }
 }
 
@@ -54,33 +52,21 @@ export function tree_view( val ) {
     }
 }
 
-export function loader_view( val ) {
-    return {
-        type: LOADER_VIEW,
-        payload: val
-    }
-}
-
 
 
 /*Initial State*/
 const initialState = {
-    view: false,
-    modalType: '',
-
     allReqData: '',
     lections: '',
     subj: '',
     telegraphUrl: '',
     treeView: '',
-    loaderView: false
+    modalView: false
 };
 
 /*Reducer*/
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        case MODAL_VIEW:
-            return { ...state, view: action.payload.view, modalType: action.payload.type };
 
         case TAKE_REQUEST_DATA:
             return { ...state, allReqData: action.payload };
@@ -95,10 +81,10 @@ export default function reducer(state = initialState, action) {
             return { ...state, telegraphUrl: action.payload };
 
         case TREE_VIEW:
-            return {...state, treeView: action.payload};
+            return {...state, treeView: action.payload };
 
-        case LOADER_VIEW:
-            return {...state, loaderView: action.payload};
+        case MODAL_VIEW:
+            return {...state, modalView: action.payload };
 
         default:
             return state;
