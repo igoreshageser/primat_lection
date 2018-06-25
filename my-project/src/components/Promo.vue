@@ -1,22 +1,29 @@
 <template>
-  <div class="promo">
-    <div class="typewriter">
-      <Mouse />
-      <h3>
-        Не можешь найти лекцию?
-        Поможем!
-      </h3>
-    </div>
-  </div>
+<div class="wrapper">
+   <div class="promo">
+      <div class="typewriter">
+         <Mouse />
+         <h3>
+            Не можешь найти лекцию?
+            Поможем!
+         </h3>
+      </div>
+   </div>
+   <div>
+     <Selectors />
+   </div>
+</div>
 </template>
 
 <script>
 import Mouse from '@/components/Promo/Mouse'
+import Selectors from '@/components/Promo/Selectors'
 
 export default {
   name: 'Promo',
   components: {
-    Mouse
+    Mouse,
+    Selectors
   }
 }
 </script>
