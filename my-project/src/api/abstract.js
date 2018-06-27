@@ -24,19 +24,12 @@ export function getAbstractItem(uuid) {
  * @return Promise<Array>
  * @description - return all lection in current course / flow / semester
  */
-export function getAbstractFlowItems(param) {
-  if (!checkAbstractParam(param)) {
-    throw new Error('"course", ""flow, "semester" --  necessarily params!')
-  }
+export function getAbstractFlowItems(data) {
   return new Promise((resolve, reject) => {
+    const params = { ...data }
     axios
-      .get(`${URL}${entity}/${uuid}`, param)
+      .get(`${URL}${entity}`, { params })
       .then(({ data }) => resolve(data))
       .catch(err => reject(err))
   })
-}
-
-function checkAbstractParam(param) {
-  const neededParam = ['course', 'flow', 'semester']
-  return JSON.stringify(neededParam) === JSON.stringify(param)
 }

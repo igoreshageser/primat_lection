@@ -2,9 +2,24 @@
   <v-app>
        <v-flex lg6 mx-auto class="selector-wrapper">
         <v-select
-          :items="items"
-          v-model="e1"
-          label="Select"
+          :items="flows"
+          v-model="flowSelector"
+          label="Select Flow"
+          @change="selectFlow"
+          single-line
+        ></v-select>
+         <v-select
+          :items="courses"
+          v-model="coursesSelector"
+          label="Select Course"
+          @change="selectCourse"
+          single-line
+        ></v-select>
+        <v-select
+          :items="semesters"
+          @change="selectSemestr"
+          v-model="semestersSelector"
+          label="Select Semestr"
           single-line
         ></v-select>
       </v-flex>
@@ -12,84 +27,67 @@
 </template>
 
 <script>
+import { getAllFlow } from '../../api/getFlow'
+import { getAbstractFlowItems } from '../../api/abstract'
+
 export default {
-  data() {
-    return {
-      e1: null,
-      e2: null,
-      e3: null,
-      e4: null,
-      items: [
-        { text: 'State 1' },
-        { text: 'State 2' },
-        { text: 'State 3' },
-        { text: 'State 4' },
-        { text: 'State 5' },
-        { text: 'State 6' },
-        { text: 'State 7' }
-      ],
-      states: [
-        'Alabama',
-        'Alaska',
-        'American Samoa',
-        'Arizona',
-        'Arkansas',
-        'California',
-        'Colorado',
-        'Connecticut',
-        'Delaware',
-        'District of Columbia',
-        'Federated States of Micronesia',
-        'Florida',
-        'Georgia',
-        'Guam',
-        'Hawaii',
-        'Idaho',
-        'Illinois',
-        'Indiana',
-        'Iowa',
-        'Kansas',
-        'Kentucky',
-        'Louisiana',
-        'Maine',
-        'Marshall Islands',
-        'Maryland',
-        'Massachusetts',
-        'Michigan',
-        'Minnesota',
-        'Mississippi',
-        'Missouri',
-        'Montana',
-        'Nebraska',
-        'Nevada',
-        'New Hampshire',
-        'New Jersey',
-        'New Mexico',
-        'New York',
-        'North Carolina',
-        'North Dakota',
-        'Northern Mariana Islands',
-        'Ohio',
-        'Oklahoma',
-        'Oregon',
-        'Palau',
-        'Pennsylvania',
-        'Puerto Rico',
-        'Rhode Island',
-        'South Carolina',
-        'South Dakota',
-        'Tennessee',
-        'Texas',
-        'Utah',
-        'Vermont',
-        'Virgin Island',
-        'Virginia',
-        'Washington',
-        'West Virginia',
-        'Wisconsin',
-        'Wyoming'
-      ]
+  name: 'Selector',
+  data: () => ({
+    flowSelector: '',
+    coursesSelector: '',
+    semestersSelector: '',
+
+    flows: [],
+    courses: [],
+    semesters: [],
+
+    fetchedData: {}
+  }),
+  methods: {
+    selectFlow({ text }) {
+      const { fetchedData } = this
+      this.courses = Object.keys(fetchedData[text]).map(course => ({
+        text: course
+      }))
+    },
+    selectCourse({ text }) {
+      const { fetchedData, flowSelector } = this
+      const flow = flowSelector.text
+      if (fetchedData[flow].hasOwnProperty(`${text}`)) {
+        const { semesters } = fetchedData[flow][text]
+        this.semesters = semesters.map(semester => ({ text: semester }))
+      }
+    },
+    selectSemestr({ text }) {
+      const param = {
+        course: this.coursesSelector.text,
+        flow: this.flowSelector.text,
+        semester: text
+      }
+      this.fetchLection(param)
+    },
+    parseFlowData(flows) {
+      return Object.values(flows).map(item => {
+        const { flow, courses } = item
+        this.fetchedData[flow] = courses
+        return { text: flow }
+      })
+    },
+    fetchFlow() {
+      getAllFlow()
+        .then(({ data }) => {
+          this.flows = this.parseFlowData(data)
+        })
+        .catch(err => console.log(err))
+    },
+    fetchLection(param) {
+      getAbstractFlowItems(param)
+        .then(d => console.log(d))
+        .catch(err => console.log(err))
     }
+  },
+  mounted() {
+    this.fetchFlow()
   }
 }
 </script>
