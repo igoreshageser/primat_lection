@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="p-5">
        <v-flex lg6 mx-auto class="selector-wrapper">
         <v-select
           :items="flows"
@@ -82,8 +82,19 @@ export default {
     },
     fetchLection(param) {
       getAbstractFlowItems(param)
-        .then(d => console.log(d))
+        .then(({ data }) => this.createTreeDate(data))
         .catch(err => console.log(err))
+    },
+    createTreeDate(lection) {
+      let treeData = {
+        name: 'Предметы',
+        children: []
+      }
+      treeData.children = lection.map(({ abstracts, subject }) => ({
+        name: subject,
+        children: abstracts
+      }))
+      this.$emit('getLection', treeData)
     }
   },
   mounted() {
@@ -98,5 +109,12 @@ export default {
 }
 .selector-wrapper {
   width: 400px;
+}
+
+$spacer: 8px;
+
+.p-5 {
+  padding-top: ($spacer * 3);
+  padding-bottom: ($spacer * 3);
 }
 </style>

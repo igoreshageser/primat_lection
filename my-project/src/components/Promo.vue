@@ -10,24 +10,35 @@
       </div>
    </div>
    <div>
-     <Selectors />
+     <Selectors  @getLection="getLection"/>
+   </div>
+   <div>
+     <Tree :lections="lections" />
    </div>
 </div>
 </template>
-
 <script>
 import Mouse from '@/components/Promo/Mouse'
 import Selectors from '@/components/Promo/Selectors'
+import Tree from '@/components/Promo/Tree/Tree-Wrapper'
 
 export default {
   name: 'Promo',
   components: {
+    Tree,
     Mouse,
     Selectors
+  },
+  data: () => ({
+    lections: {}
+  }),
+  methods: {
+    getLection(lections) {
+      this.lections = lections
+    }
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .promo {
   height: 100vh;
