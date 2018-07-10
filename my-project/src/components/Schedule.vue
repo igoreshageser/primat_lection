@@ -1,12 +1,18 @@
 <template>
   <div class="schedule-wrapper">
     <div class="container">
-      <div v-for="(week, index) in weeks" :key="index" class="week-wrapper">
-        <div class="week-count">
-          <span>{{ index }} неделя</span>
+        <button @click="changeTableMode">toggle</button>
+        <div v-if="isListMode">
+          <div v-for="(week, index) in weeks" :key="index" class="week-wrapper">
+              <div class="week-count">
+                <span>{{ index }} неделя</span>
+              </div>
+              <Week :week="week" />
+          </div>
         </div>
-        <Week :week="week" />
-      </div>
+        <div v-else>
+          table
+        </div>
     </div>
   </div>
 </template>
@@ -14,12 +20,13 @@
 <script>
 import { getSchedule } from '../api/schedule'
 
-import Week from '@/components/Schedule/Week'
+import Week from '@/components/Schedule/list/Week'
 
 export default {
   name: 'Schedule',
   data: () => ({
-    weeks: {}
+    weeks: {},
+    isListMode: false
   }),
   components: {
     Week
@@ -29,6 +36,9 @@ export default {
       getSchedule()
         .then(({ weeks }) => (this.weeks = weeks))
         .catch(err => console.log(err))
+    },
+    changeTableMode () {
+      this.isListMode = !this.isListMode
     }
   },
   mounted() {
