@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             <tr v-for="t in getTable">
-              <td v-for="i in t">
+              <td v-for="(i, index) in t" :key="index">
                 {{ i ? i.lesson_name : 'Pusto' }}
               </td>
             </tr>
