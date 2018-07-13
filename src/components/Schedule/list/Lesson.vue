@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { getAbstractFlowItems } from '../../api/abstract'
+import { getAbstractFlowItems } from '../../../api/abstract'
 
 import Map from './Map'
 

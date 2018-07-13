@@ -1,12 +1,12 @@
 import axios from 'axios'
+import { SCHEDULE_URL } from '../../.env.js'
 
-const URL = 'https://api.rozklad.org.ua/v2/groups/%D0%BA%D0%B2-51/timetable'
-
-export function getSchedule() {
+export function getSchedule(view) {
+  const params = { ...view }
   return new Promise((resolve, reject) => {
     axios
-      .get(URL)
-      .then(({ data }) => resolve(data.data))
+      .get(SCHEDULE_URL, { params })
+      .then(({ data }) => resolve(data))
       .catch(err => reject(err))
   })
 }

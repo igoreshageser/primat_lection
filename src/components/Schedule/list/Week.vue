@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Day from '@/components/Schedule/Day'
+import Day from './Day'
 
 export default {
   name: 'Schedule-Week',

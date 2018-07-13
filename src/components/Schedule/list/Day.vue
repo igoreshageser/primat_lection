@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Lesson from '@/components/Schedule/Lesson'
+import Lesson from './Lesson'
 
 export default {
   name: 'Schedule-Day',

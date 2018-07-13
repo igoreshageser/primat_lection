@@ -1,12 +1,23 @@
 <template>
   <div class="schedule-wrapper">
     <div class="container">
-      <div v-for="(week, index) in weeks" :key="index" class="week-wrapper">
-        <div class="week-count">
-          <span>{{ index }} неделя</span>
+        <button @click="changeTableMode">toggle</button>
+        <div v-if="isListMode">
+          <div v-for="(list, index) in lists" :key="index" class="week-wrapper">
+              <div class="week-count">
+                <span>{{ index }} неделя</span>
+              </div>
+              <Week :week="list" />
+          </div>
         </div>
-        <Week :week="week" />
-      </div>
+        <div v-else>
+          <div v-for="(table, index) in tables" :key="index">
+              <div class="week-count">
+                <span>{{ index }} неделя</span>
+              </div>
+              <Table :table="table"></Table>
+          </div>
+        </div>
     </div>
   </div>
 </template>
@@ -14,25 +25,48 @@
 <script>
 import { getSchedule } from '../api/schedule'
 
-import Week from '@/components/Schedule/Week'
+// import Week from './Schedule/table/Week'
+// import Table from './Schedule/list/Table'
+import Week from './Schedule/list/Week'
+import Table from './Schedule/table/Table'
 
 export default {
   name: 'Schedule',
   data: () => ({
-    weeks: {}
+    lists: {},
+    tables: {},
+
+    isListMode: false
   }),
   components: {
-    Week
+    Week,
+    Table
+  },
+  computed: {
+    fetchParams: () => ({ table: true })
   },
   methods: {
-    fetchTimetable() {
+    fetchListsTimetable() {
       getSchedule()
-        .then(({ weeks }) => (this.weeks = weeks))
+        .then(({ weeks }) => (this.lists = weeks))
         .catch(err => console.log(err))
+    },
+    fetchTableTimeTable() {
+      getSchedule(this.fetchParams)
+        .then(data => (this.tables = data))
+        .catch(err => console.log(err))
+    },
+    changeTableMode () {
+      this.isListMode = !this.isListMode
+      if (this.isListMode) {
+        this.fetchListsTimetable()
+      } else {
+        this.fetchTableTimeTable()
+      }
     }
   },
   mounted() {
-    this.fetchTimetable()
+    this.fetchTableTimeTable()
   }
 }
 </script>
