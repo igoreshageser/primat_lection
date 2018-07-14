@@ -38,4 +38,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../../assets/scss/variables";
+table {
+  // reset vuetify style
+  border-spacing: 0;
+
+  thead {
+    background-color: $blue-main-color;
+    th {
+      @include bold-font;
+      color: $text-color-light;
+      padding: 10px 26px 10px;
+      text-align: center;
+      border: none;
+    }
+  }
+}
 </style>
