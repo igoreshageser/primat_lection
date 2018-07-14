@@ -9,6 +9,7 @@
     "prod": "webpack-dev-server --inline --progress --config build/webpack.prod.conf.js",
     "start": "npm run dev",
     "deploy": "npm run prod",
+    "server": "node server.js",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run e2e",
     "lint": "eslint --ext .js,.vue src test/e2e/specs",
@@ -17,6 +18,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "d3": "3.5.5",
+    "express": "^4.16.3",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.3",
     "vue": "^2.5.2",
