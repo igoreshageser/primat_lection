@@ -10,7 +10,7 @@
                <!-- <h1> -->
                <!-- KPI<span>bot</span> -->
                <!-- </h1> -->
-               <img src="../assets/logopng.png" alt="">
+               <img src="../assets/img/logopng.png" alt="">
             </div>
             <div>
                <div class="signup-form-bottom">
@@ -89,12 +89,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/scss/variables";
+
 body {
   margin: 0;
   padding: 0;
   background-color: white;
   font-size: 16px;
-  color: #363945;
+  color: $text-color-dark;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -112,11 +114,10 @@ body {
   flex-direction: column;
   align-items: center;
   &-container {
-    background: url("../assets/tic-tac-toe-white-a8e65fed56843e6e7892a82b2c19b0f6.png");
-    background-color: #3ea9f5;
+    background: url("../assets/img/tic-tac-toe-white-a8e65fed56843e6e7892a82b2c19b0f6.png");
+    background-color: $blue-main-color;
     background-repeat: repeat;
     background-size: 209px;
-    font-family: "WhitneySemiBold", "Avenir", Helvetica, sans-serif;
     background-position: 50% -1%;
   }
   &-header {
@@ -125,9 +126,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    color: white;
-    font-family: "WhitneySemiBold", "Avenir", Helvetica, sans-serif;
+    color: $text-color-light;
     button {
+      @include bold-font;
       padding: 10px 15px;
       font-size: 18px;
       background-color: transparent;
@@ -136,7 +137,6 @@ body {
       cursor: pointer;
       transition: 0.2s;
       color: white;
-      font-family: "WhitneyLight";
       &:hover {
         border: 1px solid rgba($color: white, $alpha: 1);
       }
@@ -150,10 +150,10 @@ body {
     justify-content: space-around;
     min-height: 600px;
     &-bottom {
+      @include ligth-font;
       text-align: center;
-      font-family: "WhitneyLight";
       font-size: 18px;
-      color: white;
+      color: $text-color-light;
     }
     &-logo {
       img {
@@ -172,7 +172,7 @@ body {
   &-wrapper {
     padding: 80px 40px;
     padding-bottom: 20px;
-    background-color: #f5f5f5;
+    background-color: $light-background;
   }
   &-item {
     flex: 1 1 300px;
@@ -195,14 +195,15 @@ body {
     }
     &-about {
       &__head {
+        @include strong-bold-font;
         text-align: center;
-        font-family: "WhitneySemiBold", "Avenir", Helvetica, sans-serif;
         padding: 5px 0;
         border-bottom: 1px solid lightgray;
       }
       &__body {
-        font-family: "WhitneyLight";
+        @include ligth-font;
         padding: 15px 15px;
+        color: $text-color-dark;
       }
     }
   }
@@ -213,73 +214,28 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   &-writing {
-    background-image: url("../assets/writing-1209121_960_720.jpg");
+    background-image: url("../assets/img/writing-1209121_960_720.jpg");
   }
   &-timetable {
-    background-image: url("../assets/hand-with-pen-mark-calendar_1325-126.jpg");
+    background-image: url("../assets/img/hand-with-pen-mark-calendar_1325-126.jpg");
     background-position: center center;
   }
   &-future {
-    background-image: url("../assets/maxresdefault.jpg");
+    background-image: url("../assets/img/maxresdefault.jpg");
     background-position: center center;
   }
 }
 
 .footer {
   padding: 15px 10px;
-  font-family: "WhitneyLight";
+  font-family: "Roboto";
+  font-weight: 400;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: $text-color-light;
   &-wrapper {
-    background-color: #3ea9f5;
+    background-color: $blue-main-color;
   }
-}
-
-// fonts
-@font-face {
-  font-family: "WhitneyLight";
-  src: url("../assets/fonts/WhitneyLight/WhitneyLight.eot");
-  src: url("../assets/fonts/WhitneyLight/WhitneyLight.eot?#iefix")
-      format("embedded-opentype"),
-    url("../assets/fonts/WhitneyLight/WhitneyLight.woff") format("woff"),
-    url("../assets/fonts/WhitneyLight/WhitneyLight.ttf") format("truetype");
-  font-style: normal;
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: "WhitneyLight";
-  src: url("../assets/fonts/WhitneyLight/WhitneyLight.eot");
-  src: url("../assets/fonts/WhitneyLight/WhitneyLight.eot?#iefix")
-      format("embedded-opentype"),
-    url("../assets/fonts/WhitneyLight/WhitneyLight.woff") format("woff"),
-    url("../assets/fonts/WhitneyLight/WhitneyLight.ttf") format("truetype");
-  font-style: normal;
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: "WhitneyMedium";
-  src: url("../assets/fonts/WhitneyMedium/WhitneyMedium.eot");
-  src: url("../assets/fonts/WhitneyMedium/WhitneyMedium.eot?#iefix")
-      format("embedded-opentype"),
-    url("../assets/fonts/WhitneyMedium/WhitneyMedium.woff") format("woff"),
-    url("../assets/fonts/WhitneyMedium/WhitneyMedium.ttf") format("truetype");
-  font-style: normal;
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: "WhitneySemiBold";
-  src: url("../assets/fonts/WhitneySemiBold/WhitneySemiBold.eot");
-  src: url("../assets/fonts/WhitneySemiBold/WhitneySemiBold.eot?#iefix")
-      format("embedded-opentype"),
-    url("../assets/fonts/WhitneySemiBold/WhitneySemiBold.woff") format("woff"),
-    url("../assets/fonts/WhitneySemiBold/WhitneySemiBold.ttf")
-      format("truetype");
-  font-style: normal;
-  font-weight: normal;
 }
 </style>

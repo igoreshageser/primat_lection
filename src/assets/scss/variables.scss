@@ -1,0 +1,25 @@
+// colors
+$light-background: #f5f5f5;
+$blue-main-color: #3ea9f5;
+$text-color-dark: #363945;
+$text-color-light: #ffffff;
+
+// fonts
+$main-font: 'Roboto';
+
+
+// fonts-settings
+@mixin ligth-font {
+    font-family: $main-font, sans-serif;
+    font-weight: 100;
+}
+
+@mixin bold-font {
+    font-family: $main-font, sans-serif;
+    font-family: 500;
+}
+
+@mixin strong-bold-font {
+    font-family: $main-font, sans-serif;
+    font-family: 700;
+}
