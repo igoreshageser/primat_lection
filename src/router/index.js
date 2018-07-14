@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Promo from '@/components/Promo'
 import Schedule from '@/components/Schedule'
+import Main from '@/components/Main'
 
 Vue.use(Router)
 
@@ -10,7 +11,12 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Promo',
+      name: 'Main',
+      component: Main
+    },
+    {
+      path: '/lections',
+      name: 'lections',
       component: Promo
     },
     {
