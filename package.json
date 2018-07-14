@@ -5,8 +5,8 @@
   "author": "igor.misyachniy <igor.misyachniy@gns-it.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "prod": "webpack-dev-server --inline --progress --config build/webpack.prod.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 0.0.0.0",
+    "prod": "webpack-dev-server --inline --progress --config build/webpack.prod.conf.js --host 0.0.0.0",
     "start": "npm run dev",
     "deploy": "npm run prod",
     "server": "node server.js",
