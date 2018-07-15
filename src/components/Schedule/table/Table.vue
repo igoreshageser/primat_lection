@@ -8,12 +8,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(day, index) in getTable" :key="index" >
+            <tr v-for="(day, dayIndex) in getTable" :key="dayIndex" >
               <td></td>
-              <td v-for="(lesson, index) in day" :key="index">
-                <div>
-                  <Lesson :lesson="lesson"></Lesson>
-                </div>
+              <td v-for="(lesson, lessonIndex) in day" :key="lessonIndex" :class="{'isToday': isToday(lessonIndex)}">
+                <Lesson :lesson="lesson"></Lesson>
               </td>
             </tr>
         </tbody>
@@ -21,7 +19,8 @@
 </template>
 
 <script>
-import Lesson from './Lesson'
+import { format } from 'date-fns'
+import Lesson from './Lesson-table'
 
 export default {
   name: 'Schedule-Table',
@@ -29,6 +28,10 @@ export default {
     table: {
       type: Object,
       default: () => {}
+    },
+    isCurrentWeek: {
+      type: Boolean,
+      default: false
     }
   },
   components: {
@@ -41,6 +44,19 @@ export default {
       }
     },
     getWeekDays: () => ['', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
+  },
+  methods: {
+    isToday(day) {
+      const today = Number(format(new Date(), 'd')) - 1
+      /**
+       * if Sunday and current day - monday
+       */
+      const sundayCondition = today === 6 && day === 1
+      if (sundayCondition) {
+        return true
+      }
+      return (today === day) && this.isCurrentWeek
+    }
   }
 }
 </script>
@@ -74,11 +90,12 @@ table {
         &:last-child {
           border-right: 1px solid #cccccc;
         }
-        div {
-          min-height: 50px;
-        }
       }
     }
   }
+}
+
+.isToday {
+  background-color: darken($color: $light-background, $amount: 7);
 }
 </style>
