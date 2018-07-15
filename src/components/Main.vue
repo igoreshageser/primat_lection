@@ -50,7 +50,9 @@
                <div class="options-item-about__body">
                   Все знаешь где и когда твоя пара.
                   Посмотреть свое расписание и узнать больше информации  о паре
-                  ты можешь <a href="#">тут</a>.
+                  ты можешь
+                  <router-link :to="'/Schedule'">тут</router-link>
+                  .
                </div>
             </div>
          </div>

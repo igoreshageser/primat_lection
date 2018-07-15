@@ -9,8 +9,11 @@
         </thead>
         <tbody>
             <tr v-for="(day, index) in getTable" :key="index" >
+              <td></td>
               <td v-for="(lesson, index) in day" :key="index">
-                {{ lesson ? lesson.lesson_name : 'Pusto' }}
+                <div>
+                  <Lesson :lesson="lesson"></Lesson>
+                </div>
               </td>
             </tr>
         </tbody>
@@ -18,6 +21,8 @@
 </template>
 
 <script>
+import Lesson from './Lesson'
+
 export default {
   name: 'Schedule-Table',
   props: {
@@ -26,13 +31,16 @@ export default {
       default: () => {}
     }
   },
+  components: {
+    Lesson
+  },
   computed: {
     getTable() {
       if (this.table) {
         return this.table
       }
     },
-    getWeekDays: () => ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
+    getWeekDays: () => ['', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
   }
 }
 </script>
@@ -42,6 +50,8 @@ export default {
 table {
   // reset vuetify style
   border-spacing: 0;
+  width: 100%;
+  margin-bottom: 20px;
 
   thead {
     background-color: $blue-main-color;
@@ -51,6 +61,23 @@ table {
       padding: 10px 26px 10px;
       text-align: center;
       border: none;
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        padding: 10px 16px;
+        font-size: 14px;
+        border-bottom: 1px solid #cccccc;
+        border-left: 1px solid #cccccc;
+        &:last-child {
+          border-right: 1px solid #cccccc;
+        }
+        div {
+          min-height: 50px;
+        }
+      }
     }
   }
 }

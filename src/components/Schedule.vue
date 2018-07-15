@@ -11,7 +11,7 @@
           </div>
         </div>
         <div v-else>
-          <div v-for="(table, index) in tables" :key="index">
+          <div v-for="(table, index) in tables" :key="index" class="table-wrapper">
               <div class="week-count">
                 <span>{{ index }} неделя</span>
               </div>
@@ -75,7 +75,7 @@ export default {
 .schedule-wrapper {
   width: 100%;
   height: 100%;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 300;
   .container {
     display: flex;
@@ -92,5 +92,9 @@ export default {
       }
     }
   }
+}
+
+.table-wrapper {
+  min-width: 900px;
 }
 </style>
