@@ -5,22 +5,9 @@
         <div class="schedule-toggler">
           <button @click="changeTableMode">{{ getTogglerText }}</button>
         </div>
-        <div v-if="isListMode">
-          <div v-for="(list, index) in lists" :key="index" class="week-wrapper">
-              <div class="week-count">
-                <span>{{ index }} неделя</span>
-              </div>
-              <Week :week="list" />
-          </div>
-        </div>
-        <div v-else>
-          <div v-for="(table, index) in tables" :key="index" class="table-wrapper">
-              <div class="week-count">
-                <span>{{ index }} неделя</span>
-              </div>
-              <Table :table="table" :isCurrentWeek="isCurrentWeek(index)"></Table>
-          </div>
-        </div>
+        <Spinner v-if="loading" />
+        <ListWrapper v-else-if="isListMode" :lists="lists" />
+        <TableWrapper :table="tables" v-else />
       </div>
     </div>
   </div>
@@ -30,8 +17,9 @@
 import { getSchedule } from '../api/schedule'
 import { getWeekNumber } from '../api/getWeekNumber'
 
-import Week from './Schedule/list/Week'
-import Table from './Schedule/table/Table'
+import Spinner from './Spinner'
+import ListWrapper from './Schedule/list/ListWrapper'
+import TableWrapper from './Schedule/table/TableWrapper'
 
 export default {
   name: 'Schedule',
@@ -40,12 +28,14 @@ export default {
     tables: {},
 
     isListMode: false,
+    loading: false,
 
     weekNumber: 1
   }),
   components: {
-    Week,
-    Table
+    Spinner,
+    ListWrapper,
+    TableWrapper
   },
   computed: {
     fetchParams: () => ({ table: true }),
@@ -54,26 +44,35 @@ export default {
         return 'Таблицей'
       }
       return 'Списком'
+    },
+    showCompontent() {
+      if (this.loading) {
+        return Spinner
+      } else if (this.isListMode) {
+        return ListWrapper
+      }
+      return TableWrapper
     }
   },
   methods: {
     fetchListsTimetable() {
+      this.loading = true
       getSchedule()
         .then(({ weeks }) => (this.lists = weeks))
         .catch(err => console.log(err))
+        .finally(() => (this.loading = false))
     },
     fetchTableTimeTable() {
+      this.loading = true
       getSchedule(this.fetchParams)
         .then(data => (this.tables = data))
         .catch(err => console.log(err))
+        .finally(() => (this.loading = false))
     },
     fetchWeekNumber() {
       getWeekNumber()
         .then(({ data }) => (this.weekNumber = data))
         .catch(err => console.log(err))
-    },
-    isCurrentWeek(index) {
-      return this.weekNumber === Number(index)
     },
     changeTableMode () {
       this.isListMode = !this.isListMode
@@ -91,7 +90,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../assets/scss/variables.scss';
 
 .schedule {
