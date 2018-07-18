@@ -9,7 +9,7 @@
     </v-toolbar>
     <v-content>
       <section>
-        <v-parallax :src="getImg('blueparallax.jpg')" height="600">
+        <v-parallax :src="getImg" height="600">
           <v-layout
             column
             align-center
@@ -127,12 +127,15 @@
 
 <script>
 export default {
+  name: 'Main',
   methods: {
-    getImg(img) {
-      return require(`@/assets/img/${img}`)
-    },
     goTo(url) {
       this.$router.push({ path: url })
+    }
+  },
+  computed: {
+    getImg() {
+      return require('@/assets/img/blueparallax.jpg')
     }
   }
 }
