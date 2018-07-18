@@ -1,243 +1,156 @@
 <template>
-<div>
-   <div class="signup-container">
-      <div class="container signup">
-         <div class="signup-header">
-            <button>Войти</button>
-         </div>
-         <div class="signup-form">
-            <div class="signup-form-logo">
-               <!-- <h1> -->
-               <!-- KPI<span>bot</span> -->
-               <!-- </h1> -->
-               <img src="../assets/img/logopng.png" alt="">
+    <div id="app">
+   <v-app light>
+    <v-toolbar class="white">
+      <v-toolbar-title>
+        <span class="blue--text lighten-2 ">KPI</span>
+        <span class="font-weight-bold">bot</span>
+      </v-toolbar-title>
+    </v-toolbar>
+    <v-content>
+      <section>
+        <v-parallax :src="getImg('blueparallax.jpg')" height="600">
+          <v-layout
+            column
+            align-center
+            justify-center
+            class="white--text"
+          >
+            <img src="../assets/img/logo.png" alt="logo" height="400">
+            <!-- <h1 class="white--text mb-2 display-1 text-xs-center">Parallax Template</h1> -->
+            <div class="subheading mb-3 text-xs-center">Все твои лекции в одном месте</div>
+            <v-btn
+              class="blue lighten-2 mt-5"
+              dark
+              large
+            >
+              Авторизоваться
+            </v-btn>
+          </v-layout>
+        </v-parallax>
+      </section>
+
+      <section>
+        <v-layout
+          column
+          wrap
+          class="my-5"
+          align-center
+        >
+          <v-flex xs12 sm4 class="my-3">
+            <div class="text-xs-center">
+              <h2 class="headline">
+               Учиться, учиться и учиться
+              </h2>
+              <span class="subheading">
+                Ребята, а палево есть?
+              </span>
             </div>
-            <div>
-               <div class="signup-form-bottom">
-                  <span>
-                  Все твои лекции в одном месте
-                  </span>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="options-wrapper">
-      <div class="container options">
-         <div class="options-item">
-            <div>
-               <div class="card-image card-image-writing"></div>
-            </div>
-            <div class="options-item-about">
-               <div class="options-item-about__head">
-                  Читай лекции
-               </div>
-               <div class="options-item-about__body">
-                  Все лекции в твоем телефоне.
-                  Найти и почитать свою лекци ты можешь <a href="#">тут</a>,
-                  а добавить новую <a href="#">тут</a>.
-               </div>
-            </div>
-         </div>
-         <div class="options-item">
-            <div>
-               <div class="card-image card-image-timetable"></div>
-            </div>
-            <div class="options-item-about">
-               <div class="options-item-about__head">
-                  Узнавай расписание
-               </div>
-               <div class="options-item-about__body">
-                  Все знаешь где и когда твоя пара.
-                  Посмотреть свое расписание и узнать больше информации  о паре
-                  ты можешь
-                  <router-link :to="'/Schedule'">тут</router-link>
-                  .
-               </div>
-            </div>
-         </div>
-         <div class="options-item">
-            <div>
-               <div class="card-image card-image-future"></div>
-            </div>
-            <div class="options-item-about">
-               <div class="options-item-about__head">
-                  чета еще будет :3
-               </div>
-               <div class="options-item-about__body">
-                  Все лекции в твоем телефоне.
-                  Все лекции в твоем телефоне.
-                  Все лекции в твоем телефоне.
-                  Все лекции в твоем телефоне.
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="footer-wrapper">
-      <div class="footer container">
-         <div class="footer-links">
-            Все вопросы и пожелания <a href="#">сюда</a>
-         </div>
-      </div>
-   </div>
-</div>
+          </v-flex>
+          <v-flex xs12>
+            <v-container grid-list-xl>
+              <v-layout row wrap align-center>
+                <v-flex xs12 md4 class="card-item" @click="goTo('/schedule')">
+                  <v-card class="elevation-0 transparent">
+                    <v-card-text class="text-xs-center">
+                      <v-icon x-large class="blue--text text--lighten-2">schedule</v-icon>
+                    </v-card-text>
+                    <v-card-title primary-title class="layout justify-center">
+                      <div class="headline text-xs-center">Актуальное раписание</div>
+                    </v-card-title>
+                    <v-card-text >
+                      Всегда можно узнать где и какая пара будет следующей.
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+                <v-flex xs12 md4 class="card-item">
+                  <v-card class="elevation-0 transparent">
+                    <v-card-text class="text-xs-center">
+                      <v-icon x-large class="blue--text text--lighten-2">book</v-icon>
+                    </v-card-text>
+                    <v-card-title primary-title class="layout justify-center">
+                      <div class="headline">Лекции</div>
+                    </v-card-title>
+                    <v-card-text>
+                     Читай и сохраняй лекции прямо в телефоне. Главное - самому не забывать их добавлять.
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+                <v-flex xs12 md4 class="card-item">
+                  <v-card class="elevation-0 transparent">
+                    <v-card-text class="text-xs-center">
+                      <v-icon x-large class="blue--text text--lighten-2">code</v-icon>
+                    </v-card-text>
+                    <v-card-title primary-title class="layout justify-center">
+                      <div class="headline text-xs-center">В разработке :)</div>
+                    </v-card-title>
+                    <v-card-text>
+                     Еще работаем над некоторыми фичами.
+                     Скоро выкатим.
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-flex>
+        </v-layout>
+      </section>
+
+      <v-footer class="blue darken-2" height="auto">
+        <v-flex xs12>
+          <v-container grid-list-xl>
+            <v-layout row wrap align-center>
+              <v-flex xs6>
+                <div class="white--text ml-3">
+                  По всем вопросам и предложениям писать сюда
+                  <a href="https://t.me/Fowi3" target="_blank">
+                    <v-icon class="white--text send-mail">mail</v-icon>
+                  </a>
+                </div>
+              </v-flex>
+              <v-flex xs6>
+                <div class="white--text ml-3 text-sm-right">
+                  Сделано с
+                  <v-icon class="red--text">favorite</v-icon>
+                  KPIbot-team 2018
+                </div>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-flex>
+      </v-footer>
+
+    </v-content>
+  </v-app>
+ </div>
 </template>
 
 <script>
 export default {
-  name: 'Main'
+  methods: {
+    getImg(img) {
+      return require(`@/assets/img/${img}`)
+    },
+    goTo(url) {
+      this.$router.push({ path: url })
+    }
+  }
 }
 </script>
 
-<style lang="scss" scoped>
-@import "../assets/scss/variables";
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color: white;
-  font-size: 16px;
-  color: $text-color-dark;
-  -webkit-font-smoothing: antialiased;
+<style lang="scss">
+.send-mail {
+  cursor: pointer;
 }
 
-.container {
-  margin: 0 auto;
-  max-width: 960px;
-  position: relative;
-  padding: 20px 0;
-}
-
-.signup {
-  max-width: 1430px;
-  min-height: 650px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  &-container {
-    background: url("../assets/img/tic-tac-toe-white-a8e65fed56843e6e7892a82b2c19b0f6.png");
-    background-color: $blue-main-color;
-    background-repeat: repeat;
-    background-size: 209px;
-    background-position: 50% -1%;
-  }
-  &-header {
-    margin-top: 26px;
-    width: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    color: $text-color-light;
-    button {
-      @include bold-font;
-      padding: 10px 15px;
-      font-size: 18px;
-      background-color: transparent;
-      border: 1px solid rgba($color: white, $alpha: 0.77);
-      border-radius: 4px;
-      cursor: pointer;
-      transition: 0.2s;
-      color: white;
-      &:hover {
-        border: 1px solid rgba($color: white, $alpha: 1);
-      }
-    }
-  }
-  &-form {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    min-height: 600px;
-    &-bottom {
-      @include ligth-font;
-      text-align: center;
-      font-size: 18px;
-      color: $text-color-light;
-    }
-    &-logo {
-      img {
-        width: 500px;
-        height: 500px;
-      }
-    }
-  }
-}
-
-.options {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  &-wrapper {
-    padding: 80px 40px;
-    padding-bottom: 20px;
-    background-color: $light-background;
-  }
-  &-item {
-    flex: 1 1 300px;
-    flex-direction: column;
-    overflow: hidden;
-    margin: 0 20px 40px;
-    min-height: 300px;
-    background: #fff 50%;
-    background-size: cover;
-    border-radius: 5px;
-    box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
-      1px 3px 8px rgba(39, 44, 49, 0.03);
-    transition: all 0.5s ease;
-    cursor: pointer;
-    &:hover {
-      box-shadow: 0 0 1px rgba(39, 44, 49, 0.1),
-        0 3px 16px rgba(39, 44, 49, 0.07);
-      transition: all 0.3s ease;
-      transform: translate3D(0, -1px, 0);
-    }
-    &-about {
-      &__head {
-        @include strong-bold-font;
-        text-align: center;
-        padding: 5px 0;
-        border-bottom: 1px solid lightgray;
-      }
-      &__body {
-        @include ligth-font;
-        padding: 15px 15px;
-        color: $text-color-dark;
-      }
-    }
-  }
-}
-
-.card-image {
-  height: 200px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  &-writing {
-    background-image: url("../assets/img/writing-1209121_960_720.jpg");
-  }
-  &-timetable {
-    background-image: url("../assets/img/hand-with-pen-mark-calendar_1325-126.jpg");
-    background-position: center center;
-  }
-  &-future {
-    background-image: url("../assets/img/maxresdefault.jpg");
-    background-position: center center;
-  }
-}
-
-.footer {
-  padding: 15px 10px;
-  font-family: "Roboto";
-  font-weight: 400;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $text-color-light;
-  &-wrapper {
-    background-color: $blue-main-color;
+.card-item {
+  cursor: pointer;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 1px rgba(39, 44, 49, 0.1), 0 3px 16px rgba(39, 44, 49, 0.07);
+    transition: all 0.3s ease;
+    transform: translate3D(0, -1px, 0);
   }
 }
 </style>
