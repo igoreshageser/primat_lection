@@ -17,6 +17,9 @@ export default {
   props: {
     table: {
       type: Object
+    },
+    weekNumber: {
+      type: Number
     }
   },
   components: {

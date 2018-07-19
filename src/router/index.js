@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Promo from '@/components/Promo'
 import Schedule from '@/components/Schedule'
 import Main from '@/components/Main'
+import ErrorPage from '@/components/Error'
 
 Vue.use(Router)
 
@@ -23,6 +24,10 @@ export default new Router({
       path: '/schedule',
       name: 'Schedule',
       component: Schedule
+    }, {
+      path: '*',
+      name: 'Error',
+      component: ErrorPage
     }
   ]
 })

@@ -1,12 +1,7 @@
 <template>
-    <div id="app">
+  <div id="app">
    <v-app light>
-    <v-toolbar class="white">
-      <v-toolbar-title>
-        <span class="blue--text lighten-2 ">KPI</span>
-        <span class="font-weight-bold">bot</span>
-      </v-toolbar-title>
-    </v-toolbar>
+   <Header />
     <v-content>
       <section>
         <v-parallax :src="getImg" height="600">
@@ -40,7 +35,7 @@
           <v-flex xs12 sm4 class="my-3">
             <div class="text-xs-center">
               <h2 class="headline">
-               Учиться, учиться и учиться
+               Учиться, учиться и еще раз учиться
               </h2>
               <span class="subheading">
                 Ребята, а палево есть?
@@ -95,39 +90,22 @@
           </v-flex>
         </v-layout>
       </section>
-
-      <v-footer class="blue darken-2" height="auto">
-        <v-flex xs12>
-          <v-container grid-list-xl>
-            <v-layout row wrap align-center>
-              <v-flex xs6>
-                <div class="white--text ml-3">
-                  По всем вопросам и предложениям писать сюда
-                  <a href="https://t.me/Fowi3" target="_blank">
-                    <v-icon class="white--text send-mail">mail</v-icon>
-                  </a>
-                </div>
-              </v-flex>
-              <v-flex xs6>
-                <div class="white--text ml-3 text-sm-right">
-                  Сделано с
-                  <v-icon class="red--text">favorite</v-icon>
-                  KPIbot-team 2018
-                </div>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-flex>
-      </v-footer>
-
+      <Footer />
     </v-content>
   </v-app>
  </div>
 </template>
 
 <script>
+import Header from './Common/Header'
+import Footer from './Common/Footer'
+
 export default {
   name: 'Main',
+  components: {
+    Header,
+    Footer
+  },
   methods: {
     goTo(url) {
       this.$router.push({ path: url })
