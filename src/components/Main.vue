@@ -1,7 +1,6 @@
 <template>
   <div id="app">
    <v-app light>
-   <Header />
     <v-content>
       <section>
         <v-parallax :src="getImg" height="600">
@@ -90,22 +89,14 @@
           </v-flex>
         </v-layout>
       </section>
-      <Footer />
     </v-content>
   </v-app>
  </div>
 </template>
 
 <script>
-import Header from './Common/Header'
-import Footer from './Common/Footer'
-
 export default {
   name: 'Main',
-  components: {
-    Header,
-    Footer
-  },
   methods: {
     goTo(url) {
       this.$router.push({ path: url })

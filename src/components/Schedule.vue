@@ -1,20 +1,16 @@
 <template>
-  <v-app>
-    <Header />
-    <div class="schedule-wrapper">
-      <div class="container">
-        <div class="schedule-content">
-          <div class="schedule-toggler">
-            <button @click="changeTableMode">{{ getTogglerText }}</button>
-          </div>
-          <Spinner v-if="loading" />
-          <ListWrapper v-else-if="isListMode"  :weekNumber="weekNumber" :lists="lists" />
-          <TableWrapper v-else :table="tables" :weekNumber="weekNumber" />
+  <div class="schedule-wrapper">
+    <div class="container">
+      <div class="schedule-content">
+        <div class="schedule-toggler">
+          <button @click="changeTableMode">{{ getTogglerText }}</button>
         </div>
+        <Spinner v-if="loading" />
+        <ListWrapper v-else-if="isListMode"  :weekNumber="weekNumber" :lists="lists" />
+        <TableWrapper v-else :table="tables" :weekNumber="weekNumber" />
       </div>
     </div>
-    <Footer />
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -22,8 +18,6 @@ import { getSchedule } from '../api/schedule'
 import { getWeekNumber } from '../api/getWeekNumber'
 
 import Spinner from './Spinner'
-import Header from './Common/Header'
-import Footer from './Common/Footer'
 import ListWrapper from './Schedule/list/ListWrapper'
 import TableWrapper from './Schedule/table/TableWrapper'
 
@@ -40,8 +34,6 @@ export default {
   }),
   components: {
     Spinner,
-    Header,
-    Footer,
     ListWrapper,
     TableWrapper
   },
