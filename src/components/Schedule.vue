@@ -5,9 +5,12 @@
         <div class="schedule-toggler">
           <button @click="changeTableMode">{{ getTogglerText }}</button>
         </div>
-        <Spinner v-if="loading" />
-        <ListWrapper v-else-if="isListMode"  :weekNumber="weekNumber" :lists="lists" />
-        <TableWrapper v-else :table="tables" :weekNumber="weekNumber" />
+        <component
+          :is="getScheduleView"
+          :weekNumber="weekNumber"
+          :table="tables"
+          :lists="lists"
+        />
       </div>
     </div>
   </div>
@@ -45,7 +48,7 @@ export default {
       }
       return 'Списком'
     },
-    showCompontent() {
+    getScheduleView() {
       if (this.loading) {
         return Spinner
       } else if (this.isListMode) {
