@@ -36,11 +36,7 @@ import Map from './Map'
 
 export default {
   name: 'Schedule-Lesson',
-  props: {
-    lesson: {
-      type: Object
-    }
-  },
+  props: ['lesson'],
   components: {
     Map
   },

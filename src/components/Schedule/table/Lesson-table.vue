@@ -12,11 +12,7 @@
 <script>
 export default {
   name: 'Schedule-Table-Lesson',
-  props: {
-    lesson: {
-      type: Object
-    }
-  },
+  props: ['lesson'],
   computed: {
     getLessonName() {
       if (this.lesson) {
@@ -40,8 +36,9 @@ export default {
     },
     getTeachersUrl() {
       if (this.lesson) {
-        const [ teacher ] = this.lesson.teachers
-        return teacher ? teacher.teacher_url : ''
+        // const [ teacher ] = this.lesson.teachers
+        // return teacher ? teacher.teacher_url : ''
+        return 'kek'
       }
     }
   }
