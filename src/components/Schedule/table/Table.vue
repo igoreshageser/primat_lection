@@ -9,7 +9,16 @@
         </thead>
         <tbody>
             <tr v-for="(day, dayIndex) in getTable" :key="dayIndex" >
-              <td></td>
+              <td>
+                <div class="timeline">
+                  <div class="timeline-count">
+                    {{ dayIndex + 1 }}
+                  </div>
+                  <div class="timeline-hour">
+                    {{ getTimeLine(dayIndex) }}
+                  </div>
+                </div>
+              </td>
               <td v-for="(lesson, lessonIndex) in day" :key="lessonIndex" :class="{'isToday': isToday(lessonIndex)}">
                 <Lesson :lesson="lesson"></Lesson>
               </td>
@@ -43,7 +52,8 @@ export default {
         return this.table
       }
     },
-    getWeekDays: () => ['', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
+    getWeekDays: () => ['', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+    getLessonsTime: () => ['', '8-30', '10:25', '12:20', '14:15', '16:10']
   },
   methods: {
     isToday(day) {
@@ -56,6 +66,9 @@ export default {
         return true
       }
       return (today === day) && this.isCurrentWeek
+    },
+    getTimeLine (index) {
+      return this.getLessonsTime[index]
     }
   }
 }
@@ -89,6 +102,19 @@ table {
         border-left: 1px solid #cccccc;
         &:last-child {
           border-right: 1px solid #cccccc;
+        }
+      }
+      .timeline {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        &-count {
+          color: $text-color-dark;
+        }
+        &-hour {
+          @include bold-font;
+          color: $blue-main-color;
         }
       }
     }

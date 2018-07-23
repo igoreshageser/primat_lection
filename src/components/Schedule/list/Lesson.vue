@@ -82,8 +82,10 @@ export default {
   },
   methods: {
     openMoreBlock() {
-      this.showMoreBlock = true
-      this.fetchLection()
+      this.showMoreBlock = !this.showMoreBlock
+      if (this.showMoreBlock) {
+        this.fetchLection()
+      }
     },
     fetchLection() {
       getAbstractFlowItems(this.getParam)
