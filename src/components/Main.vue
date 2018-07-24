@@ -81,6 +81,7 @@
                     <v-card-text>
                      Еще работаем над некоторыми фичами.
                      Скоро выкатим.
+                     <iframe id="telegram-login-primat_test_bot" frameborder="0"></iframe>
                     </v-card-text>
                   </v-card>
                 </v-flex>
