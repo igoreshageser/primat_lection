@@ -8,10 +8,10 @@
       <v-toolbar-items>
         <div class="header-content">
           <div class="username pr-3">
-            igoreshageser
+            {{ getUsername }}
           </div>
           <div class="avatar">
-
+            <img :src="getUserAvatar" alt="">
           </div>
         </div>
       </v-toolbar-items>
@@ -20,15 +20,39 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'Header',
   methods: {
     goToMain() {
       this.$router.push('/')
     }
+  },
+  computed: {
+    ...mapState(['currentUser']),
+    getUsername() {
+      if (this.currentUser.username) {
+        return this.currentUser.username
+      }
+      return ''
+    },
+    getUserAvatar() {
+      if (this.currentUser.avatar) {
+        return this.currentUser.avatar
+      }
+      return ''
+    }
   }
 }
 </script>
+
+<style lang="scss" >
+//  hack :c
+.toolbar__content {
+  justify-content: space-between;
+}
+</style>
 
 <style lang="scss" scoped>
 .header {
