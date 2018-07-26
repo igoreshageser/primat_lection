@@ -4,19 +4,26 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-  currentUser: {
-    username: 'IgoreshaGeser',
-    avatar: 'https://t.me/i/userpic/320/IgoreshaGeser.jpg'
-  }
+  currentUser: {}
 }
 
 const mutations = {
   setCurrentUser(state, payload) {
     state.currentUser = { ...payload }
+  },
+  deleteCurrentUser(state) {
+    state.currentUser = {}
+  }
+}
+
+const getters = {
+  userAuth(state) {
+    return Object.keys(state.currentUser).length
   }
 }
 
 export default new Vuex.Store({
   state,
+  getters,
   mutations
 })

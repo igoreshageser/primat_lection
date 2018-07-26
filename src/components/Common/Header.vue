@@ -5,13 +5,16 @@
         <span class="blue--text lighten-2 ">KPI</span>
         <span class="font-weight-bold">bot</span>
       </v-toolbar-title>
-      <v-toolbar-items>
+      <v-toolbar-items v-if="userAuth">
         <div class="header-content">
           <div class="username pr-3">
             {{ getUsername }}
           </div>
-          <div class="avatar">
+          <div class="avatar ">
             <img :src="getUserAvatar" alt="">
+          </div>
+          <div class="ml-3 control" @click="logOut">
+            <span class="blue--text lighten-2">Выйти</span>
           </div>
         </div>
       </v-toolbar-items>
@@ -20,17 +23,23 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'Header',
   methods: {
     goToMain() {
       this.$router.push('/')
+    },
+    logOut () {
+      this.$store.commit('deleteCurrentUser')
+      this.$router.push({ name: 'Main' })
+      localStorage.clear()
     }
   },
   computed: {
     ...mapState(['currentUser']),
+    ...mapGetters(['userAuth']),
     getUsername() {
       if (this.currentUser.username) {
         return this.currentUser.username
@@ -43,6 +52,10 @@ export default {
       }
       return ''
     }
+  },
+  mounted() {
+    const user = localStorage.getItem('user')
+    this.$store.commit('setCurrentUser', JSON.parse(user))
   }
 }
 </script>
@@ -72,6 +85,9 @@ export default {
       width: 40px;
       height: 40px;
       background-color: blue;
+    }
+    .control {
+      cursor: pointer;
     }
   }
 }

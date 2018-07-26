@@ -17,6 +17,7 @@
               class="blue lighten-2 mt-5"
               dark
               large
+              @click="authUser"
             >
               Авторизоваться
             </v-btn>
@@ -95,11 +96,21 @@
 </template>
 
 <script>
+
+const mockData = {
+  username: 'IgoreshaGeser',
+  avatar: 'https://t.me/i/userpic/320/IgoreshaGeser.jpg'
+}
+
 export default {
   name: 'Main',
   methods: {
     goTo(url) {
       this.$router.push({ path: url })
+    },
+    authUser() {
+      this.$store.commit('setCurrentUser', mockData)
+      localStorage.setItem('user', JSON.stringify(mockData))
     }
   },
   computed: {
