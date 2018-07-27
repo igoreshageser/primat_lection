@@ -121,6 +121,9 @@ export default {
     }
   },
   mounted () {
+    /**
+     * tg widget hack ;)
+     */
     const [ iframe ] = document.getElementsByTagName('iframe')
     const newFrame = iframe.cloneNode(true)
     const layout = document.getElementById('layout-wrapper')
@@ -128,6 +131,11 @@ export default {
 
     layout.insertBefore(newFrame, iframeWrapper)
     iframe.remove()
+
+    window.onTelegramAuth = user => {
+      console.log(user)
+    }
+
   }
 }
 </script>
