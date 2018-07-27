@@ -132,7 +132,11 @@ export default {
     layout.insertBefore(newFrame, iframeWrapper)
     iframe.remove()
 
-    window.onTelegramAuth = user => {
+    // window.onTelegramAuth = user => {
+    //   console.log(user)
+    // }
+
+    Window.onTelegramAuth = function(user) {
       console.log(user)
     }
 
