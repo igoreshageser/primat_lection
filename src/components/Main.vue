@@ -136,7 +136,7 @@ export default {
     //   console.log(user)
     // }
 
-    Window.onTelegramAuth = function(user) {
+    window.onTelegramAuth = function(user) {
       console.log(user)
     }
 
