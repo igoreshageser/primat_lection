@@ -5,6 +5,7 @@
       <section>
         <v-parallax :src="getImg" height="600">
           <v-layout
+            id="layout-wrapper"
             column
             align-center
             justify-center
@@ -13,14 +14,15 @@
             <img src="../assets/img/logo.png" alt="logo" height="400">
             <!-- <h1 class="white--text mb-2 display-1 text-xs-center">Parallax Template</h1> -->
             <div class="subheading mb-3 text-xs-center">Все твои лекции в одном месте</div>
-            <v-btn
+            <div id="iframe-wrapper" class="mt-5"></div>
+            <!-- <v-btn
               class="blue lighten-2 mt-5"
               dark
               large
               @click="authUser"
             >
               Авторизоваться
-            </v-btn>
+            </v-btn> -->
           </v-layout>
         </v-parallax>
       </section>
@@ -117,6 +119,15 @@ export default {
     getImg() {
       return require('@/assets/img/blueparallax.jpg')
     }
+  },
+  mounted () {
+    const [ iframe ] = document.getElementsByTagName('iframe')
+    const newFrame = iframe.cloneNode(true)
+    const layout = document.getElementById('layout-wrapper')
+    const iframeWrapper = document.getElementById('iframe-wrapper')
+
+    layout.insertBefore(newFrame, iframeWrapper)
+    iframe.remove()
   }
 }
 </script>
