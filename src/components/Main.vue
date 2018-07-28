@@ -14,7 +14,7 @@
             <img src="../assets/img/logo.png" alt="logo" height="400">
             <div class="subheading mb-3 text-xs-center">Все твои лекции в одном месте</div>
             <div id="iframe-wrapper" class="mt-5">
-              <TelegramLogin />
+              <TelegramLogin v-if="!userAuth" />
             </div>
             <!-- <v-btn
               class="blue lighten-2 mt-5"
@@ -99,6 +99,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import TelegramLogin from '../components/Main/TelegramLogin'
 
 export default {
@@ -112,6 +113,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['userAuth']),
     getImg() {
       return require('@/assets/img/blueparallax.jpg')
     }
