@@ -14,7 +14,9 @@
             <img src="../assets/img/logo.png" alt="logo" height="400">
             <!-- <h1 class="white--text mb-2 display-1 text-xs-center">Parallax Template</h1> -->
             <div class="subheading mb-3 text-xs-center">Все твои лекции в одном месте</div>
-            <div id="iframe-wrapper" class="mt-5"></div>
+            <div id="iframe-wrapper" class="mt-5">
+              <TelegramLogin />
+            </div>
             <!-- <v-btn
               class="blue lighten-2 mt-5"
               dark
@@ -98,6 +100,7 @@
 </template>
 
 <script>
+import TelegramLogin from '../components/Main/TelegramLogin'
 
 const mockData = {
   username: 'IgoreshaGeser',
@@ -106,6 +109,9 @@ const mockData = {
 
 export default {
   name: 'Main',
+  components: {
+    TelegramLogin
+  },
   methods: {
     goTo(url) {
       this.$router.push({ path: url })
@@ -124,21 +130,21 @@ export default {
     /**
      * tg widget hack ;)
      */
-    const [ iframe ] = document.getElementsByTagName('iframe')
-    const newFrame = iframe.cloneNode(true)
-    const layout = document.getElementById('layout-wrapper')
-    const iframeWrapper = document.getElementById('iframe-wrapper')
+    // const [ iframe ] = document.getElementsByTagName('iframe')
+    // const newFrame = iframe.cloneNode(true)
+    // const layout = document.getElementById('layout-wrapper')
+    // const iframeWrapper = document.getElementById('iframe-wrapper')
 
-    layout.insertBefore(newFrame, iframeWrapper)
-    iframe.remove()
+    // layout.insertBefore(newFrame, iframeWrapper)
+    // iframe.remove()
 
     // window.onTelegramAuth = user => {
     //   console.log(user)
     // }
 
-    window.onTelegramAuth = function(user) {
-      console.log(user)
-    }
+    // window.onTelegramAuth = function(user) {
+    //   console.log(user)
+    // }
 
   }
 }

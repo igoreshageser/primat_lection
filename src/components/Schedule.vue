@@ -20,7 +20,7 @@
 import { getSchedule } from '../api/schedule'
 import { getWeekNumber } from '../api/getWeekNumber'
 
-import Spinner from './Spinner'
+import Spinner from '../components/Common/Spinner'
 import ListWrapper from './Schedule/list/ListWrapper'
 import TableWrapper from './Schedule/table/TableWrapper'
 
