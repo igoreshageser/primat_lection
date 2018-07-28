@@ -47,8 +47,8 @@ export default {
       return ''
     },
     getUserAvatar() {
-      if (this.currentUser.avatar) {
-        return this.currentUser.avatar
+      if (this.currentUser.photo_url) {
+        return this.currentUser.photo_url
       }
       return ''
     }
