@@ -12,7 +12,6 @@
             class="white--text"
           >
             <img src="../assets/img/logo.png" alt="logo" height="400">
-            <!-- <h1 class="white--text mb-2 display-1 text-xs-center">Parallax Template</h1> -->
             <div class="subheading mb-3 text-xs-center">Все твои лекции в одном месте</div>
             <div id="iframe-wrapper" class="mt-5">
               <TelegramLogin />
@@ -102,11 +101,6 @@
 <script>
 import TelegramLogin from '../components/Main/TelegramLogin'
 
-const mockData = {
-  username: 'IgoreshaGeser',
-  avatar: 'https://t.me/i/userpic/320/IgoreshaGeser.jpg'
-}
-
 export default {
   name: 'Main',
   components: {
@@ -115,37 +109,12 @@ export default {
   methods: {
     goTo(url) {
       this.$router.push({ path: url })
-    },
-    authUser() {
-      this.$store.commit('setCurrentUser', mockData)
-      localStorage.setItem('user', JSON.stringify(mockData))
     }
   },
   computed: {
     getImg() {
       return require('@/assets/img/blueparallax.jpg')
     }
-  },
-  mounted () {
-    /**
-     * tg widget hack ;)
-     */
-    // const [ iframe ] = document.getElementsByTagName('iframe')
-    // const newFrame = iframe.cloneNode(true)
-    // const layout = document.getElementById('layout-wrapper')
-    // const iframeWrapper = document.getElementById('iframe-wrapper')
-
-    // layout.insertBefore(newFrame, iframeWrapper)
-    // iframe.remove()
-
-    // window.onTelegramAuth = user => {
-    //   console.log(user)
-    // }
-
-    // window.onTelegramAuth = function(user) {
-    //   console.log(user)
-    // }
-
   }
 }
 </script>

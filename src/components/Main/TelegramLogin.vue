@@ -9,7 +9,11 @@ export default {
   name: 'TelegramLogin',
   methods: {
     onTelegramAuth (user) {
-      console.log(user)
+      this.saveUser(user)
+    },
+    saveUser(user) {
+      this.$store.commit('setCurrentUser', user)
+      localStorage.setItem('user', JSON.stringify(user))
     }
   },
   mounted() {
