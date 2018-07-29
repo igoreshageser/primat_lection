@@ -12,7 +12,7 @@
               <td>
                 <div class="timeline">
                   <div class="timeline-count">
-                    {{ dayIndex + 1 }}
+                    {{ dayIndex }}
                   </div>
                   <div class="timeline-hour">
                     {{ getTimeLine(dayIndex) }}

@@ -22,9 +22,9 @@
            </ul>
          </div>
       </div>
-      <div class="lesson-container-more__map" v-if="lections && getLocation()">
-        <Map :location="getLocation()" />
-      </div>
+      <!-- <div class="lesson-container-more__map" v-if="lections && getLocation()"> -->
+        <!-- <Map :location="getLocation()" /> -->
+      <!-- </div> -->
     </div>
   </div>
 </template>

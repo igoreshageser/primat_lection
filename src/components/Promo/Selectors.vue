@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { getAllFlow } from '../../api/getFlow'
+import { getAllFlow } from '../../api/flow'
 import { getAbstractFlowItems } from '../../api/abstract'
 
 export default {

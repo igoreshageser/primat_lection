@@ -18,7 +18,7 @@
 
 <script>
 import { getSchedule } from '../api/schedule'
-import { getWeekNumber } from '../api/getWeekNumber'
+import { getWeekNumber } from '../api/week-number.js'
 
 import Spinner from '../components/Common/Spinner'
 import ListWrapper from './Schedule/list/ListWrapper'
