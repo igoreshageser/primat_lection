@@ -1,32 +1,15 @@
 <template>
   <v-content>
-    <!-- <v-container fluid>
-      <v-layout row>
-        <v-flex xs12>
-            <v-select
-            autocomplete
-            label="Async items"
-            :loading="loading"
-            :items="groups"
-            item-text="group_full_name"
-            item-value="group_id"
-            :search-input.sync="groupString"
-            v-model="groupSelect"
-          ></v-select>
-        </v-flex>
-      </v-layout>
-      </v-container> -->
-
     <v-stepper v-model="e6" vertical>
       <v-stepper-step :complete="e6 > 1" step="1">
-        Select an app
-        <small>Summarize if needed</small>
+        Группа
       </v-stepper-step>
 
       <v-stepper-content step="1">
          <v-select
             autocomplete
-            label="Async items"
+            label="Выбери свою группу"
+            placeholder="Начни вводить название своей группы"
             :loading="loading"
             :items="groups"
             item-text="group_full_name"
@@ -34,13 +17,15 @@
             :search-input.sync="groupString"
             v-model="groupSelect">
           </v-select>
-        <v-btn color="primary" @click="e6 = 2">Continue</v-btn>
-        <v-btn flat @click="e6 = 1">Canceuul</v-btn>
+
+        <v-btn color="primary" :disabled="isGroupSelectValid" @click="checkUserGroup">Continue</v-btn>
+        <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
 
       <v-stepper-step :complete="e6 > 2" step="2">Configure analytics for this app</v-stepper-step>
 
       <v-stepper-content step="2">
+        <SpinnerWave v-if="loading" />
         <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
         <v-btn color="primary" @click="e6 = 3">Continue</v-btn>
         <v-btn flat @click="e6 = 1">Cancel</v-btn>
@@ -65,9 +50,12 @@
 </template>
 
 <script>
+import { getGroup } from '../api/auth'
 import { getAllGroups } from '../api/groups'
 
 import { debounce } from '../helpers/debounce'
+
+import SpinnerWave from '../components/Common/Spinner'
 
 export default {
   name: 'test',
@@ -80,19 +68,36 @@ export default {
     // step
     e6: 1
   }),
+  components: {
+    SpinnerWave
+  },
   methods: {
     fetchGroups() {
-      const params = this.searchParam
+      if (!this.searchParam) return
       this.loading = true
+      const params = this.searchParam
       getAllGroups(params)
         .then(({ data }) => (this.groups = data))
         .catch(err => console.log(err))
         .finally(() => (this.loading = false))
+    },
+    checkUserGroup() {
+      const id = this.groupSelect
+      this.e6 = 2
+      this.loading = true
+      getGroup(id).then(d => console.log(d)).then(() => this.loading = false).catch(err => console.log(err))
     }
   },
   computed: {
     searchParam() {
-      return { search: { query: this.groupString } }
+      if (this.groupString) {
+        return { search: { query: this.groupString } }
+      }
+      return null
+    },
+    // stepper validate
+    isGroupSelectValid() {
+      return !this.groupSelect
     }
   },
   watch: {
@@ -103,7 +108,7 @@ export default {
     }
   },
   created() {
-    this.debouncedFetch = debounce(this.fetchGroups, 2000)
+    this.debouncedFetch = debounce(this.fetchGroups, 1000)
   }
 }
 </script>
