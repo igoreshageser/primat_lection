@@ -22,26 +22,43 @@
         <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
 
-      <v-stepper-step :complete="e6 > 2" step="2">Configure analytics for this app</v-stepper-step>
+      <v-stepper-step :complete="e6 > 2" step="2">Определить группу</v-stepper-step>
 
       <v-stepper-content step="2">
         <SpinnerWave v-if="loading" />
-        <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
+        <div>
+          <p v-if="step2.errorMessage" class="orange--text darken-4">Упс, мы нашли несколько похожих групп, выбери свою, пожалуйста.</p>
+          <p v-else class="green--text accent-4">Отлично! Мы нашли твою группу!</p>
+        </div>
         <v-btn color="primary" @click="e6 = 3">Continue</v-btn>
-        <v-btn flat @click="e6 = 1">Cancel</v-btn>
+        <v-btn flat @click="e6 = 3">Cancel</v-btn>
       </v-stepper-content>
 
-      <v-stepper-step :complete="e6 > 3" step="3">Select an ad format and name ad unit</v-stepper-step>
+      <v-stepper-step :complete="e6 > 3" step="3">Определить курс</v-stepper-step>
 
       <v-stepper-content step="3">
-        <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
+        <v-select
+          v-if="step3.showCourseSelect"
+          autocomplete
+          label="Выбери свой курс"
+          :loading="loading"
+          :items="courses"
+          v-model="courseSelect">
+        </v-select>
+        <p v-else class="green--text accent-4">Отлично! Теперь мы знаем с какого ты курса.</p>
         <v-btn color="primary" @click="e6 = 4">Continue</v-btn>
         <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
 
-      <v-stepper-step step="4">View setup instructions</v-stepper-step>
+      <v-stepper-step step="4">Регистрация</v-stepper-step>
       <v-stepper-content step="4">
-        <v-card color="grey lighten-1" class="mb-5" height="200px"></v-card>
+        <div class="mb-5">
+          <p>Давай проверим то, что мы о тебе узнали</p>
+          <div>
+            <p><strong>Группа:</strong> КВ - 51</p>
+            <p><strong>Курс:</strong> 4</p>
+          </div>
+        </div>
         <v-btn color="primary" @click="e6 = 1">Continue</v-btn>
         <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
@@ -61,10 +78,23 @@ export default {
   name: 'test',
   data: () => ({
     groups: [],
+    courses: [1, 2, 3, 4, 5],
     loading: false,
+
     groupString: '',
     groupSelect: '',
+    courseSelect: '',
+    userGroup: {},
 
+    step2: {
+      successMessage: false,
+      valid: false
+    },
+
+    step3: {
+      showCourseSelect: false,
+      valid: false
+    },
     // step
     e6: 1
   }),
@@ -85,7 +115,23 @@ export default {
       const id = this.groupSelect
       this.e6 = 2
       this.loading = true
-      getGroup(id).then(d => console.log(d)).then(() => this.loading = false).catch(err => console.log(err))
+      getGroup(id)
+        .then(({ data }) => {
+          this.loading = false
+          this.stateCheck(data)
+        })
+        .catch(err => console.log(err))
+    },
+    stateCheck(groupObj) {
+      if (typeof groupObj === 'object') {
+        this.step2.successMessage = true
+        this.userGroup = groupObj
+        if (!groupObj.course) {
+          this.step3.showCourseSelect = true
+        }
+      } else if (Array.isArray(groupObj)) {
+        this.step2.errorMessage = true
+      }
     }
   },
   computed: {
@@ -112,6 +158,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>
