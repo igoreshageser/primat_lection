@@ -22,8 +22,7 @@ Vue.use(VueGoogleMaps, {
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
   store,
   router,
   render: h => h(App)
-})
+}).$mount('#app')
