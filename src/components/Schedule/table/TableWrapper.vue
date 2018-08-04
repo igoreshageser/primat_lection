@@ -4,13 +4,13 @@
         <div class="week-count">
           <span>{{ index + 1}} неделя</span>
         </div>
-        <Table :table="table" :isCurrentWeek="isCurrentWeek(index)"></Table>
+        <table-view :table="table" :isCurrentWeek="isCurrentWeek(index)"></table-view>
       </div>
    </div>
 </template>
 
 <script>
-import Table from './Table'
+import TableView from './Table'
 
 export default {
   name: 'List-Wrapper',
@@ -23,7 +23,7 @@ export default {
     }
   },
   components: {
-    Table
+    TableView
   },
   computed: {
     getTables() {

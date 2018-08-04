@@ -2,7 +2,7 @@
   <div v-if="isShowDay" class="day-wrapper">
     <span class="day-dayName">{{ getDayName }}</span>
     <div  v-for="(lesson, index) in getDayLessons" :key="index">
-      <Lesson :lesson="lesson" />
+      <lesson :lesson="lesson" />
     </div>
   </div>
 </template>

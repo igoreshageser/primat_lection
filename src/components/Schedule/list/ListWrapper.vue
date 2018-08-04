@@ -4,7 +4,7 @@
       <div class="week-count">
         <span>{{ index }} неделя</span>
       </div>
-      <Week :week="list" />
+      <week :week="list" />
     </div>
    </div>
 </template>

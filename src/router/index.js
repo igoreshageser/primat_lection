@@ -6,6 +6,7 @@ import Schedule from '@/components/Schedule'
 import Main from '@/components/Main'
 import ErrorPage from '@/components/Error'
 import Test from '@/components/Test'
+import newTest from '@/components/newTest'
 
 Vue.use(Router)
 
@@ -30,7 +31,7 @@ export default new Router({
     {
       path: '/test',
       name: 'test',
-      component: Test
+      component: newTest
     },
     {
       path: '*',

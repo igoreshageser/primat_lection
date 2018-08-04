@@ -55,8 +55,8 @@
         <div class="mb-5">
           <p>Давай проверим то, что мы о тебе узнали</p>
           <div>
-            <p><strong>Группа:</strong> КВ - 51</p>
-            <p><strong>Курс:</strong> 4</p>
+            <p><strong>Группа:</strong> {{ userGroup.group }}</p>
+            <p><strong>Курс:</strong> {{ userGroup.course }}</p>
           </div>
         </div>
         <v-btn color="primary" @click="e6 = 1">Continue</v-btn>
@@ -128,6 +128,8 @@ export default {
         this.userGroup = groupObj
         if (!groupObj.course) {
           this.step3.showCourseSelect = true
+        } else {
+          this.e6 = 3
         }
       } else if (Array.isArray(groupObj)) {
         this.step2.errorMessage = true

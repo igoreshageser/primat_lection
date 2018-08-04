@@ -2,7 +2,7 @@
 <div class="wrapper">
    <div class="promo">
       <div class="typewriter">
-         <Mouse />
+         <mouse />
          <h3>
             Не можешь найти лекцию?
             Поможем!
@@ -10,10 +10,10 @@
       </div>
    </div>
    <div>
-     <Selectors  @getLection="getLection"/>
+     <selectors  @getLection="getLection"/>
    </div>
    <div>
-     <Tree :lections="lections" />
+     <tree :lections="lections" />
    </div>
 </div>
 </template>

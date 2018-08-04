@@ -1,6 +1,6 @@
 <template>
   <div>
-      <Day v-for="(day, index) in week.days" :day="day" :key="index" />
+      <day v-for="(day, index) in week.days" :day="day" :key="index" />
   </div>
 </template>
 
