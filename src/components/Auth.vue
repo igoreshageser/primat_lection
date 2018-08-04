@@ -1,30 +1,42 @@
 <template>
-  <v-content>
-    <v-stepper v-model="step" vertical>
-
-      <!-- first step -->
-      <v-stepper-step :complete="step > 1" step="1">
-        Группа
-      </v-stepper-step>
-
-      <v-stepper-content step="1">
-        <spinner-wave v-if="groupLoading" />
-         <v-select
-            v-else
-            prepend-icon="group"
-            autocomplete
-            label="Выбери свою группу"
-            placeholder="Начни вводить название своей группы"
-            :loading="loading"
-            :items="groups"
-            item-text="group_full_name"
-            item-value="group_id"
-            :search-input.sync="groupString"
-            v-model="groupSelect">
-          </v-select>
-        <v-btn color="primary" :disabled="isGroupSelectValid" @click="checkUserGroup">Continue</v-btn>
-        <v-btn flat>Cancel</v-btn>
-      </v-stepper-content>
+<v-content>
+  <v-layout
+    column
+    wrap>
+    <v-flex xs12 class="my-3">
+        <div class="text-xs-center">
+          <h2 class="headline">
+              Приветствуем!
+          </h2>
+          <span class="subheading">
+          Заполнением формы, ты обеспечиваешь себе более комфортное использование бота
+          </span>
+        </div>
+    </v-flex>
+    <v-flex xs12 md4>
+        <v-stepper v-model="step" vertical>
+          <!-- first step -->
+          <v-stepper-step :complete="step > 1" step="1">
+              Группа
+          </v-stepper-step>
+          <v-stepper-content step="1">
+              <spinner-wave v-if="groupLoading" />
+              <v-select
+                v-else
+                prepend-icon="group"
+                autocomplete
+                label="Выбери свою группу"
+                placeholder="Начни вводить название своей группы"
+                :loading="loading"
+                :items="groups"
+                item-text="group_full_name"
+                item-value="group_id"
+                :search-input.sync="groupString"
+                v-model="groupSelect">
+              </v-select>
+              <v-btn color="primary" :disabled="isGroupSelectValid" @click="checkUserGroup">Continue</v-btn>
+              <v-btn flat>Cancel</v-btn>
+          </v-stepper-content>
 
       <!-- second step -->
       <v-stepper-step :complete="step > 2" step="2">Определить курс</v-stepper-step>
@@ -55,6 +67,8 @@
       </v-stepper-content>
 
   </v-stepper>
+    </v-flex>
+  </v-layout>
   </v-content>
 </template>
 
