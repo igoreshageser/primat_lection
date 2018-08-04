@@ -5,8 +5,7 @@ import Promo from '@/components/Promo'
 import Schedule from '@/components/Schedule'
 import Main from '@/components/Main'
 import ErrorPage from '@/components/Error'
-import Test from '@/components/Test'
-import newTest from '@/components/newTest'
+import Auth from '@/components/Auth'
 
 Vue.use(Router)
 
@@ -29,9 +28,9 @@ export default new Router({
       component: Schedule
     },
     {
-      path: '/test',
-      name: 'test',
-      component: newTest
+      path: '/auth',
+      name: 'auth',
+      component: Auth
     },
     {
       path: '*',

@@ -10,6 +10,8 @@
       <v-stepper-content step="1">
         <spinner-wave v-if="groupLoading" />
          <v-select
+            v-else
+            prepend-icon="group"
             autocomplete
             label="Выбери свою группу"
             placeholder="Начни вводить название своей группы"
@@ -29,12 +31,27 @@
 
       <v-stepper-content step="2">
         <v-select
+          prepend-icon="class"
           label="Выбери свой курс"
           :items="courses"
           v-model="courseSelect">
         </v-select>
-        <v-btn color="primary" @click="step = 3">Continue</v-btn>
-        <v-btn flat @click="step = 3">Cancel</v-btn>
+        <v-btn color="primary" @click="courseSave">Continue</v-btn>
+        <v-btn flat @click="step = 2">Cancel</v-btn>
+      </v-stepper-content>
+
+      <!-- third step -->
+      <v-stepper-step step="3">Регистрация</v-stepper-step>
+      <v-stepper-content step="3">
+        <div class="mb-5">
+          <p>Давай проверим то, что мы о тебе узнали</p>
+          <div>
+            <p><strong>Группа:</strong> {{ userGroup.group }}</p>
+            <p><strong>Курс:</strong> {{ userGroup.course }}</p>
+          </div>
+        </div>
+        <v-btn color="primary" @click="submitHandler">Continue</v-btn>
+        <v-btn flat>Cancel</v-btn>
       </v-stepper-content>
 
   </v-stepper>
@@ -42,6 +59,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { getGroup } from '../api/auth'
 import { getAllGroups } from '../api/groups'
 
@@ -70,6 +88,7 @@ export default {
     SpinnerWave
   },
   computed: {
+    ...mapState(['currentUser']),
     searchParam() {
       if (this.groupString) {
         return { search: { query: this.groupString } }
@@ -100,16 +119,26 @@ export default {
           this.userGroup = data
           this.groupCheck(data)
           this.groupLoading = false
+          console.log(data)
         })
         .catch(err => console.log(err))
     },
-    groupCheck (group) {
+    groupCheck(group) {
       if (!group.course) {
         this.step = 2
       } else {
         this.step = 3
         this.courseSelect = group.course
       }
+    },
+    courseSave() {
+      this.userGroup.course = this.courseSelect
+      this.step = 3
+    },
+    submitHandler() {
+      const { currentUser, userGroup } = this
+      const userObj = { ...currentUser, ...userGroup }
+      console.log(userObj)
     }
   },
   watch: {
@@ -123,4 +152,35 @@ export default {
     this.debouncedFetch = debounce(this.fetchGroups, 1000)
   }
 }
+
+//  tgId: {
+//     type: String,
+//     required: true,
+//     unique: true,
+//   },
+//   username: String,
+//   firstName: { type: String, required: true },
+//   lastName: String,
+//   group: {
+//     type: String,
+//     lowercase: true,
+//     // match: /^[А-яіє]{2,4}-[А-яіє]{0,2}[0-9]{2,3}[А-яіє]?\(?[А-яіє]*\)?\.?$/i,
+//     trim: true,
+//   },
+//   role: { type: String, required: true },
+//   groupId: Number,
+//   groupOkr: String,
+//   groupType: String,
+//   groupScheduleUrl: String,
+//   flow: {
+//     type: String,
+//     lowercase: true,
+//     trim: true,
+//   },
+//   course: {
+//     type: Number,
+//     min: 1,
+//     max: 6,
+//     trim: true,
+
 </script>
