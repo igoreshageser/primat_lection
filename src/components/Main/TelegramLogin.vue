@@ -17,6 +17,8 @@ export default {
       const { id } = user
       getUser(id)
         .then(data => {
+          console.log(data)
+          console.log(data === 'Not found')
           if (data === 'Not found') {
             this.$router.push({ name: 'login' })
           } else {
