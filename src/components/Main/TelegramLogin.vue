@@ -20,8 +20,8 @@ export default {
           if (data === 'Not found') {
             this.$router.push({ name: 'login' })
           } else {
-            const { _doc } = data
-            const userObj = { _doc, ...user }
+            const { _doc : botData } = data
+            const userObj = { ...botData, ...user }
             this.$store.commit('setCurrentUser', userObj)
             localStorage.setItem('user', JSON.stringify(userObj))
           }
