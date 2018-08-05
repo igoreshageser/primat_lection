@@ -11,7 +11,6 @@ export default {
   name: 'TelegramLogin',
   methods: {
     onTelegramAuth (user) {
-      // this.saveUser(user)
       this.authHanlder(user)
     },
     authHanlder(user) {

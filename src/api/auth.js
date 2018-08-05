@@ -4,7 +4,6 @@ import { DEV_KPIBOT_URL } from '../../.env.js'
 const entity = 'auth'
 
 /**
- * @deprecated
  * @param {*} tgId
  */
 export function getUser(tgId) {
@@ -21,6 +20,18 @@ export function getUser(tgId) {
           console.log(err)
         }
       })
+  })
+}
+
+export function createUser(data) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${DEV_KPIBOT_URL}${entity}/`)
+      .then(d => {
+        console.log(d)
+        resolve(d)
+      })
+      .catch(err => reject(err))
   })
 }
 

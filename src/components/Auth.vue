@@ -74,10 +74,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import { getGroup } from '../api/auth'
+
+import { getGroup, createUser } from '../api/auth'
 import { getAllGroups } from '../api/groups'
 
 import { debounce } from '../helpers/debounce'
+import { createUserData } from '../helpers/createData'
 
 import SpinnerWave from '../components/Common/Spinner'
 
@@ -152,7 +154,7 @@ export default {
     submitHandler() {
       const { currentUser, userGroup } = this
       const userObj = { ...currentUser, ...userGroup }
-      console.log(userObj)
+      console.log(createUserData(userObj))
     }
   },
   watch: {
@@ -166,35 +168,5 @@ export default {
     this.debouncedFetch = debounce(this.fetchGroups, 1000)
   }
 }
-
-//  tgId: {
-//     type: String,
-//     required: true,
-//     unique: true,
-//   },
-//   username: String,
-//   firstName: { type: String, required: true },
-//   lastName: String,
-//   group: {
-//     type: String,
-//     lowercase: true,
-//     // match: /^[А-яіє]{2,4}-[А-яіє]{0,2}[0-9]{2,3}[А-яіє]?\(?[А-яіє]*\)?\.?$/i,
-//     trim: true,
-//   },
-//   role: { type: String, required: true },
-//   groupId: Number,
-//   groupOkr: String,
-//   groupType: String,
-//   groupScheduleUrl: String,
-//   flow: {
-//     type: String,
-//     lowercase: true,
-//     trim: true,
-//   },
-//   course: {
-//     type: Number,
-//     min: 1,
-//     max: 6,
-//     trim: true,
 
 </script>
