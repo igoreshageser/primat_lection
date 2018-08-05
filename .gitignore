@@ -7,6 +7,7 @@ yarn-error.log*
 /test/e2e/reports/
 selenium-debug.log
 ecosystem.config.js
+commit.bash
 
 # Editor directories and files
 .idea
