@@ -14,9 +14,8 @@ export default {
       this.saveUser(user)
     },
     saveUser(user) {
-      console.log(user)
       const { id } = user
-      getUser(id).then(d => console.log(d))
+      getUser(id).then(d => console.log(d)).catch(err => console.log(err))
       // this.$store.commit('setCurrentUser', user)
       // localStorage.setItem('user', JSON.stringify(user))
     }

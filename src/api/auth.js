@@ -9,12 +9,18 @@ const entity = 'auth'
  */
 export function getUser(tgId) {
   return new Promise((resolve, reject) => {
-    const t = 4
     axios
-      .get(`${DEV_KPIBOT_URL}${entity}/login/${t}`)
-      .then(d => console.log(d))
-      .then(() => resolve())
-      .catch(err => reject(err))
+      .get(`${DEV_KPIBOT_URL}${entity}/login/${tgId}`)
+      .then(({ data }) => resolve(data))
+      .catch(err => {
+        const { message } = err.response.data
+        if (message === 'User with such telegram id is not registered') {
+          resolve('Not found')
+        } else {
+          reject(err)
+          console.log(err)
+        }
+      })
   })
 }
 
