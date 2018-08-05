@@ -9,8 +9,9 @@ const entity = 'auth'
  */
 export function getUser(tgId) {
   return new Promise((resolve, reject) => {
+    const t = 4
     axios
-      .get(`${DEV_KPIBOT_URL}${entity}/login/${tgId}`)
+      .get(`${DEV_KPIBOT_URL}${entity}/login/${t}`)
       .then(d => console.log(d))
       .then(() => resolve())
       .catch(err => reject(err))
