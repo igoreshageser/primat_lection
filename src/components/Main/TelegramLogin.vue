@@ -14,12 +14,11 @@ export default {
       this.saveUser(user)
     },
     saveUser(user) {
-      // const { id } = user
-      const id = 1212
+      const { id } = user
       getUser(id)
         .then(data => {
           if (data === 'Not found') {
-            this.$router.push({ name: 'user' })
+            this.$router.push({ name: 'login' })
           }
         })
         .catch(err => console.log(err))
@@ -39,9 +38,6 @@ export default {
     script.setAttribute('data-onauth', 'window.onTelegramAuth(user)')
 
     this.$refs.telegram.appendChild(script)
-
-    // test
-    this.saveUser()
   }
 }
 </script>
