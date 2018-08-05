@@ -14,8 +14,15 @@ export default {
       this.saveUser(user)
     },
     saveUser(user) {
-      const { id } = user
-      getUser(id).then(d => console.log(d)).catch(err => console.log(err))
+      // const { id } = user
+      const id = 1212
+      getUser(id)
+        .then(data => {
+          if (data === 'Not found') {
+            this.$router.push({ name: 'user' })
+          }
+        })
+        .catch(err => console.log(err))
       // this.$store.commit('setCurrentUser', user)
       // localStorage.setItem('user', JSON.stringify(user))
     }
@@ -32,6 +39,9 @@ export default {
     script.setAttribute('data-onauth', 'window.onTelegramAuth(user)')
 
     this.$refs.telegram.appendChild(script)
+
+    // test
+    this.saveUser()
   }
 }
 </script>

@@ -14,12 +14,14 @@ export function getUser(tgId) {
       .then(({ data }) => resolve(data))
       .catch(err => {
         const { message } = err.response.data
-        if (message === 'User with such telegram id is not registered') {
-          resolve('Not found')
-        } else {
-          reject(err)
-          console.log(err)
-        }
+        resolve('Not found')
+        console.log('resolve')
+        // if (message === 'User with such telegram id is not registered') {
+        //   resolve('Not found')
+        // } else {
+        //   reject(err)
+        //   console.log(err)
+        // }
       })
   })
 }
