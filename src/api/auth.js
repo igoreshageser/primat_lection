@@ -13,15 +13,12 @@ export function getUser(tgId) {
       .get(`${DEV_KPIBOT_URL}${entity}/login/${tgId}`)
       .then(({ data }) => resolve(data))
       .catch(err => {
-        const { message } = err.response.data
-        console.log('-----')
-        console.log(message)
-        console.log('------')
-        if (message === 'User with such telegram id is not registered') {
+        const { data } = err.response
+        if (data === 'User with such telegram id is not registered') {
           resolve('Not found')
         } else {
           reject(err)
-          // console.log(err)
+          console.log(err)
         }
       })
   })
