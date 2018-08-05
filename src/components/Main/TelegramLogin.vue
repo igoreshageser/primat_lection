@@ -19,11 +19,13 @@ export default {
         .then(data => {
           if (data === 'Not found') {
             this.$router.push({ name: 'login' })
+          } else {
+            const userObj = {...data, user }
+            this.$store.commit('setCurrentUser', user)
+            localStorage.setItem('user', JSON.stringify(user))
           }
         })
         .catch(err => console.log(err))
-      // this.$store.commit('setCurrentUser', user)
-      // localStorage.setItem('user', JSON.stringify(user))
     }
   },
   mounted() {
