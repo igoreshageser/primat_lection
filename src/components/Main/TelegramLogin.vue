@@ -5,6 +5,8 @@
 <script>
 import { BOT_DOMEN } from '../../../.env'
 
+import { getUser } from '../../api/auth'
+
 export default {
   name: 'TelegramLogin',
   methods: {
@@ -12,8 +14,11 @@ export default {
       this.saveUser(user)
     },
     saveUser(user) {
-      this.$store.commit('setCurrentUser', user)
-      localStorage.setItem('user', JSON.stringify(user))
+      console.log(user)
+      const { id } = user
+      getUser(id).then(d => console.log(d))
+      // this.$store.commit('setCurrentUser', user)
+      // localStorage.setItem('user', JSON.stringify(user))
     }
   },
   mounted() {
