@@ -11,24 +11,27 @@ export default {
   name: 'TelegramLogin',
   methods: {
     onTelegramAuth (user) {
-      this.saveUser(user)
+      // this.saveUser(user)
+      this.authHanlder(user)
     },
-    saveUser(user) {
+    authHanlder(user) {
       const { id } = user
       getUser(id)
         .then(data => {
-          console.log(data)
-          console.log(data === 'Not found')
           if (data === 'Not found') {
+            this.saveUser(user)
             this.$router.push({ name: 'login' })
           } else {
             const { _doc: botData } = data
             const userObj = { ...botData, ...user }
-            this.$store.commit('setCurrentUser', userObj)
-            localStorage.setItem('user', JSON.stringify(userObj))
+            this.saveUser(userObj)
           }
         })
         .catch(err => console.log(err))
+    },
+    saveUser(userObj) {
+      this.$store.commit('setCurrentUser', userObj)
+      localStorage.setItem('user', JSON.stringify(userObj))
     }
   },
   mounted() {
