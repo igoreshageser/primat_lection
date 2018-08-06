@@ -23,7 +23,7 @@ export function createUserData(userData) {
     tgId: userData.id,
     username: userData.username,
     firstName: userData.first_name,
-    secondName: userData.last_name,
+    lastName: userData.last_name,
     group: userData.group,
     role: 'Student',
     groupId: userData.groupId,
