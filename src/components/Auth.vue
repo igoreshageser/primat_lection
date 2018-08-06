@@ -156,6 +156,7 @@ export default {
       const userObj = { ...currentUser, ...userGroup }
       const newUser = createUserData(userObj)
 
+      console.log(newUser)
       createUser(newUser)
         .then(d => console.log(d))
         .catch(err => console.log(err))

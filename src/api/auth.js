@@ -24,8 +24,8 @@ export function getUser(tgId) {
 }
 
 export function createUser(data) {
-  const params = { ...data }
   return new Promise((resolve, reject) => {
+    const params = { ...data }
     axios
       .post(`${DEV_KPIBOT_URL}${entity}/`, { params })
       .then(d => {
