@@ -170,6 +170,7 @@ export default {
   },
   created() {
     this.debouncedFetch = debounce(this.fetchGroups, 1000)
+    this.submitHandler()
   }
 }
 
