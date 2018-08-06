@@ -18,10 +18,11 @@ export function createUserData(userData) {
   if (!validator(userData)) {
     throw new Error('Empty userField')
   }
+  console.log(userData)
 
   const newUserObj = {
     tgId: userData.id,
-    username: userData.name,
+    username: userData.username,
     firstName: userData.first_name,
     secondName: userData.second_name,
     group: userData.group,
@@ -40,13 +41,7 @@ function validator(userData) {
   const userField = getUserField()
 
   const keys = Object.keys(userData)
-  const keysCheck = userField.every(key => {
-    if (!keys.includes(key)) {
-      console.log(key)
-      return false
-    }
-    return true
-  })
+  const keysCheck = userField.every(key => keys.includes(key))
   const fieldCheck = userField.every(key => userData[key])
 
   if (!keysCheck) console.log('keys')
