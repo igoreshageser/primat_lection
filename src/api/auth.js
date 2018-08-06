@@ -26,10 +26,8 @@ export function getUser(tgId) {
 export function createUser(userData) {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${DEV_KPIBOT_URL}${entity}/`, userData, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
+      .post(`${DEV_KPIBOT_URL}${entity}/`, {
+        body: userData
       })
       .then(d => {
         console.log(d)
