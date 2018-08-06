@@ -47,7 +47,7 @@ function validator(userData) {
     }
     return true
   })
-  const fieldCheck = keys.every(key => userData[key])
+  const fieldCheck = userField.every(key => userData[key])
 
   if (!keysCheck) console.log('keys')
   if (!fieldCheck) console.log('field')
