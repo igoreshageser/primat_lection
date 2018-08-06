@@ -154,7 +154,11 @@ export default {
     submitHandler() {
       const { currentUser, userGroup } = this
       const userObj = { ...currentUser, ...userGroup }
-      console.log(createUserData(userObj))
+      const newUser = createUserData(userObj)
+
+      createUser(newUser)
+        .then(d => console.log(d))
+        .catch(err => console.log(err))
     }
   },
   watch: {

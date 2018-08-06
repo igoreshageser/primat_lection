@@ -18,13 +18,12 @@ export function createUserData(userData) {
   if (!validator(userData)) {
     throw new Error('Empty userField')
   }
-  console.log(userData)
 
   const newUserObj = {
     tgId: userData.id,
     username: userData.username,
     firstName: userData.first_name,
-    secondName: userData.second_name,
+    secondName: userData.last_name,
     group: userData.group,
     role: 'Student',
     groupId: userData.groupId,
@@ -46,7 +45,6 @@ function validator(userData) {
 
   if (!keysCheck) console.log('keys')
   if (!fieldCheck) console.log('field')
-
 
   return keysCheck && fieldCheck
 }
