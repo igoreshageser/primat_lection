@@ -40,8 +40,8 @@ function validator(userData) {
   const userField = getUserField()
 
   const keys = Object.keys(userData)
-  const keysCheck = keys.every(key => {
-    if (!userField.includes(key)) {
+  const keysCheck = userField.every(key => {
+    if (!keys.includes(key)) {
       console.log(key)
       return false
     }
