@@ -33,7 +33,7 @@ export function createUserData(userData) {
     course: userData.course
   }
 
-  return { userData: newUserObj }
+  return { user: newUserObj }
 }
 
 function validator(userData) {
