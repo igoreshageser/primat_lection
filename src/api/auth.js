@@ -23,15 +23,32 @@ export function getUser(tgId) {
   })
 }
 
+// export function createUser(userData) {
+//   return new Promise((resolve, reject) => {
+//     axios
+//       .post(`${DEV_KPIBOT_URL}${entity}/`, userData)
+//       .then(d => {
+//         console.log(d)
+//         resolve(d)
+//       })
+//       .catch(err => reject(err))
+//   })
+// }
+
+
 export function createUser(userData) {
   return new Promise((resolve, reject) => {
-    axios
-      .post(`${DEV_KPIBOT_URL}${entity}/`, userData)
-      .then(d => {
-        console.log(d)
-        resolve(d)
+    axios({
+      method: 'post',
+      url: `${DEV_KPIBOT_URL}${entity}/`,
+      crossdomain: true,
+      data: userData
+    })
+      .then(() => resolve())
+      .catch(err => {
+        console.log(err)
+        reject(err)
       })
-      .catch(err => reject(err))
   })
 }
 
