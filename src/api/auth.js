@@ -1,4 +1,6 @@
 import axios from 'axios'
+import qs from 'qs'
+
 import { DEV_KPIBOT_URL } from '../../.env.js'
 
 const entity = 'auth'
@@ -27,13 +29,21 @@ export function getUser(tgId) {
 
 export function createUser(userData) {
   return new Promise((resolve, reject) => {
-    axios
-      .post(`${DEV_KPIBOT_URL}${entity}/`, userData)
-      .then(d => {
-        console.log(d)
-        resolve(d)
-      })
-      .catch(err => reject(err))
+    axios({
+      method: 'post',
+      url: `${DEV_KPIBOT_URL}${entity}/`,
+      data: qs.stringify(userData),
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+      }
+    })
+    // .post(`${DEV_KPIBOT_URL}${entity}/`, userData)
+    // .then(d => {
+    //   console.log(d)
+    //   resolve(d)
+    // })
+    // .catch(err => reject(err))
+
   })
 }
 
