@@ -52,10 +52,11 @@ export default {
     },
     selectCourse({ text }) {
       const { fetchedData, flowSelector } = this
-      const flow = flowSelector.text
-      if (fetchedData[flow].hasOwnProperty(`${text}`)) {
-        const { semesters } = fetchedData[flow][text]
-        this.semesters = semesters.map(semester => ({ text: semester }))
+      const { text: flow } = flowSelector
+
+      if (fetchedData[flow][text]) {
+        const semesters = fetchedData[flow][text]
+        this.semesters = semesters.sort().map(semester => ({ text: semester }))
       }
     },
     selectSemestr({ text }) {
@@ -75,18 +76,16 @@ export default {
     },
     fetchFlow() {
       getAllFlow()
-        .then(({ data }) => {
-          this.flows = this.parseFlowData(data)
-        })
+        .then(flows => (this.flows = this.parseFlowData(flows)))
         .catch(err => console.log(err))
     },
     fetchLection(param) {
       getAbstractFlowItems(param)
-        .then(({ data }) => this.createTreeDate(data))
+        .then((lections) => this.createTreeDate(lections))
         .catch(err => console.log(err))
     },
     createTreeDate(lection) {
-      let treeData = {
+      const treeData = {
         name: 'Предметы',
         children: []
       }

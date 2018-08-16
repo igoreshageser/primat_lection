@@ -41,10 +41,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .promo {
+  position: relative;
+
   height: 100vh;
   width: 100%;
   background: black;
-  //background: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,7 +80,6 @@ export default {
 @media screen and (max-width: 480px) {
   .typewriter h3 {
     color: #fff;
-    font-family: monospace;
     overflow: hidden;
     margin: 0 auto;
     letter-spacing: 0.15em;
@@ -89,7 +89,6 @@ export default {
 @media screen and (min-width: 481px) {
   .typewriter h3 {
     color: #fff;
-    font-family: monospace;
     overflow: hidden;
     border-right: 0.15em solid orange;
     white-space: nowrap;

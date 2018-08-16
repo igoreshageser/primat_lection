@@ -175,8 +175,10 @@ export function tree(lection) {
       d.children = d._children
       d._children = null
       if (!d.children) {
-        const telegraphUrl = d.telegraph_url
-        window.open(telegraphUrl, '_blank')
+        const telegraphUrl = d.url
+        if (telegraphUrl) {
+          window.open(telegraphUrl, '_blank')
+        }
       }
     }
     /*
