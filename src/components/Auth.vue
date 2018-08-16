@@ -156,10 +156,12 @@ export default {
       const userObj = { ...currentUser, ...userGroup }
       const newUser = createUserData(userObj)
 
-      console.log(newUser)
-      
       createUser(newUser)
-        .then(d => console.log(d))
+        .then(d => {
+          this.$store.commit('setCurrentUser', newUser)
+          localStorage.setItem('user', newUser)
+          this.$router.push('/')
+        })
         .catch(err => console.log(err))
     }
   },

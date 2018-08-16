@@ -43,10 +43,8 @@ export function createUser(userData) {
     //   resolve(d)
     // })
     // .catch(err => reject(err))
-
   })
 }
-
 
 export function getGroup(id) {
   return new Promise((resolve, reject) => {
