@@ -14,13 +14,10 @@ export default {
       this.authHanlder(user)
     },
     authHanlder(user) {
-      console.log(user)
-      const stringi = JSON.stringify(user)
-      console.log(stringi)
       this.saveUser(user)
       getUser(user)
         .then(data => {
-          if (data === 'Not found') {
+          if (data === 404) {
             this.$router.push({ name: 'login' })
           } else {
             const { _doc: botData } = data
