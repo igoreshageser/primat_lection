@@ -135,7 +135,6 @@ export default {
           this.userGroup = data
           this.groupCheck(data)
           this.groupLoading = false
-          console.log(data)
         })
         .catch(err => console.log(err))
     },

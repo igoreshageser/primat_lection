@@ -29,6 +29,7 @@ export default {
         .catch(err => console.log(err))
     },
     saveUser(userObj) {
+      console.log(userObj)
       this.$store.commit('setCurrentUser', userObj)
       localStorage.setItem('user', JSON.stringify(userObj))
     }
