@@ -61,7 +61,7 @@
                     </v-card-text>
                   </v-card>
                 </v-flex>
-                <v-flex xs12 md4 class="card-item">
+                <v-flex xs12 md4 class="card-item"  @click="goTo('/lections')">
                   <v-card class="elevation-0 transparent">
                     <v-card-text class="text-xs-center">
                       <v-icon x-large class="blue--text text--lighten-2">book</v-icon>

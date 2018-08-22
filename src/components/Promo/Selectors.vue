@@ -89,7 +89,7 @@ export default {
     },
     checkUserFlow (flow) {
       if (flow === this.currentUser.flow) {
-        this.flowSelector = flow
+        this.flowSelector = { text: flow }
       }
     },
     createTreeDate(lection) {
