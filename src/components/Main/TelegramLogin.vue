@@ -16,10 +16,14 @@ export default {
     authHanlder(user) {
       getUser(user)
         .then(data => {
+          console.log(data)
+          console.log('before')
           if (data === 404) {
             this.$router.push({ name: 'login' })
             this.saveUser(user)
+            console.log('else')
           } else {
+            console.log('ne else')
             const { _doc: botData } = data
             const userObj = { ...botData, ...user }
             console.log(userObj)
