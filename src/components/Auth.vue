@@ -157,9 +157,8 @@ export default {
 
       createUser(user)
         .then(({ data }) => {
-          console.log(data)
           this.$store.commit('setCurrentUser', data)
-          localStorage.setItem('user', data)
+          localStorage.setItem('user', JSON.stringify(data))
           this.$router.push('/')
         })
         .catch(err => console.log(err))
