@@ -43,7 +43,7 @@ export default {
     fetchedData: {}
   }),
   computed: {
-    ...mapState(['currentUser']),
+    ...mapState(['currentUser'])
   },
   methods: {
     selectFlow({ text }) {

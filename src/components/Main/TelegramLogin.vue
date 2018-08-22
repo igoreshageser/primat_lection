@@ -21,9 +21,9 @@ export default {
             this.saveUser(user)
           } else {
             console.log(data)
-            const { _doc: botdata } = data;
+            const { _doc: botdata } = data
             console.log(botdata)
-            const userObj = { ...botdata , ...user }
+            const userObj = { ...botdata, ...user }
             this.saveUser(userObj)
           }
         })

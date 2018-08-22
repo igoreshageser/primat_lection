@@ -10,6 +10,7 @@
           :weekNumber="weekNumber"
           :table="tables"
           :lists="lists"
+          :toggleModal="true"
         />
       </div>
     </div>
@@ -21,6 +22,7 @@ import { mapState } from 'vuex'
 import { getSchedule } from '../api/schedule'
 import { getWeekNumber } from '../api/week-number.js'
 
+import Modal from '../components/Common/Modal'
 import Spinner from '../components/Common/Spinner'
 import ListWrapper from './Schedule/list/ListWrapper'
 import TableWrapper from './Schedule/table/TableWrapper'
@@ -37,6 +39,7 @@ export default {
     weekNumber: 1
   }),
   components: {
+    Modal,
     Spinner,
     ListWrapper,
     TableWrapper
@@ -51,6 +54,10 @@ export default {
       return 'Списком'
     },
     getScheduleView() {
+      if (!Object.values(this.currentUser).length) {
+        return Modal
+      }
+
       if (this.loading) {
         return Spinner
       } else if (this.isListMode) {
