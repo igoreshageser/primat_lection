@@ -1,32 +1,31 @@
 <template>
-  <v-app class="p-5">
-       <v-flex lg6 mx-auto class="selector-wrapper">
-        <v-select
-          :items="flows"
-          v-model="flowSelector"
-          label="Select Flow"
-          @change="selectFlow"
-          single-line
-        ></v-select>
-         <v-select
-          :items="courses"
-          v-model="coursesSelector"
-          label="Select Course"
-          @change="selectCourse"
-          single-line
-        ></v-select>
-        <v-select
-          :items="semesters"
-          @change="selectSemestr"
-          v-model="semestersSelector"
-          label="Select Semestr"
-          single-line
-        ></v-select>
-      </v-flex>
-  </v-app>
+  <v-flex  lg6 mx-auto class="selector-wrapper">
+    <v-select
+      :items="flows"
+      v-model="flowSelector"
+      label="Select Flow"
+      @change="selectFlow"
+      single-line
+    ></v-select>
+      <v-select
+      :items="courses"
+      v-model="coursesSelector"
+      label="Select Course"
+      @change="selectCourse"
+      single-line
+    ></v-select>
+    <v-select
+      :items="semesters"
+      @change="selectSemestr"
+      v-model="semestersSelector"
+      label="Select Semestr"
+      single-line
+    ></v-select>
+  </v-flex>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { getAllFlow } from '../../api/flow'
 import { getAbstractFlowItems } from '../../api/abstract'
 
@@ -43,6 +42,9 @@ export default {
 
     fetchedData: {}
   }),
+  computed: {
+    ...mapState(['currentUser']),
+  },
   methods: {
     selectFlow({ text }) {
       const { fetchedData } = this
@@ -70,6 +72,7 @@ export default {
     parseFlowData(flows) {
       return Object.values(flows).map(item => {
         const { flow, courses } = item
+        this.checkUserFlow(flow)
         this.fetchedData[flow] = courses
         return { text: flow }
       })
@@ -83,6 +86,11 @@ export default {
       getAbstractFlowItems(param)
         .then((lections) => this.createTreeDate(lections))
         .catch(err => console.log(err))
+    },
+    checkUserFlow (flow) {
+      if (flow === this.currentUser.flow) {
+        this.flowSelector = flow
+      }
     },
     createTreeDate(lection) {
       const treeData = {
@@ -108,6 +116,7 @@ export default {
 }
 .selector-wrapper {
   width: 400px;
+  margin: 40px;
 }
 
 $spacer: 8px;

@@ -22,6 +22,7 @@ export default {
           } else {
             const { _doc: botData } = data
             const userObj = { ...botData, ...user }
+            console.log(userObj)
             this.saveUser(userObj)
           }
         })

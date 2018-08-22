@@ -1,7 +1,6 @@
 export const URL = 'https://primat-bot.herokuapp.com/api/'
 export const BOT_DOMEN = 'primat_test_bot'
 
-export const SCHEDULE_URL = 'https://dev.kpibot.me/api/timetable/group/kv-51'
 export const DEV_KPIBOT_URL = 'https://dev.kpibot.me/'
 
 // => primat.bot

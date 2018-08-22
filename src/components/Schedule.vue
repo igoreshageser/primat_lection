@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { getSchedule } from '../api/schedule'
 import { getWeekNumber } from '../api/week-number.js'
 
@@ -41,6 +42,7 @@ export default {
     TableWrapper
   },
   computed: {
+    ...mapState(['currentUser']),
     fetchParams: () => ({ table: true }),
     getTogglerText() {
       if (this.isListMode) {
@@ -60,6 +62,7 @@ export default {
   methods: {
     fetchListsTimetable() {
       this.loading = true
+      // const id = this.currentUser.
       getSchedule()
         .then(({ weeks }) => (this.lists = weeks))
         .catch(err => console.log(err))
@@ -90,6 +93,15 @@ export default {
     this.fetchTableTimeTable()
     this.fetchWeekNumber()
   }
+
+  // beforeRouteEnter(to, from, next) {
+  //   const user = JSON.parse(localStorage.getItem('user'))
+  //   if (!user) {
+  //     next(false)
+  //   } else {
+  //     next()
+  //   }
+  // }
 }
 </script>
 
