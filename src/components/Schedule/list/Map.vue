@@ -29,7 +29,6 @@ export default {
   watch: {
     location() {
       this.$refs.mapRef.$mapPromise.then(map => {
-        console.log(this.location)
         map.panTo({
           lat: Number(this.location.lat),
           lng: Number(this.location.lng)
