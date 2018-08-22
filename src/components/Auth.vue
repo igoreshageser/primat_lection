@@ -153,9 +153,9 @@ export default {
     submitHandler() {
       const { currentUser, userGroup } = this
       const userObj = { ...currentUser, ...userGroup }
-      const newUser = createUserData(userObj)
+      const user = createUserData(userObj)
 
-      createUser({ ...newUser })
+      createUser(user)
         .then(user => {
           this.$store.commit('setCurrentUser', user)
           localStorage.setItem('user', user)
