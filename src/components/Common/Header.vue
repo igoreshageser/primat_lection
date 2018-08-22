@@ -84,7 +84,6 @@ export default {
     .avatar {
       width: 40px;
       height: 40px;
-      background-color: blue;
     }
     .control {
       cursor: pointer;

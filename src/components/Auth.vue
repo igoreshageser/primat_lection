@@ -158,6 +158,7 @@ export default {
       console.log(user)
       createUser(user)
         .then(user => {
+          console.log(user)
           this.$store.commit('setCurrentUser', user)
           localStorage.setItem('user', user)
           this.$router.push('/')
