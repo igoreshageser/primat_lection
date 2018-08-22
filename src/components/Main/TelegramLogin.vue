@@ -15,21 +15,21 @@ export default {
     },
     authHanlder(user) {
       console.log(user)
+      const stringi = JSON.stringify(user)
+      console.lof(stringi)
+      this.saveUser(user)
       getUser(user)
         .then(data => {
           if (data === 'Not found') {
-            this.saveUser(user)
             this.$router.push({ name: 'login' })
           } else {
             const { _doc: botData } = data
             const userObj = { ...botData, ...user }
-            this.saveUser(userObj)
           }
         })
         .catch(err => console.log(err))
     },
     saveUser(userObj) {
-      console.log(userObj)
       this.$store.commit('setCurrentUser', userObj)
       localStorage.setItem('user', JSON.stringify(userObj))
     }
