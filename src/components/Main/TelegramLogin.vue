@@ -16,7 +16,7 @@ export default {
     authHanlder(user) {
       console.log(user)
       const stringi = JSON.stringify(user)
-      console.lof(stringi)
+      console.log(stringi)
       this.saveUser(user)
       getUser(user)
         .then(data => {
