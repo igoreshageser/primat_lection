@@ -20,12 +20,10 @@ export default {
             this.$router.push({ name: 'login' })
             this.saveUser(user)
           } else {
-            const { _doc: botData } = data
-            const userObj = { ...botData, ...user }
-            console.log(botData)
-            console.log(user)
-            console.log({...botData, ...user})
-            console.log(Object.assign({}, botData, user))
+            console.log(data)
+            const { _doc: botdata } = data;
+            console.log(botdata)
+            const userObj = { ..._doc , ...user }
             this.saveUser(userObj)
           }
         })
