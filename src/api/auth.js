@@ -40,7 +40,7 @@ export function getUser(user) {
       .then(userData => resolve(userData))
       .catch(err => {
         const { status } = err.response
-        status === 404 ? resolve(404) : reject(err)
+        status === 404 ? resolve({ data: 404 }) : reject(err)
       })
   })
 }

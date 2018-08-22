@@ -15,7 +15,7 @@ export default {
     },
     authHanlder(user) {
       getUser(user)
-        .then(data => {
+        .then(({ data }) => {
           if (data === 404) {
             this.$router.push({ name: 'login' })
             this.saveUser(user)
@@ -23,7 +23,7 @@ export default {
             console.log(data)
             const { _doc: botdata } = data;
             console.log(botdata)
-            const userObj = { ..._doc , ...user }
+            const userObj = { ...botdata , ...user }
             this.saveUser(userObj)
           }
         })
