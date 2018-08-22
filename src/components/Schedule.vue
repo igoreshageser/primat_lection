@@ -62,15 +62,18 @@ export default {
   methods: {
     fetchListsTimetable() {
       this.loading = true
-      // const id = this.currentUser.
-      getSchedule()
+      const id = this.currentUser.groupId
+
+      getSchedule(id)
         .then(({ weeks }) => (this.lists = weeks))
         .catch(err => console.log(err))
         .finally(() => (this.loading = false))
     },
     fetchTableTimeTable() {
       this.loading = true
-      getSchedule(this.fetchParams)
+      const id = this.currentUser.groupId
+
+      getSchedule(id, this.fetchParams)
         .then(data => (this.tables = data))
         .catch(err => console.log(err))
         .finally(() => (this.loading = false))
