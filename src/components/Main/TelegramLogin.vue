@@ -14,14 +14,15 @@ export default {
       this.authHanlder(user)
     },
     authHanlder(user) {
-      this.saveUser(user)
       getUser(user)
         .then(data => {
           if (data === 404) {
             this.$router.push({ name: 'login' })
+            this.saveUser(user)
           } else {
             const { _doc: botData } = data
             const userObj = { ...botData, ...user }
+            this.saveUser(userObj)
           }
         })
         .catch(err => console.log(err))
