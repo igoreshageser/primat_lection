@@ -8,21 +8,45 @@ const entity = 'auth'
 /**
  * @param {*} tgId
  */
-export function getUser(tgId) {
+// export function getUser(tgId) {
+//   return new Promise((resolve, reject) => {
+//     axios
+//       .get(`${DEV_KPIBOT_URL}${entity}/login/${tgId}`)
+//       .then(({ data }) => resolve(data))
+//       .catch(err => {
+//         console.log(err)
+//         resolve('Not found')
+//         // const { data } = err.response
+//         // if (data === 'User with such telegram id is not registered') {
+//         //   resolve('Not found')
+//         // } else {
+//         //   reject(err)
+//         //   console.log(err)
+//         // }
+//       })
+//   })
+// }
+
+export function getUser(user) {
   return new Promise((resolve, reject) => {
-    axios
-      .get(`${DEV_KPIBOT_URL}${entity}/login/${tgId}`)
-      .then(({ data }) => resolve(data))
+    axios({
+      method: 'post',
+      url: `${DEV_KPIBOT_URL}${entity}/login`,
+      data: qs.stringify(user),
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+      }
+    })
+      .then(userData => resolve(userData))
       .catch(err => {
+        const { status } = err.response
+        console.log('ERORROROOROROR')
         console.log(err)
-        resolve('Not found')
-        // const { data } = err.response
-        // if (data === 'User with such telegram id is not registered') {
-        //   resolve('Not found')
-        // } else {
-        //   reject(err)
-        //   console.log(err)
-        // }
+        if (status === 404) {
+          resolve('Not found')
+        } else {
+          reject(err)
+        }
       })
   })
 }
@@ -37,6 +61,8 @@ export function createUser(userData) {
         'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
       }
     })
+      .then(userData => resolve(userData))
+      .catch(err => reject(err))
     // .post(`${DEV_KPIBOT_URL}${entity}/`, userData)
     // .then(d => {
     //   console.log(d)

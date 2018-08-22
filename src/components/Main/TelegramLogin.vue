@@ -14,8 +14,8 @@ export default {
       this.authHanlder(user)
     },
     authHanlder(user) {
-      const { id } = user
-      getUser(id)
+      console.log(user)
+      getUser(user)
         .then(data => {
           if (data === 'Not found') {
             this.saveUser(user)

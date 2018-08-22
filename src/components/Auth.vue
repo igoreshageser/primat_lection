@@ -157,9 +157,9 @@ export default {
       const newUser = createUserData(userObj)
 
       createUser(newUser)
-        .then(d => {
-          this.$store.commit('setCurrentUser', newUser)
-          localStorage.setItem('user', newUser)
+        .then(user => {
+          this.$store.commit('setCurrentUser', user)
+          localStorage.setItem('user', user)
           this.$router.push('/')
         })
         .catch(err => console.log(err))
