@@ -5,9 +5,9 @@
           <span>{{ getLessonName }}</span>
           <span>{{ getTeacherName }}</span>
         </div>
-        <div class="lesson-more-button" @click="openMoreBlock">
-          Узнать больше
-        </div>
+        <!-- <div class="lesson-more-button" @click="openMoreBlock"> -->
+          <!-- Узнать больше -->
+        <!-- </div> -->
     </div>
     <div v-if="showMoreBlock" class="lesson-container-more">
       <div class="lesson-container-more__info">
