@@ -155,6 +155,7 @@ export default {
       const userObj = { ...currentUser, ...userGroup }
       const user = createUserData(userObj)
 
+      console.log(user)
       createUser(user)
         .then(user => {
           this.$store.commit('setCurrentUser', user)
