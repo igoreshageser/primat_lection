@@ -164,7 +164,8 @@ export default {
 
       createUser(user)
         .then(({ data }) => {
-          this.$store.commit('setCurrentUser', { ...currentUser, data })
+          this.$store.commit('setCurrentUser', { data })
+          console.log(this.currentUser)
           localStorage.setItem('user', JSON.stringify(data))
           this.openModal = true
         })
