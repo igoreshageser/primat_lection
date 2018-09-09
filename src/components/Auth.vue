@@ -119,7 +119,7 @@ export default {
       const params = this.searchParam
 
       getAllGroups(params)
-        .then(({ data }) => (this.groups = data))
+        .then(groups => (this.groups = [...groups]))
         .catch(err => console.log(err))
         .finally(() => (this.loading = false))
     },
@@ -152,13 +152,13 @@ export default {
       const userObj = { ...currentUser, ...userGroup }
       const user = createUserData(userObj)
 
-      createUser(user)
-        .then(({ data }) => {
-          this.$store.commit('setCurrentUser', { ...currentUser, data })
-          localStorage.setItem('user', JSON.stringify(data))
-          this.$router.push('/')
-        })
-        .catch(err => console.log(err))
+      // createUser(user)
+      //   .then(({ data }) => {
+      //     this.$store.commit('setCurrentUser', { ...currentUser, data })
+      //     localStorage.setItem('user', JSON.stringify(data))
+      //     this.$router.push('/')
+      //   })
+      //   .catch(err => console.log(err))
     }
   },
   watch: {
