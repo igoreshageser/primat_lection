@@ -15,7 +15,6 @@ const getUserField = () => {
 }
 
 export function createUserData(userData) {
-  console.log(userData)
   if (!validator(userData)) {
     throw new Error('Empty userField')
   }
