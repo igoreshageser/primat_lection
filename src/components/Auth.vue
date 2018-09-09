@@ -65,12 +65,12 @@
         <v-btn color="primary" @click="submitHandler">Дальше</v-btn>
         <v-btn flat>Назад</v-btn>
       </v-stepper-content>
-      <modal v-if="openModal" mode="success">
+      <modal :toggleModal="openModal" mode="success">
         <span slot="header">
-            Отлично
+            <span class="white--text">Регистрация прошла успешно </span><v-icon class="white--text">done_all</v-icon>
           </span>
-          <span slot="content">
-            Добро пожаловать!
+          <span slot="content" class="bold">
+            +1 к защите от отчисления ;)
           </span>
       </modal>
   </v-stepper>

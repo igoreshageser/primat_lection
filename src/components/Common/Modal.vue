@@ -55,7 +55,6 @@ export default {
       const SUCCESS_MODE = 'green darken-2'
       const ERROR_MODE = 'red darken-3'
       const DEFAULT_MODE = 'blue-grey lighten-3'
-      
       const { mode } = this
 
       switch (mode) {

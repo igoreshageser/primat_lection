@@ -55,7 +55,7 @@ export default {
     ...mapState(['currentUser']),
     fetchParams: () => ({ table: true }),
     getTogglerText() {
-      return this.isListMode ? 'Таблицей' : 'Списком';
+      return this.isListMode ? 'Таблицей' : 'Списком'
     },
     getScheduleView() {
       if (!Object.values(this.currentUser).length) {
