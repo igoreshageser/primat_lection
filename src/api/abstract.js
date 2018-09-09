@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { DEV_KPIBOT_URL } from '../../.env.js'
+import { API_KPIBOT_URL } from '../../.env.js'
 
 const entity = 'api/abstracts/'
 
