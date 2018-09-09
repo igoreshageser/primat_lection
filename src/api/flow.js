@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { DEV_KPIBOT_URL } from '../../.env.js'
+import { API_KPIBOT_URL } from '../../.env.js'
 
 const entity = 'api/abstracts/info/'
 
@@ -10,7 +10,7 @@ const entity = 'api/abstracts/info/'
 export function getAllFlow() {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${DEV_KPIBOT_URL}${entity}`)
+      .get(`${API_KPIBOT_URL}${entity}`)
       .then(({ data }) => resolve(data))
       .catch(err => reject(err))
   })
