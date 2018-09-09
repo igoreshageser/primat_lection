@@ -1,15 +1,14 @@
 import axios from 'axios'
-import { GROUP_URL } from '../../.env.js'
+import { API_KPIBOT_URL } from '../../.env.js'
 
 /**
  * @returns Promise<Array>
  * @description  array with all group
  */
-export function getAllGroups(data) {
-  const params = { ...data }
+export function getAllGroups(group) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${GROUP_URL}`, { params })
+      .get(`${API_KPIBOT_URL}/auth/group/${group}`)
       .then(({ data }) => resolve(data))
       .catch(err => {
         const { message } = err.response.data

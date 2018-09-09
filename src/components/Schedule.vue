@@ -18,17 +18,17 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { getSchedule } from "../api/schedule";
-import { getWeekNumber } from "../api/week-number.js";
+import { mapState } from 'vuex'
+import { getSchedule } from '../api/schedule'
+import { getWeekNumber } from '../api/week-number.js'
 
-import Modal from "../components/Common/Modal";
-import Spinner from "../components/Common/Spinner";
-import ListWrapper from "./Schedule/list/ListWrapper";
-import TableWrapper from "./Schedule/table/TableWrapper";
+import Modal from '../components/Common/Modal'
+import Spinner from '../components/Common/Spinner'
+import ListWrapper from './Schedule/list/ListWrapper'
+import TableWrapper from './Schedule/table/TableWrapper'
 
 export default {
-  name: "Schedule",
+  name: 'Schedule',
   data: () => ({
     lists: {},
     tables: {},
@@ -45,74 +45,65 @@ export default {
     TableWrapper
   },
   computed: {
-    ...mapState(["currentUser"]),
+    ...mapState(['currentUser']),
     fetchParams: () => ({ table: true }),
     getTogglerText() {
       if (this.isListMode) {
-        return "Таблицей";
+        return 'Таблицей'
       }
-      return "Списком";
+      return 'Списком'
     },
     getScheduleView() {
       if (!Object.values(this.currentUser).length) {
-        return Modal;
+        return Modal
       }
 
       if (this.loading) {
-        return Spinner;
+        return Spinner
       } else if (this.isListMode) {
-        return ListWrapper;
+        return ListWrapper
       }
-      return TableWrapper;
+      return TableWrapper
     }
   },
   methods: {
     fetchListsTimetable() {
-      this.loading = true;
-      const id = this.currentUser.groupId;
+      this.loading = true
+      const id = this.currentUser.groupId
 
       getSchedule(id)
         .then(({ weeks }) => (this.lists = weeks))
         .catch(err => console.log(err))
-        .finally(() => (this.loading = false));
+        .finally(() => (this.loading = false))
     },
     fetchTableTimeTable() {
-      this.loading = true;
-      const id = this.currentUser.groupId;
+      this.loading = true
+      const id = this.currentUser.groupId
 
       getSchedule(id, this.fetchParams)
         .then(data => (this.tables = data))
         .catch(err => console.log(err))
-        .finally(() => (this.loading = false));
+        .finally(() => (this.loading = false))
     },
     fetchWeekNumber() {
       getWeekNumber()
         .then(({ data }) => (this.weekNumber = data))
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
     },
     changeTableMode() {
-      this.isListMode = !this.isListMode;
+      this.isListMode = !this.isListMode
       if (this.isListMode) {
-        this.fetchListsTimetable();
+        this.fetchListsTimetable()
       } else {
-        this.fetchTableTimeTable();
+        this.fetchTableTimeTable()
       }
     }
   },
   mounted() {
-    this.fetchTableTimeTable();
-    this.fetchWeekNumber();
+    this.fetchTableTimeTable()
+    this.fetchWeekNumber()
   }
-
-  // beforeRouteEnter(to, from, next) {
-  //   const user = JSON.parse(localStorage.getItem('user'))
-  //   if (!user) {
-  //     next(false)
-  //   } else {
-  //     next()
-  //   }
-  // }
-};
+}
 </script>
 
 <style lang="scss">

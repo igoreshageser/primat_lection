@@ -8,25 +8,6 @@ const entity = 'auth'
 /**
  * @param {*} tgId
  */
-// export function getUser(tgId) {
-//   return new Promise((resolve, reject) => {
-//     axios
-//       .get(`${DEV_KPIBOT_URL}${entity}/login/${tgId}`)
-//       .then(({ data }) => resolve(data))
-//       .catch(err => {
-//         console.log(err)
-//         resolve('Not found')
-//         // const { data } = err.response
-//         // if (data === 'User with such telegram id is not registered') {
-//         //   resolve('Not found')
-//         // } else {
-//         //   reject(err)
-//         //   console.log(err)
-//         // }
-//       })
-//   })
-// }
-
 export function getUser(user) {
   return new Promise((resolve, reject) => {
     axios({
@@ -57,12 +38,6 @@ export function createUser(userData) {
     })
       .then(userData => resolve(userData))
       .catch(err => reject(err))
-    // .post(`${DEV_KPIBOT_URL}${entity}/`, userData)
-    // .then(d => {
-    //   console.log(d)
-    //   resolve(d)
-    // })
-    // .catch(err => reject(err))
   })
 }
 

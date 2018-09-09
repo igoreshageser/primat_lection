@@ -106,10 +106,7 @@ export default {
   computed: {
     ...mapState(['currentUser']),
     searchParam() {
-      if (this.groupString) {
-        return { search: { query: this.groupString } }
-      }
-      return null
+      return this.groupString ? this.groupString : ''
     },
     isGroupSelectValid() {
       return !this.groupSelect
