@@ -34,8 +34,8 @@
                 :search-input.sync="groupString"
                 v-model="groupSelect">
               </v-select>
-              <v-btn color="primary" :disabled="isGroupSelectValid" @click="checkUserGroup">Continue</v-btn>
-              <v-btn flat>Cancel</v-btn>
+              <v-btn color="primary" :disabled="isGroupSelectValid" @click="checkUserGroup">Дальше</v-btn>
+              <v-btn flat>Назад</v-btn>
           </v-stepper-content>
 
       <!-- second step -->
@@ -48,8 +48,8 @@
           :items="courses"
           v-model="courseSelect">
         </v-select>
-        <v-btn color="primary" @click="courseSave">Continue</v-btn>
-        <v-btn flat @click="step = 2">Cancel</v-btn>
+        <v-btn color="primary" @click="courseSave">Дальше</v-btn>
+        <v-btn flat @click="step = 2">Назад</v-btn>
       </v-stepper-content>
 
       <!-- third step -->
@@ -62,10 +62,17 @@
             <p><strong>Курс:</strong> {{ userGroup.course }}</p>
           </div>
         </div>
-        <v-btn color="primary" @click="submitHandler">Continue</v-btn>
-        <v-btn flat>Cancel</v-btn>
+        <v-btn color="primary" @click="submitHandler">Дальше</v-btn>
+        <v-btn flat>Назад</v-btn>
       </v-stepper-content>
-
+      <modal v-if="openModal" mode="success">
+        <span slot="header">
+            Отлично
+          </span>
+          <span slot="content">
+            Добро пожаловать!
+          </span>
+      </modal>
   </v-stepper>
     </v-flex>
   </v-layout>
@@ -81,7 +88,8 @@ import { getAllGroups } from '../api/groups'
 import { debounce } from '../helpers/debounce'
 import { createUserData } from '../helpers/createData'
 
-import SpinnerWave from '../components/Common/Spinner'
+import SpinnerWave from '@/components/Common/Spinner'
+import Modal from '@/components/Common/Modal'
 
 export default {
   name: 'Auth',
@@ -89,6 +97,7 @@ export default {
     step: 1,
     loading: false,
     groupLoading: false,
+    openModal: false,
     userGroup: '',
 
     // first step
@@ -101,6 +110,7 @@ export default {
     courseSelect: ''
   }),
   components: {
+    Modal,
     SpinnerWave
   },
   computed: {
@@ -156,7 +166,7 @@ export default {
         .then(({ data }) => {
           this.$store.commit('setCurrentUser', { ...currentUser, data })
           localStorage.setItem('user', JSON.stringify(data))
-          this.$router.push('/')
+          this.openModal = true
         })
         .catch(err => console.log(err))
     }

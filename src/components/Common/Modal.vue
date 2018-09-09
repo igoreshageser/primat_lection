@@ -6,14 +6,14 @@
     >
       <v-card>
         <v-card-title
-          class="headline grey lighten-2"
-          primary-title
-        >
-          Неполадочки
+          class="headline"
+          :class="getHeaderStyle"
+          primary-title>
+          <slot name="header"></slot>
         </v-card-title>
 
         <v-card-text>
-          Для того, чтобы пользоваться расписанием необходимо зарегистрироваться или авторизоваться
+          <slot name="content"></slot>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -40,11 +40,32 @@ export default {
     toggleModal: {
       type: Boolean,
       default: false
+    },
+    mode: {
+      type: String
     }
   },
   data() {
     return {
       dialog: false
+    }
+  },
+  computed: {
+    getHeaderStyle() {
+      const SUCCESS_MODE = 'green darken-2'
+      const ERROR_MODE = 'red darken-3'
+      const DEFAULT_MODE = 'blue-grey lighten-3'
+      
+      const { mode } = this
+
+      switch (mode) {
+        case 'success':
+          return SUCCESS_MODE
+        case 'error':
+          return ERROR_MODE
+        default:
+          return DEFAULT_MODE
+      }
     }
   },
   methods: {

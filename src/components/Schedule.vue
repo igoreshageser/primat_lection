@@ -10,8 +10,15 @@
           :weekNumber="weekNumber"
           :table="tables"
           :lists="lists"
-          :toggleModal="true"
-        />
+          mode='error'
+          toggleModal>
+          <span slot="header">
+            Неполадочки
+          </span>
+          <span slot="content">
+            Для того, чтобы пользоваться расписанием необходимо зарегистрироваться или авторизоваться
+          </span>
+        </component>
       </div>
     </div>
   </div>
@@ -48,10 +55,7 @@ export default {
     ...mapState(['currentUser']),
     fetchParams: () => ({ table: true }),
     getTogglerText() {
-      if (this.isListMode) {
-        return 'Таблицей'
-      }
-      return 'Списком'
+      return this.isListMode ? 'Таблицей' : 'Списком';
     },
     getScheduleView() {
       if (!Object.values(this.currentUser).length) {
