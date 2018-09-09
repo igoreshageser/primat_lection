@@ -92,7 +92,6 @@ export function tree(lection) {
         return d.children || d._children ? 'end' : 'start'
       })
       .text(function (d) {
-        console.log(d)
         return d.name || d.title
       })
       .style('fill-opacity', 1e-6)
