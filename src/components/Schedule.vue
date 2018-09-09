@@ -84,8 +84,6 @@ export default {
       this.loading = true
       const id = this.currentUser.groupId
 
-      console.log(this.currentUser)
-
       getSchedule(id, this.fetchParams)
         .then(data => (this.tables = data))
         .catch(err => console.log(err))

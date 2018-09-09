@@ -1,6 +1,6 @@
 import d3 from 'd3'
 /* eslint-disable */
-export function tree(lection) {
+export function tree(lection, cb) {
   let margin = { top: 20, right: 120, bottom: 20, left: 120 },
     width = 960 - margin.right - margin.left,
     height = 800 - margin.top - margin.bottom
@@ -188,4 +188,6 @@ export function tree(lection) {
   });*/
     update(d)
   }
+
+  cb()
 }

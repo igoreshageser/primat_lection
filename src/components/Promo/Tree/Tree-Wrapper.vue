@@ -1,9 +1,11 @@
 <template>
-  <div class="tree-container"></div>
+  <div class="tree-container" ref="treeWrapper"></div>
 </template>
 
 <script>
+import VueScroll from 'vue-scrollto'
 import { tree } from './Tree'
+
 export default {
   name: 'Tree-Sector',
   props: {
@@ -14,7 +16,10 @@ export default {
   },
   watch: {
     lections() {
-      tree(this.lections)
+      tree(this.lections, () => {
+        const treeWrap = this.$refs.treeWrapper
+        VueScroll.scrollTo(treeWrap)
+      })
     }
   }
 }

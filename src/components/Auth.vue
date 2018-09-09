@@ -35,7 +35,6 @@
                 v-model="groupSelect">
               </v-select>
               <v-btn color="primary" :disabled="isGroupSelectValid" @click="checkUserGroup">Дальше</v-btn>
-              <v-btn flat>Назад</v-btn>
           </v-stepper-content>
 
       <!-- second step -->
@@ -46,10 +45,11 @@
           prepend-icon="class"
           label="Выбери свой курс"
           :items="courses"
+          :disabled="disabledSelector"
           v-model="courseSelect">
         </v-select>
         <v-btn color="primary" @click="courseSave">Дальше</v-btn>
-        <v-btn flat @click="step = 2">Назад</v-btn>
+        <v-btn flat @click="step = 1">Назад</v-btn>
       </v-stepper-content>
 
       <!-- third step -->
@@ -63,7 +63,7 @@
           </div>
         </div>
         <v-btn color="primary" @click="submitHandler">Дальше</v-btn>
-        <v-btn flat>Назад</v-btn>
+        <v-btn flat @click="step = 2">Назад</v-btn>
       </v-stepper-content>
       <modal :toggleModal="openModal" mode="success">
         <span slot="header">
@@ -107,6 +107,7 @@ export default {
 
     // second step
     courses: [1, 2, 3, 4, 5],
+    disabledSelector: false,
     courseSelect: ''
   }),
   components: {
@@ -148,8 +149,10 @@ export default {
     groupCheck(group) {
       if (!group.course) {
         this.step = 2
+        this.disabledSelector = false
       } else {
         this.step = 3
+        this.disabledSelector = true
         this.courseSelect = group.course
       }
     },
