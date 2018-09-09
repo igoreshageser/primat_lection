@@ -13,7 +13,7 @@ export function getAbstractItem(uuid) {
   }
   return new Promise((resolve, reject) => {
     axios
-      .get(`${DEV_KPIBOT_URL}${entity}/${uuid}`)
+      .get(`${API_KPIBOT_URL}${entity}/${uuid}`)
       .then(({ data }) => resolve(data))
       .catch(err => reject(err))
   })
@@ -28,7 +28,7 @@ export function getAbstractFlowItems(data) {
   return new Promise((resolve, reject) => {
     const params = { ...data }
     axios
-      .get(`${DEV_KPIBOT_URL}${entity}`, { params })
+      .get(`${API_KPIBOT_URL}${entity}`, { params })
       .then(({ data }) => resolve(data))
       .catch(err => reject(err))
   })
