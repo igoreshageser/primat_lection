@@ -11,7 +11,7 @@ export function tree(lection) {
 
   const tree = d3.layout.tree().size([height, width])
 
-  let diagonal = d3.svg.diagonal().projection(function(d) {
+  let diagonal = d3.svg.diagonal().projection(function (d) {
     return [d.y, d.x]
   })
 
@@ -56,12 +56,12 @@ export function tree(lection) {
       links = tree.links(nodes)
 
     // Normalize for fixed-depth.
-    nodes.forEach(function(d) {
+    nodes.forEach(function (d) {
       d.y = d.depth * 180
     })
 
     // Update the nodes…
-    let node = svg.selectAll('g.node').data(nodes, function(d) {
+    let node = svg.selectAll('g.node').data(nodes, function (d) {
       return d.id || (d.id = ++i)
     })
 
@@ -70,7 +70,7 @@ export function tree(lection) {
       .enter()
       .append('g')
       .attr('class', 'node')
-      .attr('transform', function(d) {
+      .attr('transform', function (d) {
         return 'translate(' + source.y0 + ',' + source.x0 + ')'
       })
       .on('click', click)
@@ -78,21 +78,22 @@ export function tree(lection) {
     nodeEnter
       .append('circle')
       .attr('r', 1e-6)
-      .style('fill', function(d) {
+      .style('fill', function (d) {
         return d._children ? 'lightsteelblue' : '#fff'
       })
 
     nodeEnter
       .append('text')
-      .attr('x', function(d) {
+      .attr('x', function (d) {
         return d.children || d._children ? -10 : 10
       })
       .attr('dy', '.35em')
-      .attr('text-anchor', function(d) {
+      .attr('text-anchor', function (d) {
         return d.children || d._children ? 'end' : 'start'
       })
-      .text(function(d) {
-        return d.name
+      .text(function (d) {
+        console.log(d)
+        return d.name || d.title
       })
       .style('fill-opacity', 1e-6)
 
@@ -100,14 +101,14 @@ export function tree(lection) {
     let nodeUpdate = node
       .transition()
       .duration(duration)
-      .attr('transform', function(d) {
+      .attr('transform', function (d) {
         return 'translate(' + d.y + ',' + d.x + ')'
       })
 
     nodeUpdate
       .select('circle')
       .attr('r', 4.5)
-      .style('fill', function(d) {
+      .style('fill', function (d) {
         return d._children ? 'lightsteelblue' : '#fff'
       })
 
@@ -118,7 +119,7 @@ export function tree(lection) {
       .exit()
       .transition()
       .duration(duration)
-      .attr('transform', function(d) {
+      .attr('transform', function (d) {
         return 'translate(' + source.y + ',' + source.x + ')'
       })
       .remove()
@@ -128,7 +129,7 @@ export function tree(lection) {
     nodeExit.select('text').style('fill-opacity', 1e-6)
 
     // Update the links…
-    let link = svg.selectAll('path.link').data(links, function(d) {
+    let link = svg.selectAll('path.link').data(links, function (d) {
       return d.target.id
     })
 
@@ -137,7 +138,7 @@ export function tree(lection) {
       .enter()
       .insert('path', 'g')
       .attr('class', 'link')
-      .attr('d', function(d) {
+      .attr('d', function (d) {
         let o = { x: source.x0, y: source.y0 }
         return diagonal({ source: o, target: o })
       })
@@ -153,14 +154,14 @@ export function tree(lection) {
       .exit()
       .transition()
       .duration(duration)
-      .attr('d', function(d) {
+      .attr('d', function (d) {
         let o = { x: source.x, y: source.y }
         return diagonal({ source: o, target: o })
       })
       .remove()
 
     // Stash the old positions for transition.
-    nodes.forEach(function(d) {
+    nodes.forEach(function (d) {
       d.x0 = d.x
       d.y0 = d.y
     })
