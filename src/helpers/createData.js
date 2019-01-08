@@ -42,7 +42,7 @@ export function createUserData(userData) {
     course: userData.course
   }
 
-  return { newUserObj }
+  return newUserObj
 }
 
 function validator(userData) {
