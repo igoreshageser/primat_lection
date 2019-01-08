@@ -14,6 +14,15 @@ const getUserField = () => {
   ]
 }
 
+// TODO create config file
+
+const ROLE = {
+  student: 'student',
+  abiturient: 'abiturient',
+  teacher: 'teacher',
+  noKpi: 'nokpi'
+}
+
 export function createUserData(userData) {
   if (!validator(userData)) {
     throw new Error('Empty userField')
@@ -25,7 +34,7 @@ export function createUserData(userData) {
     firstName: userData.first_name,
     lastName: userData.last_name,
     group: userData.group,
-    role: 'Student',
+    role: ROLE.student,
     groupId: userData.groupId,
     groupOkr: userData.groupOkr,
     groupScheduleUrl: userData.groupScheduleUrl,
