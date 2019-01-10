@@ -28,7 +28,7 @@ export function createUserData(userData) {
     throw new Error('Empty userField')
   }
 
-  const newUserObj = {
+  return {
     tgId: userData.id,
     username: userData.username,
     firstName: userData.first_name,
@@ -41,8 +41,6 @@ export function createUserData(userData) {
     flow: userData.flow,
     course: userData.course
   }
-
-  return newUserObj
 }
 
 function validator(userData) {
