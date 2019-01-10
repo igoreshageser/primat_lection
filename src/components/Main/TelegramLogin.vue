@@ -23,7 +23,7 @@ export default {
             console.log('no 404')
             console.log(data)
             const { _doc: botdata } = data
-            const userObj = { ...botdata, ...user }
+            const userObj = { ...botdata }
             console.log(userObj)
             this.saveUser(userObj)
           }
