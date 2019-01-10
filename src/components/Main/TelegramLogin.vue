@@ -18,8 +18,11 @@ export default {
         .then(({ data }) => {
           if (data === 404) {
             this.$router.push({ name: 'login' })
+            console.log(user)
             this.saveUser(user)
           } else {
+            console.log('**')
+            console.log({ ...data, ...user })
             this.saveUser({ ...data, ...user })
           }
         })
