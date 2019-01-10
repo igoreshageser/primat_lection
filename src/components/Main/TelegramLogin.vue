@@ -20,7 +20,7 @@ export default {
             this.$router.push({ name: 'login' })
             this.saveUser(user)
           } else {
-            this.saveUser(data)
+            this.saveUser({ ...data, ...user })
           }
         })
         .catch(err => console.log(err))
