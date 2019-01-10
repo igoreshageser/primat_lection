@@ -20,12 +20,7 @@ export default {
             this.$router.push({ name: 'login' })
             this.saveUser(user)
           } else {
-            console.log('no 404')
-            console.log(data)
-            const { _doc: botdata } = data
-            const userObj = { ...botdata }
-            console.log(userObj)
-            this.saveUser(userObj)
+            this.saveUser(data)
           }
         })
         .catch(err => console.log(err))
