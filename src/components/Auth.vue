@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-xl>
-    <v-layout row wrap text-xs-center>
+    <v-layout row wrap>
       <v-flex sm12>
         <div class="text-xs-center mb-5">
           <h2 class="headline">Приветствуем!</h2>
@@ -176,10 +176,13 @@ export default {
       const user = createUserData(userObj);
 
       try {
-        const { data } = createUser(user);
-        this.$store.commit("setCurrentUser", { ...this.currentUser, ...data });
-        console.log(data);
-        localStorage.setItem(USER_KEY_FIELD, JSON.stringify(data));
+        const userData = createUser(user);
+        this.$store.commit("setCurrentUser", {
+          ...this.currentUser,
+          ...userData
+        });
+        console.log(userData);
+        localStorage.setItem(USER_KEY_FIELD, JSON.stringify(userData));
         this.openModal = true;
       } catch (error) {
         console.log(error);
