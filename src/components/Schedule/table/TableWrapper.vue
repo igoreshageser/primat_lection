@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import TableView from './Table'
+import TableView from "./Table";
 
 export default {
-  name: 'List-Wrapper',
+  name: "List-Wrapper",
   props: {
     table: {
       type: Object
@@ -28,18 +28,18 @@ export default {
   computed: {
     getTables() {
       if (this.table) {
-        const [ first, second ] = Object.values(this.table)
+        const [ first, second ] = Object.values(this.table);
         return [
           first,
           second
-        ]
+        ];
       }
     }
   },
   methods: {
     isCurrentWeek(index) {
-      return this.weekNumber === Number(index)
+      return this.weekNumber === Number(index);
     }
   }
-}
+};
 </script>

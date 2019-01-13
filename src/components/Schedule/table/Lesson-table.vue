@@ -11,38 +11,38 @@
 
 <script>
 export default {
-  name: 'Schedule-Table-Lesson',
-  props: ['lesson'],
+  name: "Schedule-Table-Lesson",
+  props: ["lesson"],
   computed: {
     getLessonName() {
       if (this.lesson) {
-        return this.lesson.lesson_name
+        return this.lesson.lesson_name;
       }
     },
     getLessonType() {
       if (this.lesson) {
-        return this.lesson.lesson_type
+        return this.lesson.lesson_type;
       }
     },
     getLessonRoom() {
       if (this.lesson) {
-        return this.lesson.lesson_room
+        return this.lesson.lesson_room;
       }
     },
     getTeacherName() {
       if (this.lesson) {
-        return this.lesson.teacher_name
+        return this.lesson.teacher_name;
       }
     },
     getTeachersUrl() {
       if (this.lesson) {
         // const [ teacher ] = this.lesson.teachers
         // return teacher ? teacher.teacher_url : ''
-        return 'kek'
+        return "kek";
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

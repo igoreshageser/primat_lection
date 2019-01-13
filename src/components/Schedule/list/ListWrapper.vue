@@ -10,10 +10,10 @@
 </template>
 
 <script>
-import Week from './Week'
+import Week from "./Week";
 
 export default {
-  name: 'List-Wrapper',
+  name: "List-Wrapper",
   props: {
     lists: {
       type: Object
@@ -25,9 +25,9 @@ export default {
   computed: {
     getList() {
       if (this.lists) {
-        return this.lists
+        return this.lists;
       }
     }
   }
-}
+};
 </script>

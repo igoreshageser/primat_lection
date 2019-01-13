@@ -25,19 +25,19 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
-import { getAllFlow } from '../../api/flow'
-import { getAbstractFlowItems } from '../../api/abstract'
+import { getAllFlow } from "../../api/flow";
+import { getAbstractFlowItems } from "../../api/abstract";
 
-import { getPrettyName } from '../../helpers/prettyName'
+import { getPrettyName } from "../../helpers/prettyName";
 
 export default {
-  name: 'Selector',
+  name: "Selector",
   data: () => ({
-    flowSelector: '',
-    coursesSelector: '',
-    semestersSelector: '',
+    flowSelector: "",
+    coursesSelector: "",
+    semestersSelector: "",
 
     flows: [],
     courses: [],
@@ -46,22 +46,22 @@ export default {
     fetchedData: {}
   }),
   computed: {
-    ...mapState(['currentUser'])
+    ...mapState(["currentUser"])
   },
   methods: {
     selectFlow({ text }) {
-      const { fetchedData } = this
+      const { fetchedData } = this;
       this.courses = Object.keys(fetchedData[text]).map(course => ({
         text: course
-      }))
+      }));
     },
     selectCourse({ text }) {
-      const { fetchedData, flowSelector } = this
-      const { text: flow } = flowSelector
+      const { fetchedData, flowSelector } = this;
+      const { text: flow } = flowSelector;
 
       if (fetchedData[flow][text]) {
-        const semesters = fetchedData[flow][text]
-        this.semesters = semesters.sort().map(semester => ({ text: semester }))
+        const semesters = fetchedData[flow][text];
+        this.semesters = semesters.sort().map(semester => ({ text: semester }));
       }
     },
     selectSemestr({ text }) {
@@ -69,48 +69,48 @@ export default {
         course: this.coursesSelector.text,
         flow: this.flowSelector.text,
         semester: text
-      }
-      this.fetchLection(param)
+      };
+      this.fetchLection(param);
     },
     parseFlowData(flows) {
       return Object.values(flows).map(item => {
-        const { flow, courses } = item
-        this.checkUserFlow(flow)
-        this.fetchedData[flow] = courses
-        return { text: flow }
-      })
+        const { flow, courses } = item;
+        this.checkUserFlow(flow);
+        this.fetchedData[flow] = courses;
+        return { text: flow };
+      });
     },
     fetchFlow() {
       getAllFlow()
         .then(flows => (this.flows = this.parseFlowData(flows)))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     },
     fetchLection(param) {
       getAbstractFlowItems(param)
         .then(lections => this.createTreeDate(lections))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     },
     checkUserFlow(flow) {
       if (flow === this.currentUser.flow) {
-        this.flowSelector = { text: flow }
+        this.flowSelector = { text: flow };
       }
     },
     createTreeDate(lection) {
       const treeData = {
-        name: 'Предметы',
+        name: "Предметы",
         children: []
-      }
+      };
       treeData.children = lection.map(({ abstracts, subject }) => ({
         name: getPrettyName(subject),
         children: abstracts
-      }))
-      this.$emit('getLection', treeData)
+      }));
+      this.$emit("getLection", treeData);
     }
   },
   mounted() {
-    this.fetchFlow()
+    this.fetchFlow();
   }
-}
+};
 
 </script>
 

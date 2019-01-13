@@ -12,21 +12,21 @@
 
 <script type="text/babel">
 export default {
-  name: 'SpinnerWave',
+  name: "SpinnerWave",
   props: {
     color: {
       type: String,
-      default: '#3372df'
+      default: "#3372df"
     }
   },
   computed: {
     loadingColor () {
       return {
-        'background-color': this.color
-      }
+        "background-color": this.color
+      };
     }
   }
-}
+};
 </script>
 
 <style scoped lang="scss">

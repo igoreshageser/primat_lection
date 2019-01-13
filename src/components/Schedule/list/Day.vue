@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import Lesson from './Lesson'
+import Lesson from "./Lesson";
 
 export default {
-  name: 'Schedule-Day',
+  name: "Schedule-Day",
   props: {
     day: {
       type: Object
@@ -23,21 +23,21 @@ export default {
   computed: {
     getDayName() {
       if (this.day) {
-        return this.day.day_name
+        return this.day.day_name;
       }
-      return ''
+      return "";
     },
     getDayLessons() {
       if (this.day) {
-        return this.day.lessons
+        return this.day.lessons;
       }
-      return []
+      return [];
     },
     isShowDay() {
-      return this.getDayLessons.length > 0
+      return this.getDayLessons.length > 0;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

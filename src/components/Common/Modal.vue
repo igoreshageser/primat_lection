@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: 'Modal',
+  name: "Modal",
   props: {
     toggleModal: {
       type: Boolean,
@@ -48,38 +48,38 @@ export default {
   data() {
     return {
       dialog: false
-    }
+    };
   },
   computed: {
     getHeaderStyle() {
-      const SUCCESS_MODE = 'green darken-2'
-      const ERROR_MODE = 'red darken-3'
-      const DEFAULT_MODE = 'blue-grey lighten-3'
-      const { mode } = this
+      const SUCCESS_MODE = "green darken-2";
+      const ERROR_MODE = "red darken-3";
+      const DEFAULT_MODE = "blue-grey lighten-3";
+      const { mode } = this;
 
       switch (mode) {
-        case 'success':
-          return SUCCESS_MODE
-        case 'error':
-          return ERROR_MODE
+        case "success":
+          return SUCCESS_MODE;
+        case "error":
+          return ERROR_MODE;
         default:
-          return DEFAULT_MODE
+          return DEFAULT_MODE;
       }
     }
   },
   methods: {
     approveHandler() {
-      this.dialog = false
-      this.$router.push({ name: 'Main' })
+      this.dialog = false;
+      this.$router.push({ name: "Main" });
     }
   },
   watch: {
     toggleModal() {
-      this.dialog = this.toggleModal
+      this.dialog = this.toggleModal;
     }
   },
   mounted() {
-    this.dialog = this.toggleModal
+    this.dialog = this.toggleModal;
   }
-}
+};
 </script>

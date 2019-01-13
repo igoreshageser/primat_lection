@@ -1,4 +1,4 @@
-import d3 from 'd3'
+import d3 from "d3";
 /* eslint-disable */
 export function tree(lection, cb) {
   let margin = { top: 20, right: 120, bottom: 20, left: 120 },

@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { API_KPIBOT_URL } from '../../.env.js'
+import axios from "axios";
+import { API_KPIBOT_URL } from "../../.env.js";
 
 /**
  * @returns Promise<Array>
@@ -11,8 +11,8 @@ export function getAllGroups(group) {
       .get(`${API_KPIBOT_URL}auth/group/${group}`)
       .then(({ data }) => resolve(data))
       .catch(err => {
-        const { message } = err.response.data
-        message === 'Group not found' ? resolve([]) : reject(err)
-      })
-  })
+        const { message } = err.response.data;
+        message === "Group not found" ? resolve([]) : reject(err);
+      });
+  });
 }

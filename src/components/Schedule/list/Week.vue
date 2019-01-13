@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import Day from './Day'
+import Day from "./Day";
 
 export default {
-  name: 'Schedule-Week',
+  name: "Schedule-Week",
   props: {
     week: {
       type: Object
@@ -17,7 +17,7 @@ export default {
   components: {
     Day
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -99,26 +99,26 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import TelegramLogin from '../components/Main/TelegramLogin'
+import { mapGetters } from "vuex";
+import TelegramLogin from "../components/Main/TelegramLogin";
 
 export default {
-  name: 'Main',
+  name: "Main",
   components: {
     TelegramLogin
   },
   methods: {
     goTo(url) {
-      this.$router.push({ path: url })
+      this.$router.push({ path: url });
     }
   },
   computed: {
-    ...mapGetters(['userAuth']),
+    ...mapGetters(["userAuth"]),
     getImg() {
-      return require('@/assets/img/blueparallax.jpg')
+      return require("@/assets/img/blueparallax.jpg");
     }
   }
-}
+};
 </script>
 
 <style lang="scss">

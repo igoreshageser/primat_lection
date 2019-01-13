@@ -18,12 +18,12 @@
 </div>
 </template>
 <script>
-import Mouse from '@/components/Promo/Mouse'
-import Selectors from '@/components/Promo/Selectors'
-import Tree from '@/components/Promo/Tree/Tree-Wrapper'
+import Mouse from "@/components/Promo/Mouse";
+import Selectors from "@/components/Promo/Selectors";
+import Tree from "@/components/Promo/Tree/Tree-Wrapper";
 
 export default {
-  name: 'Promo',
+  name: "Promo",
   components: {
     Tree,
     Mouse,
@@ -34,10 +34,10 @@ export default {
   }),
   methods: {
     getLection(lections) {
-      this.lections = lections
+      this.lections = lections;
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .promo {

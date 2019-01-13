@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { WEEK_URL } from '../../.env.js'
+import axios from "axios";
+import { WEEK_URL } from "../../.env.js";
 
 /* eslint-disable */
 export function getWeekNumber() {

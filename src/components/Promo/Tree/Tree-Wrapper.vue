@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import VueScroll from 'vue-scrollto'
-import { tree } from './Tree'
+import VueScroll from "vue-scrollto";
+import { tree } from "./Tree";
 
 export default {
-  name: 'Tree-Sector',
+  name: "Tree-Sector",
   props: {
     lections: {
       type: [Array, Object],
@@ -17,12 +17,12 @@ export default {
   watch: {
     lections() {
       tree(this.lections, () => {
-        const treeWrap = this.$refs.treeWrapper
-        VueScroll.scrollTo(treeWrap)
-      })
+        const treeWrap = this.$refs.treeWrapper;
+        VueScroll.scrollTo(treeWrap);
+      });
     }
   }
-}
+};
 </script>
 
 <style>

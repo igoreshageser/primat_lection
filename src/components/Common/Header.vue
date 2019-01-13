@@ -23,41 +23,41 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters } from "vuex";
 
 export default {
-  name: 'Header',
+  name: "Header",
   methods: {
     goToMain() {
-      this.$router.push('/')
+      this.$router.push("/");
     },
     logOut () {
-      this.$store.commit('deleteCurrentUser')
-      this.$router.push({ name: 'Main' })
-      localStorage.clear()
+      this.$store.commit("deleteCurrentUser");
+      this.$router.push({ name: "Main" });
+      localStorage.clear();
     }
   },
   computed: {
-    ...mapState(['currentUser']),
-    ...mapGetters(['userAuth']),
+    ...mapState(["currentUser"]),
+    ...mapGetters(["userAuth"]),
     getUsername() {
       if (this.currentUser.username) {
-        return this.currentUser.username
+        return this.currentUser.username;
       }
-      return ''
+      return "";
     },
     getUserAvatar() {
       if (this.currentUser.photo_url) {
-        return this.currentUser.photo_url
+        return this.currentUser.photo_url;
       }
-      return ''
+      return "";
     }
   },
   mounted() {
-    const user = localStorage.getItem('user')
-    this.$store.commit('setCurrentUser', JSON.parse(user))
+    const user = localStorage.getItem("user");
+    this.$store.commit("setCurrentUser", JSON.parse(user));
   }
-}
+};
 </script>
 
 <style lang="scss" >

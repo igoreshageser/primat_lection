@@ -28,11 +28,11 @@
 </template>
 
 <script>
-import { format } from 'date-fns'
-import Lesson from './Lesson-table'
+import { format } from "date-fns";
+import Lesson from "./Lesson-table";
 
 export default {
-  name: 'Schedule-Table',
+  name: "Schedule-Table",
   props: {
     table: {
       type: Object,
@@ -49,29 +49,29 @@ export default {
   computed: {
     getTable() {
       if (this.table) {
-        return this.table
+        return this.table;
       }
     },
-    getWeekDays: () => ['', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-    getLessonsTime: () => ['', '8-30', '10:25', '12:20', '14:15', '16:10']
+    getWeekDays: () => ["", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+    getLessonsTime: () => ["", "8-30", "10:25", "12:20", "14:15", "16:10"]
   },
   methods: {
     isToday(day) {
-      const today = Number(format(new Date(), 'd')) - 1
+      const today = Number(format(new Date(), "d")) - 1;
       /**
        * if Sunday and current day - monday
        */
-      const sundayCondition = today === 6 && day === 1
+      const sundayCondition = today === 6 && day === 1;
       if (sundayCondition) {
-        return true
+        return true;
       }
-      return (today === day) && this.isCurrentWeek
+      return (today === day) && this.isCurrentWeek;
     },
     getTimeLine (index) {
-      return this.getLessonsTime[index]
+      return this.getLessonsTime[index];
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

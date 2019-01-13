@@ -30,13 +30,13 @@
 </template>
 
 <script>
-import { getAbstractFlowItems } from '../../../api/abstract'
+import { getAbstractFlowItems } from "../../../api/abstract";
 
-import Map from './Map'
+import Map from "./Map";
 
 export default {
-  name: 'Schedule-Lesson',
-  props: ['lesson'],
+  name: "Schedule-Lesson",
+  props: ["lesson"],
   components: {
     Map
   },
@@ -47,72 +47,72 @@ export default {
   computed: {
     getLessonName() {
       if (this.lesson) {
-        return this.lesson.lesson_name
+        return this.lesson.lesson_name;
       }
-      return ''
+      return "";
     },
     getTeacherName() {
       if (this.lesson) {
-        return this.lesson.teacher_name
+        return this.lesson.teacher_name;
       }
-      return ''
+      return "";
     },
     getFullName() {
       if (this.lesson) {
-        const [ teacher ] = this.lesson.teachers
-        return teacher.teacher_full_name
+        const [ teacher ] = this.lesson.teachers;
+        return teacher.teacher_full_name;
       }
-      return ''
+      return "";
     },
     getTeacherUrl() {
       if (this.lesson) {
-        const [ teacher ] = this.lesson.teachers
-        return teacher.teacher_url
+        const [ teacher ] = this.lesson.teachers;
+        return teacher.teacher_url;
       }
-      return ''
+      return "";
     },
     getParam() {
       const param = {
         course: 3,
-        flow: 'кв',
+        flow: "кв",
         semester: 2
-      }
-      return param
+      };
+      return param;
     }
   },
   methods: {
     openMoreBlock() {
-      this.showMoreBlock = !this.showMoreBlock
+      this.showMoreBlock = !this.showMoreBlock;
       if (this.showMoreBlock) {
-        this.fetchLection()
+        this.fetchLection();
       }
     },
     fetchLection() {
       getAbstractFlowItems(this.getParam)
         .then(({ data }) => (this.lections = data))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     },
     getLectionUrl(lection) {
-      const { abstracts } = lection
-      const [ data ] = abstracts
-      return data.telegraph_url
+      const { abstracts } = lection;
+      const [ data ] = abstracts;
+      return data.telegraph_url;
     },
     getLectionName(lection) {
-      const { abstracts } = lection
-      const [ data ] = abstracts
-      return data.name
+      const { abstracts } = lection;
+      const [ data ] = abstracts;
+      return data.name;
     },
     getLocation() {
-      const { rooms } = this.lesson
-      const [ build ] = rooms
+      const { rooms } = this.lesson;
+      const [ build ] = rooms;
       const coord = {
         lat: build.room_latitude,
         lng: build.room_longitude
-      }
-      return coord
+      };
+      return coord;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

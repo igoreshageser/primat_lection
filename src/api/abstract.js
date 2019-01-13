@@ -1,7 +1,7 @@
-import axios from 'axios'
-import { API_KPIBOT_URL } from '../../.env.js'
+import axios from "axios";
+import { API_KPIBOT_URL } from "../../.env.js";
 
-const entity = 'api/abstracts/'
+const entity = "api/abstracts/";
 
 /**
  * @param {String} uuid
@@ -9,14 +9,14 @@ const entity = 'api/abstracts/'
  */
 export function getAbstractItem(uuid) {
   if (!uuid) {
-    throw new Error('"uuid" --  necessarily params!')
+    throw new Error("\"uuid\" --  necessarily params!");
   }
   return new Promise((resolve, reject) => {
     axios
       .get(`${API_KPIBOT_URL}${entity}/${uuid}`)
       .then(({ data }) => resolve(data))
-      .catch(err => reject(err))
-  })
+      .catch(err => reject(err));
+  });
 }
 
 /**
@@ -26,10 +26,10 @@ export function getAbstractItem(uuid) {
  */
 export function getAbstractFlowItems(data) {
   return new Promise((resolve, reject) => {
-    const params = { ...data }
+    const params = { ...data };
     axios
       .get(`${API_KPIBOT_URL}${entity}`, { params })
       .then(({ data }) => resolve(data))
-      .catch(err => reject(err))
-  })
+      .catch(err => reject(err));
+  });
 }

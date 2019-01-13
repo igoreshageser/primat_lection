@@ -1,31 +1,31 @@
 const getUserField = () => {
   return [
-    'id',
-    'username',
-    'first_name',
-    'last_name',
-    'group',
-    'groupId',
-    'groupOkr',
-    'groupType',
-    'groupScheduleUrl',
-    'flow',
-    'course'
-  ]
-}
+    "id",
+    "username",
+    "first_name",
+    "last_name",
+    "group",
+    "groupId",
+    "groupOkr",
+    "groupType",
+    "groupScheduleUrl",
+    "flow",
+    "course"
+  ];
+};
 
 // TODO create config file
 
 const ROLE = {
-  student: 'student',
-  abiturient: 'abiturient',
-  teacher: 'teacher',
-  noKpi: 'nokpi'
-}
+  student: "student",
+  abiturient: "abiturient",
+  teacher: "teacher",
+  noKpi: "nokpi"
+};
 
 export function createUserData(userData) {
   if (!validator(userData)) {
-    throw new Error('Empty userField')
+    throw new Error("Empty userField");
   }
 
   return {
@@ -40,18 +40,18 @@ export function createUserData(userData) {
     groupScheduleUrl: userData.groupScheduleUrl,
     flow: userData.flow,
     course: userData.course
-  }
+  };
 }
 
 function validator(userData) {
-  const userField = getUserField()
+  const userField = getUserField();
 
-  const keys = Object.keys(userData)
-  const keysCheck = userField.every(key => keys.includes(key))
-  const fieldCheck = userField.every(key => userData[key])
+  const keys = Object.keys(userData);
+  const keysCheck = userField.every(key => keys.includes(key));
+  const fieldCheck = userField.every(key => userData[key]);
 
-  if (!keysCheck) console.log('keys')
-  if (!fieldCheck) console.log('field')
+  if (!keysCheck) console.log("keys");
+  if (!fieldCheck) console.log("field");
 
-  return keysCheck && fieldCheck
+  return keysCheck && fieldCheck;
 }

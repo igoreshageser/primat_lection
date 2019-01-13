@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'GoogleMap',
+  name: "GoogleMap",
   props: {
     location: {
       type: Object
@@ -24,7 +24,7 @@ export default {
         lat: 45.508,
         lng: -73.587
       }
-    }
+    };
   },
   watch: {
     location() {
@@ -32,9 +32,9 @@ export default {
         map.panTo({
           lat: Number(this.location.lat),
           lng: Number(this.location.lng)
-        })
-      })
+        });
+      });
     }
   }
-}
+};
 </script>
