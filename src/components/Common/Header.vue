@@ -23,8 +23,7 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 
-import { MODE, USER_KEY_FIELD } from "../../../config/global.js";
-import MOCK_USER from "../../../config/mockUser.js";
+import { USER_KEY_FIELD } from "../../../config/global.js";
 
 export default {
   name: "Header",
@@ -50,9 +49,7 @@ export default {
   },
   mounted() {
     const user =
-      process.env.NODE_ENV === MODE.DEV
-        ? MOCK_USER
-        : JSON.parse(localStorage.getItem(USER_KEY_FIELD));
+      process.env.MOCK_USER || JSON.parse(localStorage.getItem(USER_KEY_FIELD));
 
     this.$store.commit("setCurrentUser", user);
   }
