@@ -1,12 +1,10 @@
 <template>
-    <div class="lesson-wrapper">
-        <span class="lesson-name">{{ getLessonName }}</span>
-        <span>{{ getLessonType }}</span>
-        <span>{{ getLessonRoom }}</span>
-        <a :href="getTeachersUrl" target="_blank">
-          {{ getTeacherName }}
-        </a>
-    </div>
+  <div class="lesson-wrapper">
+    <span class="lesson-name">{{ getLessonName }}</span>
+    <span>{{ getLessonType }}</span>
+    <span>{{ getLessonRoom }}</span>
+    <a :href="getTeachersUrl" target="_blank">{{ getTeacherName }}</a>
+  </div>
 </template>
 
 <script>
@@ -36,9 +34,8 @@ export default {
     },
     getTeachersUrl() {
       if (this.lesson) {
-        // const [ teacher ] = this.lesson.teachers
-        // return teacher ? teacher.teacher_url : ''
-        return "kek";
+        const [teacher] = this.lesson.teachers;
+        return teacher ? teacher.teacher_url : "";
       }
     }
   }

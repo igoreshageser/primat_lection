@@ -5,12 +5,14 @@
 <script>
 import { BOT_DOMEN } from "../../../.env";
 
+import { USER_KEY_FIELD } from "../../../config/global.js";
+
 import { getUser } from "../../api/auth";
 
 export default {
   name: "TelegramLogin",
   methods: {
-    onTelegramAuth (user) {
+    onTelegramAuth(user) {
       this.authHanlder(user);
     },
     authHanlder(user) {
@@ -18,11 +20,8 @@ export default {
         .then(({ data }) => {
           if (data === 404) {
             this.$router.push({ name: "login" });
-            console.log(user);
             this.saveUser(user);
           } else {
-            console.log("**");
-            console.log({ ...data, ...user });
             this.saveUser({ ...data, ...user });
           }
         })
@@ -30,7 +29,7 @@ export default {
     },
     saveUser(userObj) {
       this.$store.commit("setCurrentUser", userObj);
-      localStorage.setItem("user", JSON.stringify(userObj));
+      localStorage.setItem(USER_KEY_FIELD, JSON.stringify(userObj));
     }
   },
   mounted() {

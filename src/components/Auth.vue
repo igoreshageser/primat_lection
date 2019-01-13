@@ -86,6 +86,8 @@
 <script>
 import { mapState } from "vuex";
 
+import { USER_KEY_FIELD } from "../../config/global.js";
+
 import { getGroup, createUser } from "../api/auth";
 import { getAllGroups } from "../api/groups";
 
@@ -128,27 +130,31 @@ export default {
     }
   },
   methods: {
-    fetchGroups() {
+    async fetchGroups() {
       if (!this.searchParam) return;
       this.loading = true;
       const params = this.searchParam;
 
-      getAllGroups(params)
-        .then(groups => (this.groups = [...groups]))
-        .catch(err => console.log(err))
-        .finally(() => (this.loading = false));
+      try {
+        const groups = await getAllGroups(params);
+        this.groups = [...groups];
+        this.loading = false;
+      } catch (error) {
+        console.log(error);
+      }
     },
-    checkUserGroup() {
+    async checkUserGroup() {
       const id = this.groupSelect;
       this.groupLoading = true;
 
-      getGroup(id)
-        .then(({ data }) => {
-          this.userGroup = data;
-          this.groupCheck(data);
-          this.groupLoading = false;
-        })
-        .catch(err => console.log(err));
+      try {
+        const { data } = await getGroup(id);
+        this.userGroup = data;
+        this.groupCheck(data);
+        this.groupLoading = false;
+      } catch (error) {
+        console.log(error);
+      }
     },
     groupCheck(group) {
       if (!group.course) {
@@ -164,21 +170,19 @@ export default {
       this.userGroup.course = this.courseSelect;
       this.step = 3;
     },
-    submitHandler() {
+    async submitHandler() {
       const { currentUser, userGroup } = this;
       const userObj = { ...currentUser, ...userGroup };
       const user = createUserData(userObj);
 
-      createUser(user)
-        .then(({ data }) => {
-          this.$store.commit("setCurrentUser", {
-            ...this.currentUser,
-            ...data
-          });
-          localStorage.setItem("user", JSON.stringify(data));
-          this.openModal = true;
-        })
-        .catch(err => console.log(err));
+      try {
+        const { data } = createUser(user);
+        this.$store.commit("setCurrentUser", { ...this.currentUser, ...data });
+        localStorage.setItem(USER_KEY_FIELD, JSON.stringify(data));
+        this.openModal = true;
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   watch: {

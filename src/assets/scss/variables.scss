@@ -5,21 +5,20 @@ $text-color-dark: #363945;
 $text-color-light: #ffffff;
 
 // fonts
-$main-font: 'Roboto';
-
+$main-font: "Roboto", sans-serif;
 
 // fonts-settings
 @mixin ligth-font {
-    font-family: $main-font, sans-serif;
-    font-weight: 100;
+  font-family: $main-font;
+  font-weight: 100;
 }
 
 @mixin bold-font {
-    font-family: $main-font, sans-serif;
-    font-weight: 500;
+  font-family: $main-font;
+  font-weight: 500;
 }
 
 @mixin strong-bold-font {
-    font-family: $main-font, sans-serif;
-    font-family: 700;
+  font-family: $main-font;
+  font-family: 700;
 }

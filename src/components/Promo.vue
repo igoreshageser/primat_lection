@@ -1,21 +1,21 @@
 <template>
-<div class="wrapper">
-   <div class="promo">
+  <div class="wrapper">
+    <div class="promo">
       <div class="typewriter">
-         <mouse />
-         <h3>
-            Не можешь найти лекцию?
-            Поможем!
-         </h3>
+        <mouse/>
+        <h3>
+          Не можешь найти лекцию?
+          Поможем!
+        </h3>
       </div>
-   </div>
-   <div>
-     <selectors  @getLection="getLection"/>
-   </div>
-   <div>
-     <tree :lections="lections" />
-   </div>
-</div>
+    </div>
+    <div>
+      <selectors @getLection="getLection"/>
+    </div>
+    <div>
+      <tree :lections="lections"/>
+    </div>
+  </div>
 </template>
 <script>
 import Mouse from "@/components/Promo/Mouse";

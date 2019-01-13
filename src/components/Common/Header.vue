@@ -2,16 +2,14 @@
   <section class="header-wrapper">
     <v-toolbar class="white">
       <v-toolbar-title @click="goToMain" class="logo">
-        <span class="blue--text lighten-2 ">KPI</span>
+        <span class="blue--text lighten-2">KPI</span>
         <span class="font-weight-bold">bot</span>
       </v-toolbar-title>
       <v-toolbar-items v-if="userAuth">
         <div class="header-content">
-          <div class="username pr-3">
-            {{ getUsername }}
-          </div>
-          <div class="avatar ">
-            <img :src="getUserAvatar" alt="">
+          <div class="username pr-3">{{ getUsername }}</div>
+          <div class="avatar">
+            <img :src="getUserAvatar" alt>
           </div>
           <div class="ml-3 control" @click="logOut">
             <span class="blue--text lighten-2">Выйти</span>
@@ -25,13 +23,16 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 
+import { MODE, USER_KEY_FIELD } from "../../../config/global.js";
+import MOCK_USER from "../../../config/mockUser.js";
+
 export default {
   name: "Header",
   methods: {
     goToMain() {
       this.$router.push("/");
     },
-    logOut () {
+    logOut() {
       this.$store.commit("deleteCurrentUser");
       this.$router.push({ name: "Main" });
       localStorage.clear();
@@ -41,21 +42,19 @@ export default {
     ...mapState(["currentUser"]),
     ...mapGetters(["userAuth"]),
     getUsername() {
-      if (this.currentUser.username) {
-        return this.currentUser.username;
-      }
-      return "";
+      return this.currentUser.username || "";
     },
     getUserAvatar() {
-      if (this.currentUser.photo_url) {
-        return this.currentUser.photo_url;
-      }
-      return "";
+      return this.currentUser.photo_url || "";
     }
   },
   mounted() {
-    const user = localStorage.getItem("user");
-    this.$store.commit("setCurrentUser", JSON.parse(user));
+    const user =
+      process.env.NODE_ENV === MODE.DEV
+        ? MOCK_USER
+        : JSON.parse(localStorage.getItem(USER_KEY_FIELD));
+
+    this.$store.commit("setCurrentUser", user);
   }
 };
 </script>
@@ -68,26 +67,5 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-.header {
-  &-wrapper {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .logo {
-      cursor: pointer;
-    }
-  }
-  &-content {
-    display: flex;
-    align-items: center;
-    .avatar {
-      width: 40px;
-      height: 40px;
-    }
-    .control {
-      cursor: pointer;
-    }
-  }
-}
+@import "../../assets/scss/styles/header.scss";
 </style>

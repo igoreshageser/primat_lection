@@ -1,0 +1,22 @@
+.header {
+  &-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .logo {
+      cursor: pointer;
+    }
+  }
+  &-content {
+    display: flex;
+    align-items: center;
+    .avatar {
+      width: 40px;
+      height: 40px;
+    }
+    .control {
+      cursor: pointer;
+    }
+  }
+}

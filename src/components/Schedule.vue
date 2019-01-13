@@ -3,21 +3,20 @@
     <div class="container">
       <div class="schedule-content">
         <!-- <div class="schedule-toggler"> -->
-          <!-- <button @click="changeTableMode">{{ getTogglerText }}</button> -->
+        <!-- <button @click="changeTableMode">{{ getTogglerText }}</button> -->
         <!-- </div> -->
         <component
           :is="getScheduleView"
           :weekNumber="weekNumber"
           :table="tables"
           :lists="lists"
-          mode='error'
-          toggleModal>
-          <span slot="header">
-            Неполадочки
-          </span>
-          <span slot="content">
-            Для того, чтобы пользоваться расписанием необходимо зарегистрироваться или авторизоваться
-          </span>
+          mode="error"
+          toggleModal
+        >
+          <span slot="header">Неполадочки</span>
+          <span
+            slot="content"
+          >Для того, чтобы пользоваться расписанием необходимо зарегистрироваться или авторизоваться</span>
         </component>
       </div>
     </div>
@@ -25,7 +24,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import { getSchedule } from "../api/schedule";
 import { getWeekNumber } from "../api/week-number.js";
 
@@ -53,58 +52,66 @@ export default {
   },
   computed: {
     ...mapState(["currentUser"]),
+    ...mapGetters(["userAuth"]),
     fetchParams: () => ({ table: true }),
     getTogglerText() {
       return this.isListMode ? "Таблицей" : "Списком";
     },
     getScheduleView() {
-      if (!Object.values(this.currentUser).length) {
+      if (!this.userAuth) {
         return Modal;
       }
 
       if (this.loading) {
         return Spinner;
-      } else if (this.isListMode) {
+      }
+
+      if (this.isListMode) {
         return ListWrapper;
       }
       return TableWrapper;
     }
   },
   methods: {
-    fetchListsTimetable() {
+    async fetchListsTimetable() {
       this.loading = true;
       const id = this.currentUser.groupId;
 
-      getSchedule(id)
-        .then(({ weeks }) => (this.lists = weeks))
-        .catch(err => console.log(err))
-        .finally(() => (this.loading = false));
+      try {
+        const { weeks } = await getSchedule(id);
+        this.lists = weeks;
+        this.loading = false;
+      } catch (error) {
+        console.log(error);
+      }
     },
-    fetchTableTimeTable() {
+    async fetchTableSchedule() {
       this.loading = true;
       const id = this.currentUser.groupId;
 
-      getSchedule(id, this.fetchParams)
-        .then(data => (this.tables = data))
-        .catch(err => console.log(err))
-        .finally(() => (this.loading = false));
+      try {
+        const data = await getSchedule(id, this.fetchParams);
+        this.tables = data;
+        this.loading = false;
+      } catch (error) {
+        console.log(error);
+      }
     },
-    fetchWeekNumber() {
-      getWeekNumber()
-        .then(({ data }) => (this.weekNumber = data))
-        .catch(err => console.log(err));
+    async fetchWeekNumber() {
+      try {
+        const { data } = await getWeekNumber();
+        this.weekNumber = data;
+      } catch (error) {
+        console.log(error);
+      }
     },
     changeTableMode() {
       this.isListMode = !this.isListMode;
-      if (this.isListMode) {
-        this.fetchListsTimetable();
-      } else {
-        this.fetchTableTimeTable();
-      }
+      this.isListMode ? this.fetchListsTimetable() : this.fetchTableSchedule();
     }
   },
   mounted() {
-    this.fetchTableTimeTable();
+    this.fetchTableSchedule();
     this.fetchWeekNumber();
   }
 };
@@ -117,7 +124,7 @@ export default {
   &-wrapper {
     width: 100%;
     height: 100%;
-    font-family: "Roboto", sans-serif;
+    font-family: $main-font;
     font-weight: 300;
     .container {
       display: flex;

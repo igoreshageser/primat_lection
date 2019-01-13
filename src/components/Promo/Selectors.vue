@@ -1,5 +1,5 @@
 <template>
-  <v-flex  lg6 mx-auto class="selector-wrapper">
+  <v-flex lg6 mx-auto class="selector-wrapper">
     <v-select
       :items="flows"
       v-model="flowSelector"
@@ -7,7 +7,7 @@
       @change="selectFlow"
       single-line
     ></v-select>
-      <v-select
+    <v-select
       :items="courses"
       v-model="coursesSelector"
       label="Select Course"
@@ -80,15 +80,21 @@ export default {
         return { text: flow };
       });
     },
-    fetchFlow() {
-      getAllFlow()
-        .then(flows => (this.flows = this.parseFlowData(flows)))
-        .catch(err => console.log(err));
+    async fetchFlow() {
+      try {
+        const flows = await getAllFlow();
+        this.flows = this.parseFlowData(flows);
+      } catch (error) {
+        console.log(error);
+      }
     },
-    fetchLection(param) {
-      getAbstractFlowItems(param)
-        .then(lections => this.createTreeDate(lections))
-        .catch(err => console.log(err));
+    async fetchLection(param) {
+      try {
+        const lections = await getAbstractFlowItems(param);
+        this.createTreeDate(lections);
+      } catch (error) {
+        console.log(error);
+      }
     },
     checkUserFlow(flow) {
       if (flow === this.currentUser.flow) {
@@ -111,7 +117,6 @@ export default {
     this.fetchFlow();
   }
 };
-
 </script>
 
 <style lang="scss" >
