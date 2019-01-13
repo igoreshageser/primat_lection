@@ -25,11 +25,14 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
+
 import { getSchedule } from "../api/schedule";
 import { getWeekNumber } from "../api/week-number.js";
 
-import Modal from "../components/Common/Modal";
-import Spinner from "../components/Common/Spinner";
+import { getUserInfo } from "../helpers/getUserInfo.js";
+
+import Modal from "@/components/Common/Modal";
+import Spinner from "@/components/Common/Spinner";
 import ListWrapper from "./Schedule/list/ListWrapper";
 import TableWrapper from "./Schedule/table/TableWrapper";
 
@@ -75,7 +78,7 @@ export default {
   methods: {
     async fetchListsTimetable() {
       this.loading = true;
-      const id = this.currentUser.groupId;
+      const id = getUserInfo("groupId");
 
       try {
         const { weeks } = await getSchedule(id);
@@ -87,7 +90,7 @@ export default {
     },
     async fetchTableSchedule() {
       this.loading = true;
-      const id = this.currentUser.groupId;
+      const id = getUserInfo("groupId");
 
       try {
         const data = await getSchedule(id, this.fetchParams);

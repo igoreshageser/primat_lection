@@ -178,6 +178,7 @@ export default {
       try {
         const { data } = createUser(user);
         this.$store.commit("setCurrentUser", { ...this.currentUser, ...data });
+        console.log(data);
         localStorage.setItem(USER_KEY_FIELD, JSON.stringify(data));
         this.openModal = true;
       } catch (error) {
