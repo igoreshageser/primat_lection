@@ -175,7 +175,7 @@ export default {
       const userObj = { ...currentUser, ...userGroup };
 
       try {
-        const { data } = await createUser(user);
+        const { data } = await createUser(userObj);
         this.$store.commit("setCurrentUser", {
           ...this.currentUser,
           ...data
