@@ -172,10 +172,11 @@ export default {
     },
     async submitHandler() {
       const { currentUser, userGroup } = this;
-      const userObj = { ...currentUser, ...userGroup };
+
+      const user = createUserData({ ...currentUser, ...userGroup });
 
       try {
-        const { data } = await createUser(userObj);
+        const { data } = await createUser(user);
         this.$store.commit("setCurrentUser", {
           ...this.currentUser,
           ...data
