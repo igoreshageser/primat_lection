@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-xl>
-    <v-layout row wrap>
-      <v-flex xs10 sm12 offset-xs1 mb-5>
+    <v-layout row wrap text-xs-center>
+      <v-flex sm12>
         <div class="text-xs-center mb-5">
           <h2 class="headline">Приветствуем!</h2>
           <span

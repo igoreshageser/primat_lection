@@ -11,7 +11,7 @@ const CURRENT_USER_FIELD = "currentUser";
 export function getUserInfo(field) {
   const userLocalStorage = getFromLS();
 
-  const user = userLocalStorage || store[CURRENT_USER_FIELD];
+  const user = userLocalStorage || store.state[CURRENT_USER_FIELD];
 
   return user[field] || "";
 }
