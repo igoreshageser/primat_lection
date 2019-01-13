@@ -173,16 +173,15 @@ export default {
     async submitHandler() {
       const { currentUser, userGroup } = this;
       const userObj = { ...currentUser, ...userGroup };
-      const user = createUserData(userObj);
 
       try {
-        const userData = createUser(user);
+        const { data } = await createUser(user);
         this.$store.commit("setCurrentUser", {
           ...this.currentUser,
-          ...userData
+          ...data
         });
-        console.log(userData);
-        localStorage.setItem(USER_KEY_FIELD, JSON.stringify(userData));
+        console.log(data);
+        localStorage.setItem(USER_KEY_FIELD, JSON.stringify(data));
         this.openModal = true;
       } catch (error) {
         console.log(error);
