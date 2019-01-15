@@ -1,5 +1,17 @@
 <template>
   <v-flex lg6 mx-auto class="selector-wrapper">
+    <div>
+      <v-alert v-model="alert" dismissible color="success">
+        <p>
+          Ухх, вижу, что первый раз зашел почитать лекции! Как ими пользоваться? Об этом можно почитать вот
+          <a
+            href="https://telegra.ph/Kak-delat-lekcii-02-03"
+          >тут</a>.
+          <br>А чтобы найти нужную тебе лекцию, необходимо заполнить
+          <span class="colored-help">все</span> следующие поля.
+        </p>
+      </v-alert>
+    </div>
     <v-select
       :items="flows"
       v-model="flowSelector"
@@ -31,6 +43,7 @@ import { getAllFlow } from "../../api/flow";
 import { getAbstractFlowItems } from "../../api/abstract";
 
 import { getPrettyName } from "../../helpers/prettyName";
+import { USER_HELP_POPUP_KEY } from "../../../config/global.js";
 
 export default {
   name: "Selector",
@@ -43,7 +56,8 @@ export default {
     courses: [],
     semesters: [],
 
-    fetchedData: {}
+    fetchedData: {},
+    alert: true
   }),
   computed: {
     ...mapState(["currentUser"])
@@ -115,6 +129,8 @@ export default {
   },
   mounted() {
     this.fetchFlow();
+    this.alert = !localStorage.getItem(USER_HELP_POPUP_KEY);
+    localStorage.setItem(USER_HELP_POPUP_KEY, false);
   }
 };
 </script>
@@ -134,5 +150,9 @@ $spacer: 8px;
 .p-5 {
   padding-top: ($spacer * 3);
   padding-bottom: ($spacer * 3);
+}
+
+.colored-help {
+  border-bottom: 1px dashed red;
 }
 </style>

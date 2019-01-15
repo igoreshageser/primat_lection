@@ -17,6 +17,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import Mouse from "@/components/Promo/Mouse";
 import Selectors from "@/components/Promo/Selectors";

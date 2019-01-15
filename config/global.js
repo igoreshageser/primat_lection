@@ -1,11 +1,11 @@
-const ROLES = {
+export const ROLES = {
   student: "student",
   abiturient: "abiturient",
   teacher: "teacher",
   noKpi: "nokpi"
 };
 
-const USER_FIELD = [
+export const USER_FIELD = [
   "id",
   "username",
   "first_name",
@@ -19,11 +19,10 @@ const USER_FIELD = [
   "course"
 ];
 
-const MODE = {
+export const MODE = {
   DEV: "development",
   PROD: "production"
 };
 
-const USER_KEY_FIELD = "user";
-
-export { ROLES, USER_FIELD, MODE, USER_KEY_FIELD };
+export const USER_KEY_FIELD = "user";
+export const USER_HELP_POPUP_KEY = "isVirginUser";
