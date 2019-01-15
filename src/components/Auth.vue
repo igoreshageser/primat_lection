@@ -1,86 +1,88 @@
 <template>
-  <v-container grid-list-xl>
-    <v-layout row wrap>
-      <v-flex sm12>
-        <div class="text-xs-center mb-5">
-          <h2 class="headline">Приветствуем!</h2>
-          <span
-            class="subheading"
-          >Заполнением формы, ты обеспечиваешь себе более комфортное использование бота</span>
-        </div>
+  <v-content>
+    <v-container>
+      <v-layout row wrap>
+        <v-flex sm12>
+          <div class="text-xs-center mb-5">
+            <h2 class="headline">Приветствуем!</h2>
+            <span
+              class="subheading"
+            >Заполнением формы, ты обеспечиваешь себе более комфортное использование бота</span>
+          </div>
 
-        <v-stepper v-model="step">
-          <v-stepper-header>
-            <v-stepper-step :complete="step > 1" step="1">Name of step 1</v-stepper-step>
+          <v-stepper v-model="step">
+            <v-stepper-header>
+              <v-stepper-step :complete="step > 1" step="1">Name of step 1</v-stepper-step>
 
-            <v-divider></v-divider>
+              <v-divider></v-divider>
 
-            <v-stepper-step :complete="step > 2" step="2">Name of step 2</v-stepper-step>
+              <v-stepper-step :complete="step > 2" step="2">Name of step 2</v-stepper-step>
 
-            <v-stepper-step step="3">Name of step 3</v-stepper-step>
-          </v-stepper-header>
+              <v-stepper-step step="3">Name of step 3</v-stepper-step>
+            </v-stepper-header>
 
-          <v-stepper-items>
-            <v-stepper-content step="1">
-              <spinner-wave v-if="groupLoading"/>
-              <v-select
-                v-else
-                prepend-icon="group"
-                autocomplete
-                label="Выбери свою группу"
-                placeholder="Начни вводить название своей группы"
-                :loading="loading"
-                :items="groups"
-                item-text="group_full_name"
-                item-value="group_id"
-                :search-input.sync="groupString"
-                v-model="groupSelect"
-              ></v-select>
-              <v-btn color="primary" :disabled="isGroupSelectValid" @click="checkUserGroup">Дальше</v-btn>
-            </v-stepper-content>
+            <v-stepper-items>
+              <v-stepper-content step="1">
+                <spinner-wave v-if="groupLoading"/>
+                <v-select
+                  v-else
+                  prepend-icon="group"
+                  autocomplete
+                  label="Выбери свою группу"
+                  placeholder="Начни вводить название своей группы"
+                  :loading="loading"
+                  :items="groups"
+                  item-text="group_full_name"
+                  item-value="group_id"
+                  :search-input.sync="groupString"
+                  v-model="groupSelect"
+                ></v-select>
+                <v-btn color="primary" :disabled="isGroupSelectValid" @click="checkUserGroup">Дальше</v-btn>
+              </v-stepper-content>
 
-            <v-stepper-content step="2">
-              <v-select
-                prepend-icon="class"
-                label="Выбери свой курс"
-                :items="courses"
-                :disabled="disabledSelector"
-                v-model="courseSelect"
-              ></v-select>
-              <v-btn color="primary" @click="courseSave">Дальше</v-btn>
-              <v-btn flat @click="step = 1">Назад</v-btn>>
-            </v-stepper-content>
+              <v-stepper-content step="2">
+                <v-select
+                  prepend-icon="class"
+                  label="Выбери свой курс"
+                  :items="courses"
+                  :disabled="disabledSelector"
+                  v-model="courseSelect"
+                ></v-select>
+                <v-btn color="primary" @click="courseSave">Дальше</v-btn>
+                <v-btn flat @click="step = 1">Назад</v-btn>>
+              </v-stepper-content>
 
-            <v-stepper-content step="3">
-              <div class="mb-5">
-                <p>Давай проверим то, что мы о тебе узнали</p>
-                <div>
-                  <p>
-                    <strong>Группа:</strong>
-                    {{ userGroup.group }}
-                  </p>
-                  <p>
-                    <strong>Курс:</strong>
-                    {{ userGroup.course }}
-                  </p>
+              <v-stepper-content step="3">
+                <div class="mb-5">
+                  <p>Давай проверим то, что мы о тебе узнали</p>
+                  <div>
+                    <p>
+                      <strong>Группа:</strong>
+                      {{ userGroup.group }}
+                    </p>
+                    <p>
+                      <strong>Курс:</strong>
+                      {{ userGroup.course }}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <v-btn color="primary" @click="submitHandler">Дальше</v-btn>
-              <v-btn flat @click="step = 2">Назад</v-btn>
-            </v-stepper-content>
-          </v-stepper-items>
-        </v-stepper>
+                <v-btn color="primary" @click="submitHandler">Дальше</v-btn>
+                <v-btn flat @click="step = 2">Назад</v-btn>
+              </v-stepper-content>
+            </v-stepper-items>
+          </v-stepper>
 
-        <modal :toggleModal="openModal" mode="success">
-          <span slot="header">
-            <span class="white--text">Регистрация прошла успешно</span>
-            <v-icon class="white--text">done_all</v-icon>
-          </span>
-          <span slot="content" class="bold">+1 к защите от отчисления ;)</span>
-        </modal>
-      </v-flex>
-    </v-layout>
-  </v-container>
+          <modal :toggleModal="openModal" mode="success">
+            <span slot="header">
+              <span class="white--text">Регистрация прошла успешно</span>
+              <v-icon class="white--text">done_all</v-icon>
+            </span>
+            <span slot="content" class="bold">+1 к защите от отчисления ;)</span>
+          </modal>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-content>
 </template>
 
 <script>
@@ -123,9 +125,16 @@ export default {
   computed: {
     ...mapState(["currentUser"]),
     searchParam() {
-      return this.groupString ? this.groupString : "";
+      return this.groupString || "";
     },
     isGroupSelectValid() {
+      // thx vuetify, blya
+      if (this.groups.length === 1) {
+        const [userGroup] = this.groups;
+        if (userGroup.group === this.groupString) {
+          return false;
+        }
+      }
       return !this.groupSelect;
     }
   },
@@ -137,7 +146,9 @@ export default {
 
       try {
         const groups = await getAllGroups(params);
-        this.groups = [...groups];
+
+        this.groups = Array.isArray(groups) ? [...groups] : [groups];
+        console.log(this.groups);
         this.loading = false;
       } catch (error) {
         console.log(error);

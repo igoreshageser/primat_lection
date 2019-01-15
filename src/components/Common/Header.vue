@@ -25,6 +25,8 @@ import { mapState, mapGetters } from "vuex";
 
 import { USER_KEY_FIELD } from "../../../config/global.js";
 
+import { getUserInfo } from "../../helpers/getUserInfo.js";
+
 export default {
   name: "Header",
   methods: {
@@ -44,7 +46,7 @@ export default {
       return this.currentUser.username || "";
     },
     getUserAvatar() {
-      return this.currentUser.photo_url || "";
+      return getUserInfo("photo_url") || "";
     }
   },
   mounted() {

@@ -83,6 +83,7 @@ export default {
     overflow: hidden;
     margin: 0 auto;
     letter-spacing: 0.15em;
+    text-align: center;
   }
 }
 

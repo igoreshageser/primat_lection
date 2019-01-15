@@ -124,8 +124,9 @@ export default {
   min-height: initial;
 }
 .selector-wrapper {
-  width: 400px;
+  max-width: 400px;
   margin: 40px;
+  padding: 0 15px;
 }
 
 $spacer: 8px;

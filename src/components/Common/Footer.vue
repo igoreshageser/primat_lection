@@ -31,3 +31,11 @@ export default {
   name: "Footer"
 };
 </script>
+
+<style lang="scss">
+footer {
+  .container {
+    // flex: 1;
+  }
+}
+</style>
